@@ -96,7 +96,8 @@ export const yunhanSects: Sect[] = [
             description: '正道第一人，最有希望飞升的修士。为人跳脱潇洒，极具可靠感。虽然是最小的，但最可靠。上一世在飞升时发现"祂"的真相，灵魂侥幸逃脱，与真正的天道合作，以自身为代价倒转时光，使一切重来，并拉戴月槐进入这个世界，以"系统"身份引导他将司徊拉入正道。称席微为"二师姐"，称戴月槐为"师兄"。',
             specialty: '剑道、综合修为',
             status: '闭关中',
-            quote: ''
+            quote: '',
+            avatar: 'https://i.postimg.cc/cJJgqrnv/QQ-20251022150337.png'
           },
           {
             id: 'yan-chijin',
@@ -133,7 +134,8 @@ export const yunhanSects: Sect[] = [
             description: '紫霄宗大长老，擅长傀儡术与机关术。个性看似不靠谱，爱偷懒，实际上会偷偷观察弟子的学习情况。最喜欢种植药草。他设立了严格的修炼制度（学分制），使修仙界形成996勤修苦练的风气。实际上是来自异世界的穿越者，被上一世的李扶光（化身系统）拉入此界，目的是将司徊引向正道，对抗假天道"祂"。',
             specialty: '傀儡术、机关术、种植',
             status: '在任',
-            quote: ''
+            quote: '',
+            avatar: 'https://i.postimg.cc/1zYgysGc/QQ-20251022150432.png'
           },
           {
             id: 'ximuxiao',
@@ -180,7 +182,8 @@ export const yunhanSects: Sect[] = [
             description: '画修，擅长作画。外表公正严肃，实则非常疼爱弟子，尤其是儿子席沐逍。青鸾山弟子皆为凡间孤苦无依的幼女，在她的教导下成为修仙界出类拔萃的女修。道侣云非堇于100年前战死，她随身携带云非堇留下的小荷包，经常给长留山的弟子们发糖吃。师父是前青鸾长老叶攸。',
             specialty: '画修',
             status: '在任',
-            quote: ''
+            quote: '',
+            avatar: 'https://i.postimg.cc/mrrzxtHm/QQ-20251022150427.png'
           },
           {
             id: 'yunfeijin',
@@ -217,7 +220,8 @@ export const yunhanSects: Sect[] = [
             description: '音修，极其宠爱女儿江揽月。',
             specialty: '音律修行',
             status: '在任',
-            quote: ''
+            quote: '',
+            avatar: 'https://i.postimg.cc/3ww4Mdv9/QQ-20251022150417.png'
           },
           {
             id: 'jianglanyue',
@@ -254,7 +258,8 @@ export const yunhanSects: Sect[] = [
             description: '医修，人称"医圣"，席微的亲弟弟。事务繁忙，惜字如金，常年忙于医治伤患。',
             specialty: '医术',
             status: '在任',
-            quote: ''
+            quote: '',
+            avatar: 'https://i.postimg.cc/T1dJBRTG/QQ-20251001153557.png'
           },
           {
             id: 'li-you',
@@ -264,7 +269,8 @@ export const yunhanSects: Sect[] = [
             description: '席空青的亲传弟子，医术精湛。',
             specialty: '医修',
             status: '在修',
-            quote: ''
+            quote: '',
+            avatar: 'https://i.postimg.cc/wvckWt83/QQ-20250928172033.png'
           }
         ]
       },
@@ -281,7 +287,8 @@ export const yunhanSects: Sect[] = [
             description: '器修，性格忙碌但爱看热闹，常常炼器时也不忘关注宗门八卦。',
             specialty: '炼器',
             status: '在任',
-            quote: ''
+            quote: '',
+            avatar: 'https://i.postimg.cc/FzrVw9hN/QQ-20251005001428.png'
           },
           {
             id: 'chi-xiao',

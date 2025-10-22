@@ -1,10 +1,11 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, MapPin, User, Scroll, Mountain as MountainIcon, Landmark } from 'lucide-react';
+import { ArrowLeft, MapPin, User, Scroll, Mountain as MountainIcon, Landmark, User as UserIcon } from 'lucide-react';
 import { allSects } from '@/data/sects';
 import { zixiaoLandmarks } from '@/data/landmarks';
 import { CommentSection } from '@/components/CommentSection';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const SectDetail = () => {
   const { id } = useParams();
@@ -198,26 +199,47 @@ const SectDetail = () => {
                             'from-primary/5 to-accent/5 border-border/30 hover:border-primary/50'
                           } hover:shadow-soft hover:-translate-y-1 transition-all duration-300 cursor-pointer`}
                         >
-                          <h3 className={`text-lg sm:text-xl font-bold mb-1 ${
-                            isShanhaixuan ? 'text-cyan-400 group-hover:text-cyan-300' : 'text-foreground group-hover:text-primary'
-                          } transition-colors`}>{member.name}</h3>
-                          <p className={`text-xs sm:text-sm mb-2 sm:mb-3 ${
-                            isShanhaixuan ? 'text-cyan-300/70' : 'text-primary'
-                          }`}>{member.title}</p>
-                          <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2">{member.description}</p>
-                          {member.specialty && (
-                            <div className={`mt-3 pt-3 border-t ${
-                              isShanhaixuan ? 'border-cyan-500/20' : 'border-border/30'
-                            }`}>
-                              <p className="text-xs text-muted-foreground">
-                                专长：<span className="text-foreground">{member.specialty}</span>
-                              </p>
+                          <div className="flex gap-4">
+                            {/* 头像 */}
+                            <div className="flex-shrink-0">
+                              <Avatar className={`w-16 h-16 sm:w-20 sm:h-20 border-2 ${
+                                isShanhaixuan ? 'border-cyan-500/30' : 'border-primary/30'
+                              }`}>
+                                {member.avatar && (
+                                  <AvatarImage src={member.avatar} alt={member.name} />
+                                )}
+                                <AvatarFallback className={`${
+                                  isShanhaixuan ? 'bg-cyan-500/10 text-cyan-400' : 'bg-primary/10 text-primary'
+                                }`}>
+                                  <UserIcon className="w-8 h-8" />
+                                </AvatarFallback>
+                              </Avatar>
                             </div>
-                          )}
-                          <div className={`mt-3 text-xs opacity-0 group-hover:opacity-100 transition-opacity ${
-                            isShanhaixuan ? 'text-cyan-400' : 'text-primary'
-                          }`}>
-                            查看详情 →
+
+                            {/* 信息 */}
+                            <div className="flex-1 min-w-0">
+                              <h3 className={`text-lg sm:text-xl font-bold mb-1 ${
+                                isShanhaixuan ? 'text-cyan-400 group-hover:text-cyan-300' : 'text-foreground group-hover:text-primary'
+                              } transition-colors`}>{member.name}</h3>
+                              <p className={`text-xs sm:text-sm mb-2 ${
+                                isShanhaixuan ? 'text-cyan-300/70' : 'text-primary'
+                              }`}>{member.title}</p>
+                              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2">{member.description}</p>
+                              {member.specialty && (
+                                <div className={`mt-3 pt-3 border-t ${
+                                  isShanhaixuan ? 'border-cyan-500/20' : 'border-border/30'
+                                }`}>
+                                  <p className="text-xs text-muted-foreground">
+                                    专长：<span className="text-foreground">{member.specialty}</span>
+                                  </p>
+                                </div>
+                              )}
+                              <div className={`mt-2 text-xs opacity-0 group-hover:opacity-100 transition-opacity ${
+                                isShanhaixuan ? 'text-cyan-400' : 'text-primary'
+                              }`}>
+                                查看详情 →
+                              </div>
+                            </div>
                           </div>
                         </Card>
                       </Link>
