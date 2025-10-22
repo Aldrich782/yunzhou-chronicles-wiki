@@ -104,7 +104,7 @@ const DivisionDetail = () => {
           )}
 
           {/* 主要职责（仅 divisions） */}
-          {!isMountain && 'responsibilities' in division && division.responsibilities && Array.isArray(division.responsibilities) && (
+          {!isMountain && 'responsibilities' in division && division.responsibilities && Array.isArray(division.responsibilities) && division.responsibilities.length > 0 && (
             <Card className={`p-8 bg-card/50 backdrop-blur-sm ${
               isZixiao ? 'border-purple-500/30' :
               isShanhaixuan ? 'border-cyan-500/30' :
