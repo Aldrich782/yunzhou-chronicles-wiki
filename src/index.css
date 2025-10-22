@@ -96,4 +96,20 @@ All colors MUST be HSL.
   a, button {
     @apply transition-all duration-300;
   }
+
+  /* Page transition animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .page-transition {
+    animation: fadeIn 0.5s ease-out;
+  }
 }

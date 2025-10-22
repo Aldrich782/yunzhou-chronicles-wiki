@@ -29,7 +29,7 @@ const CharacterDetail = () => {
 
   if (!character) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center page-transition">
         <div className="text-center space-y-4">
           <h2 className="text-2xl font-bold">人物未找到</h2>
           <Button onClick={() => navigate('/')}>返回首页</Button>
@@ -39,7 +39,7 @@ const CharacterDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/30 to-background">
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/30 to-background page-transition">
       {/* 顶部导航 */}
       <header className="border-b border-border/50 bg-card/30 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4">

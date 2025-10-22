@@ -6,7 +6,7 @@ import { yunhanSects } from '@/data/sects';
 
 const Yunhan = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted/30 to-background">
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/30 to-background page-transition">
       {/* 顶部导航 */}
       <header className="border-b border-border/50 bg-card/30 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4">
