@@ -9,22 +9,21 @@ const CharacterDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   
-  // 在所有门派中查找人物
-  let character = null;
-  let sect = null;
-  
+  // 在所有门派中查找人物（山峰 / 分支 / 重要人物）
+  let character = null as any;
+  let sect = null as any;
+
   for (const s of [...yunhanSects, ...rongzhouSects]) {
-    if (s.mountains) {
-      for (const mountain of s.mountains) {
-        const found = mountain.characters.find(c => c.id === id);
-        if (found) {
-          character = found;
-          sect = s;
-          break;
-        }
-      }
+    const fromMountains = s.mountains?.flatMap(m => m.characters) || [];
+    const fromDivisions = s.divisions?.flatMap(d => d.characters) || [];
+    const fromMembers = s.members || [];
+
+    const found = [...fromMountains, ...fromDivisions, ...fromMembers].find(c => c.id === id);
+    if (found) {
+      character = found;
+      sect = s;
+      break;
     }
-    if (character) break;
   }
 
   if (!character) {

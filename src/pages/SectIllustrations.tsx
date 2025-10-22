@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Image as ImageIcon } from 'lucide-react';
 import { CommentSection } from '@/components/CommentSection';
-import { zixiaoIllustrations, jihuozongIllustrations, baishalingIllustrations } from '@/data/illustrations';
+import { zixiaoIllustrations, jixiangzongIllustrations, baiguaiIllustrations, wenqinxiangongIllustrations } from '@/data/illustrations';
 
 const SectIllustrations = () => {
   const { sectId } = useParams<{ sectId: string }>();
@@ -13,13 +13,17 @@ const SectIllustrations = () => {
       name: '紫霄宗',
       illustrations: zixiaoIllustrations,
     },
-    jihuozong: {
-      name: '集火宗',
-      illustrations: jihuozongIllustrations,
+    jixiangzong: {
+      name: '禨祥宗',
+      illustrations: jixiangzongIllustrations,
     },
-    baishaling: {
-      name: '白沙岭',
-      illustrations: baishalingIllustrations,
+    baiguai: {
+      name: '白骨哀',
+      illustrations: baiguaiIllustrations,
+    },
+    wenqinxiangong: {
+      name: '问琴仙宫',
+      illustrations: wenqinxiangongIllustrations,
     },
   };
 

@@ -13,16 +13,22 @@ const Illustrations = () => {
       region: '云汉',
     },
     {
-      id: 'jihuozong',
-      name: '集火宗',
-      description: '荣州大陆的火修圣地',
-      region: '荣州',
+      id: 'jixiangzong',
+      name: '禨祥宗',
+      description: '神秘的古老宗门，传承深厚',
+      region: '未知',
     },
     {
-      id: 'baishaling',
-      name: '白沙岭',
-      description: '荣州大陆的邪修势力',
-      region: '荣州',
+      id: 'wenqinxiangong',
+      name: '问琴仙宫',
+      description: '以琴道名震天下的仙宫',
+      region: '未知',
+    },
+    {
+      id: 'baiguai',
+      name: '白骨哀',
+      description: '曾经攻上紫霄的恐怖势力',
+      region: '未知',
     },
   ];
 

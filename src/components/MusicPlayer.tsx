@@ -14,6 +14,18 @@ const presetSongs: Song[] = [
   {
     name: '长生诀',
     url: 'https://er-sycdn.kuwo.cn/d9fc7a0c528cddc241fefa7c0c5b0672/68f86bb5/resource/30106/trackmedia/M800004Fb3zK06LYTU.mp3'
+  },
+  {
+    name: '明月天涯',
+    url: 'https://lv-sycdn.kuwo.cn/07b87865044025dc0d58c168ac5c4482/68f875c0/resource/30106/trackmedia/M800000rG1PF3BudFL.mp3'
+  },
+  {
+    name: '天涯共此时',
+    url: 'https://er-sycdn.kuwo.cn/fa2369e9908cf7edaa522fd70d37e27a/68f87787/resource/30106/trackmedia/M800000MV46T0iYTN3.mp3'
+  },
+  {
+    name: '大美江湖',
+    url: 'https://lw-sycdn.kuwo.cn/7905bb6064017a90e2855dd404b20fd3/68f877af/resource/30106/trackmedia/M800004e1kcE1EFF8M.mp3'
   }
 ];
 

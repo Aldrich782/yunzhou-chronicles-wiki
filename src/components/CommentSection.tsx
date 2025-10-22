@@ -191,7 +191,7 @@ export const CommentSection = ({ pageType, pageId }: CommentSectionProps) => {
         <Input
           placeholder="您的名字"
           value={authorName}
-          onChange={(e) => setAuthorName(e.target.value)}
+          onChange={(e) => { const v = e.target.value; setAuthorName(v); setCurrentUserName(v); }}
           className="bg-background/50"
           maxLength={50}
         />

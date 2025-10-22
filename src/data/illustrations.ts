@@ -75,31 +75,34 @@ export const zixiaoIllustrations: Illustration[] = [
   },
 ];
 
-export const jihuozongIllustrations: Illustration[] = [
+export const jixiangzongIllustrations: Illustration[] = [
   {
     id: 'liu-xuanzhi',
     name: '柳玄之',
-    sect: '集火宗',
+    sect: '禨祥宗',
     title: '掌门',
     image: liuXuanzhiImg,
     characterId: 'liuxuanzhi',
   },
 ];
 
-export const baishalingIllustrations: Illustration[] = [
+export const wenqinxiangongIllustrations: Illustration[] = [
   {
     id: 'xun-yexue',
     name: '荀夜雪',
-    sect: '白沙岭',
-    title: '领主',
+    sect: '问琴仙宫',
+    title: '荀家小姐',
     image: xunYexueImg,
     characterId: 'xunyexue',
   },
+];
+
+export const baiguaiIllustrations: Illustration[] = [
   {
     id: 'xie-tanyuan',
     name: '谢檀远',
-    sect: '白沙岭',
-    title: '少领主',
+    sect: '白骨哀',
+    title: '首领',
     image: xieTanyuanImg,
     characterId: 'xietanyuan',
   },
@@ -107,4 +110,7 @@ export const baishalingIllustrations: Illustration[] = [
 
 export const allIllustrations: Illustration[] = [
   ...zixiaoIllustrations,
+  ...jixiangzongIllustrations,
+  ...wenqinxiangongIllustrations,
+  ...baiguaiIllustrations,
 ];
