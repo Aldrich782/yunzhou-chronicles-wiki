@@ -98,7 +98,7 @@ const DivisionDetail = () => {
                 职能定位
               </h2>
               <p className="text-muted-foreground leading-relaxed text-lg">
-                {division.duty}
+                {'duty' in division ? String(division.duty) : ''}
               </p>
             </Card>
           )}

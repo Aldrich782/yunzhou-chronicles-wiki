@@ -190,29 +190,36 @@ const SectDetail = () => {
                   </h2>
                   <div className="grid md:grid-cols-2 gap-4">
                     {sect.members.map((member) => (
-                      <Card 
-                        key={member.id} 
-                        className={`p-6 bg-gradient-to-br ${
-                          isShanhaixuan ? 'from-cyan-500/5 to-blue-500/5 border-cyan-500/30' : 'from-primary/5 to-accent/5 border-border/30'
-                        } hover:shadow-soft transition-all duration-300`}
-                      >
-                        <h3 className={`text-xl font-bold mb-1 ${
-                          isShanhaixuan ? 'text-cyan-400' : 'text-foreground'
-                        }`}>{member.name}</h3>
-                        <p className={`text-sm mb-3 ${
-                          isShanhaixuan ? 'text-cyan-300/70' : 'text-primary'
-                        }`}>{member.title}</p>
-                        <p className="text-sm text-muted-foreground leading-relaxed">{member.description}</p>
-                        {member.specialty && (
-                          <div className={`mt-3 pt-3 border-t ${
-                            isShanhaixuan ? 'border-cyan-500/20' : 'border-border/30'
+                      <Link key={member.id} to={`/character/${member.id}`}>
+                        <Card 
+                          className={`group p-6 bg-gradient-to-br ${
+                            isShanhaixuan ? 'from-cyan-500/5 to-blue-500/5 border-cyan-500/30 hover:border-cyan-500/50' : 
+                            'from-primary/5 to-accent/5 border-border/30 hover:border-primary/50'
+                          } hover:shadow-soft hover:-translate-y-1 transition-all duration-300 cursor-pointer`}
+                        >
+                          <h3 className={`text-xl font-bold mb-1 ${
+                            isShanhaixuan ? 'text-cyan-400 group-hover:text-cyan-300' : 'text-foreground group-hover:text-primary'
+                          } transition-colors`}>{member.name}</h3>
+                          <p className={`text-sm mb-3 ${
+                            isShanhaixuan ? 'text-cyan-300/70' : 'text-primary'
+                          }`}>{member.title}</p>
+                          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">{member.description}</p>
+                          {member.specialty && (
+                            <div className={`mt-3 pt-3 border-t ${
+                              isShanhaixuan ? 'border-cyan-500/20' : 'border-border/30'
+                            }`}>
+                              <p className="text-xs text-muted-foreground">
+                                专长：<span className="text-foreground">{member.specialty}</span>
+                              </p>
+                            </div>
+                          )}
+                          <div className={`mt-3 text-xs opacity-0 group-hover:opacity-100 transition-opacity ${
+                            isShanhaixuan ? 'text-cyan-400' : 'text-primary'
                           }`}>
-                            <p className="text-xs text-muted-foreground">
-                              专长：<span className="text-foreground">{member.specialty}</span>
-                            </p>
+                            查看详情 →
                           </div>
-                        )}
-                      </Card>
+                        </Card>
+                      </Link>
                     ))}
                   </div>
                 </Card>

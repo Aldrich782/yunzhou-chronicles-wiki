@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MusicPlayer } from "@/components/MusicPlayer";
 import { Button } from "@/components/ui/button";
-import { Music, X } from "lucide-react";
+import { Music, X, Minimize2 } from "lucide-react";
 import Index from "./pages/Index";
 import Geography from "./pages/Geography";
 import Yunhan from "./pages/Yunhan";
@@ -26,6 +26,7 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const [showMusicPlayer, setShowMusicPlayer] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -63,17 +64,39 @@ const App = () => {
               </Button>
             ) : (
               <div className="animate-fade-in">
-                <div className="relative">
+                {isMinimized ? (
                   <Button
-                    onClick={() => setShowMusicPlayer(false)}
-                    size="sm"
-                    variant="ghost"
-                    className="absolute -top-2 -right-2 z-10 rounded-full h-8 w-8 bg-card/80 backdrop-blur-sm hover:bg-card"
+                    onClick={() => setIsMinimized(false)}
+                    size="lg"
+                    className="rounded-full h-14 w-14 shadow-elegant bg-gradient-to-br from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
                   >
-                    <X className="w-4 h-4" />
+                    <Music className="w-6 h-6" />
                   </Button>
-                  <MusicPlayer />
-                </div>
+                ) : (
+                  <div className="relative">
+                    <div className="absolute -top-2 -right-2 z-10 flex gap-1">
+                      <Button
+                        onClick={() => setIsMinimized(true)}
+                        size="sm"
+                        variant="ghost"
+                        className="rounded-full h-8 w-8 bg-card/80 backdrop-blur-sm hover:bg-card"
+                        title="最小化"
+                      >
+                        <Minimize2 className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        onClick={() => setShowMusicPlayer(false)}
+                        size="sm"
+                        variant="ghost"
+                        className="rounded-full h-8 w-8 bg-card/80 backdrop-blur-sm hover:bg-card"
+                        title="关闭"
+                      >
+                        <X className="w-4 h-4" />
+                      </Button>
+                    </div>
+                    <MusicPlayer />
+                  </div>
+                )}
               </div>
             )}
           </div>

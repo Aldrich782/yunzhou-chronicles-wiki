@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { MessageSquare, Send } from 'lucide-react';
+import { MessageSquare, Send, Trash2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { z } from 'zod';
@@ -37,7 +37,16 @@ export const CommentSection = ({ pageType, pageId }: CommentSectionProps) => {
   const [newComment, setNewComment] = useState('');
   const [authorName, setAuthorName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentUserName, setCurrentUserName] = useState('');
   const { toast } = useToast();
+
+  // Load current user's name from localStorage
+  useEffect(() => {
+    const savedName = localStorage.getItem('commentAuthorName');
+    if (savedName) {
+      setCurrentUserName(savedName);
+    }
+  }, []);
 
   // Load comments
   useEffect(() => {
@@ -112,12 +121,46 @@ export const CommentSection = ({ pageType, pageId }: CommentSectionProps) => {
         variant: 'destructive',
       });
     } else {
+      // Save author name to localStorage
+      localStorage.setItem('commentAuthorName', result.data.author);
+      setCurrentUserName(result.data.author);
+      
       toast({
         title: '评论成功',
         description: '您的评论已发布',
       });
       setNewComment('');
       setAuthorName('');
+    }
+  };
+
+  const handleDelete = async (commentId: string, commentAuthor: string) => {
+    // Check if user can delete this comment
+    if (commentAuthor !== currentUserName) {
+      toast({
+        title: '无法删除',
+        description: '您只能删除自己的评论',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    const { error } = await supabase
+      .from('comments')
+      .delete()
+      .eq('id', commentId);
+
+    if (error) {
+      toast({
+        title: '删除失败',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } else {
+      toast({
+        title: '删除成功',
+        description: '评论已删除',
+      });
     }
   };
 
@@ -180,9 +223,21 @@ export const CommentSection = ({ pageType, pageId }: CommentSectionProps) => {
             <Card key={comment.id} className="p-4 bg-background/30">
               <div className="flex justify-between items-start mb-2">
                 <span className="font-semibold text-primary">{comment.author}</span>
-                <span className="text-xs text-muted-foreground">
-                  {formatTime(comment.created_at)}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground">
+                    {formatTime(comment.created_at)}
+                  </span>
+                  {comment.author === currentUserName && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleDelete(comment.id, comment.author)}
+                      className="h-6 w-6 p-0 hover:bg-destructive/10 hover:text-destructive"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                    </Button>
+                  )}
+                </div>
               </div>
               <p className="text-muted-foreground">{comment.content}</p>
             </Card>
