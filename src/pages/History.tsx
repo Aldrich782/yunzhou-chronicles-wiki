@@ -1,41 +1,14 @@
 import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Scroll, Clock } from 'lucide-react';
+import { ArrowLeft, Scroll, Clock, ChevronDown } from 'lucide-react';
 import { CommentSection } from '@/components/CommentSection';
-
-const historyEvents = [
-  {
-    id: '归墟之战',
-    time: '3000年前',
-    title: '归墟之战',
-    description: '原初天道陨落，被外神"祂"所取代。修仙界强者献身化为81根镇钉，封印归墟的不可名状之物，这是关乎世界存亡的禁地。',
-    color: 'from-destructive/20 to-destructive/10'
-  },
-  {
-    id: '青鸾山之役',
-    time: '100年前',
-    title: '青鸾山之役',
-    description: '白骨哀趁紫霄宗修复护山大阵时突袭，二长老席微的道侣云非堇为保护妻儿弟子而战死，这场战役给正道联盟带来沉重打击。',
-    color: 'from-primary/20 to-primary/10'
-  },
-  {
-    id: '时光倒转',
-    time: '百年前',
-    title: '时光倒转',
-    description: '李扶光飞升时发现"祂"的真相，与旧天道合作，以自身为代价逆转时间，并拉入戴月槐作为破局的变数，开启了新的时间线。',
-    color: 'from-accent/20 to-accent/10'
-  },
-  {
-    id: '新旧天道之争',
-    time: '当前',
-    title: '新旧天道之争',
-    description: '戴月槐改变了司徊的成长环境，引发"祂"的警觉。"祂"投放新棋子（洛云卿、柳玄之、天道之书），双方势力展开新一轮博弈。',
-    color: 'from-secondary/20 to-secondary/10'
-  }
-];
+import { historyEvents, worldCore } from '@/data/history';
+import { useState } from 'react';
 
 const History = () => {
+  const [expandedEvent, setExpandedEvent] = useState<string | null>(null);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/30 to-background page-transition">
       {/* 顶部导航 */}
@@ -70,23 +43,24 @@ const History = () => {
 
           {/* 世界核心设定 */}
           <Card className="p-8 bg-card/50 backdrop-blur-sm border-border/50 shadow-card">
-            <h3 className="text-2xl font-bold mb-6">世界核心设定</h3>
+            <h3 className="text-2xl font-bold mb-6">{worldCore.title}</h3>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
                 <span className="font-semibold text-primary">世界类型：</span>
-                仙侠/修真/穿书/多重博弈
+                {worldCore.type}
               </p>
-              <p className="text-lg">
-                本世界经历过一次由原掌门李扶光以自身为代价发起的"时光倒转"。
-                其核心冲突源于"新旧天道之争"：三千年前，原初天道在归墟之战中陨落，
-                被一意图吞噬万物飞升者的外神"祂"所取代。
+              <p className="text-base">
+                {worldCore.description}
               </p>
-              <p>
-                为了拨乱反正，幸存的旧天道势力（李扶光化身的"系统"与天道转世的袁霄强）
-                从异世界拉来读者"戴月槐"，试图修正被"祂"蛊惑的魔子"司徊"的命运。
-                与此同时，"祂"也投放"天道之书"等工具，引诱并操控本土修士与另一位穿书者"席沐逍"，
-                试图剿灭旧天道势力，完成对世界的彻底侵蚀。
-              </p>
+              
+              <div className="mt-6 space-y-4">
+                {worldCore.details.map((detail, index) => (
+                  <div key={index} className="p-4 rounded-lg bg-muted/30">
+                    <h4 className="font-semibold text-primary mb-2">{detail.title}</h4>
+                    <p className="text-sm">{detail.content}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </Card>
 
@@ -109,17 +83,44 @@ const History = () => {
                       <div className="w-3 h-3 rounded-full bg-background" />
                     </div>
                     
-                    <Card className={`p-6 bg-gradient-to-br ${event.color} border-border/50 shadow-soft hover:shadow-card transition-all duration-300`}>
+                    <Card 
+                      className={`p-6 bg-gradient-to-br ${event.color} border-border/50 shadow-soft hover:shadow-card transition-all duration-300 cursor-pointer`}
+                      onClick={() => setExpandedEvent(expandedEvent === event.id ? null : event.id)}
+                    >
                       <div className="space-y-3">
-                        <div className="flex items-center gap-3">
-                          <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
-                            {event.time}
-                          </span>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium">
+                              {event.time}
+                            </span>
+                          </div>
+                          {event.details && (
+                            <ChevronDown 
+                              className={`w-5 h-5 text-primary transition-transform duration-300 ${
+                                expandedEvent === event.id ? 'rotate-180' : ''
+                              }`}
+                            />
+                          )}
                         </div>
                         <h4 className="text-xl font-bold">{event.title}</h4>
                         <p className="text-muted-foreground leading-relaxed">
                           {event.description}
                         </p>
+                        
+                        {/* 详细信息 */}
+                        {event.details && expandedEvent === event.id && (
+                          <div className="mt-4 pt-4 border-t border-border/50 space-y-2 animate-fade-in">
+                            <h5 className="text-sm font-semibold text-primary mb-3">详细内容：</h5>
+                            <ul className="space-y-2">
+                              {event.details.map((detail, idx) => (
+                                <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
+                                  <span className="text-primary mt-1">•</span>
+                                  <span>{detail}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
                       </div>
                     </Card>
                   </div>

@@ -82,6 +82,11 @@ const CharacterDetail = () => {
                 <div>
                   <h2 className="text-3xl font-bold mb-2">{character.name}</h2>
                   <p className="text-xl text-primary">{character.title}</p>
+                  {character.status && (
+                    <p className="text-sm text-muted-foreground mt-2">
+                      状态：<span className={character.status.includes('已故') ? 'text-destructive' : 'text-accent'}>{character.status}</span>
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-3">
@@ -90,6 +95,14 @@ const CharacterDetail = () => {
                     <span>所属：</span>
                     <span className="text-foreground font-medium">{character.sect}</span>
                   </div>
+                  {character.specialty && (
+                    <div className="p-3 rounded-lg bg-primary/10">
+                      <p className="text-sm">
+                        <span className="font-semibold text-primary">专长：</span>
+                        <span className="text-foreground">{character.specialty}</span>
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

@@ -49,18 +49,33 @@ const SectDetail = () => {
               <Scroll className="w-6 h-6 text-primary" />
               门派简介
             </h2>
-            <p className="text-muted-foreground leading-relaxed text-lg">
+            <p className="text-muted-foreground leading-relaxed text-lg mb-4">
               {sect.description}
             </p>
+            {sect.specialty && (
+              <div className="mt-4 p-4 rounded-lg bg-primary/5 border border-primary/20">
+                <p className="text-sm text-foreground">
+                  <span className="font-semibold text-primary">门派特色：</span>
+                  {sect.specialty}
+                </p>
+              </div>
+            )}
           </Card>
 
-          {/* 紫霄宗六山 */}
+          {/* 六山峰 - 增加前往重要人物页面的链接 */}
           {isZixiao && sect.mountains && (
             <Card className="p-8 bg-card/50 backdrop-blur-sm border-border/50 shadow-card">
-              <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                <MountainIcon className="w-6 h-6 text-primary" />
-                六山峰
-              </h2>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold flex items-center gap-2">
+                  <MountainIcon className="w-6 h-6 text-primary" />
+                  六山峰
+                </h2>
+                <Link to="/characters">
+                  <Button variant="outline" size="sm" className="text-xs">
+                    查看所有重要人物 →
+                  </Button>
+                </Link>
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {sect.mountains.map((mountain) => (
                   <Link key={mountain.id} to={`/mountain/${mountain.id}`}>
