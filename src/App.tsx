@@ -11,6 +11,7 @@ import SectDetail from "./pages/SectDetail";
 import MountainDetail from "./pages/MountainDetail";
 import CharacterDetail from "./pages/CharacterDetail";
 import Characters from "./pages/Characters";
+import LandmarkDetail from "./pages/LandmarkDetail";
 import Illustrations from "./pages/Illustrations";
 import History from "./pages/History";
 import Bestiary from "./pages/Bestiary";
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/mountain/:id" element={<MountainDetail />} />
           <Route path="/character/:id" element={<CharacterDetail />} />
           <Route path="/characters" element={<Characters />} />
+          <Route path="/landmark/:id" element={<LandmarkDetail />} />
           <Route path="/illustrations" element={<Illustrations />} />
           <Route path="/history" element={<History />} />
           <Route path="/bestiary" element={<Bestiary />} />
