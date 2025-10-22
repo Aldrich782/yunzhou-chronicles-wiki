@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { MessageSquare, Send, User, Upload, Edit2 } from 'lucide-react';
+import { MessageSquare, Send, User } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { useToast } from '@/hooks/use-toast';
@@ -19,43 +19,58 @@ interface Message {
 export const ChatRoom = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
-  const [userId] = useState(() => {
-    let id = localStorage.getItem('chat_user_id');
-    if (!id) {
-      id = crypto.randomUUID();
-      localStorage.setItem('chat_user_id', id);
-    }
-    return id;
-  });
+  const [userId, setUserId] = useState<string>('');
   const [nickname, setNickname] = useState('访客');
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
-  const [isEditingNickname, setIsEditingNickname] = useState(false);
-  const [tempNickname, setTempNickname] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
   // 加载用户资料
   useEffect(() => {
     const loadProfile = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session?.user) {
+        return;
+      }
+
+      setUserId(session.user.id);
+
       const { data } = await supabase
         .from('profiles')
         .select('*')
-        .eq('user_id', userId)
+        .eq('user_id', session.user.id)
         .single();
 
       if (data) {
         setNickname(data.nickname);
         setAvatarUrl(data.avatar_url);
-      } else {
-        // 创建新用户资料
-        await supabase
-          .from('profiles')
-          .insert({ user_id: userId, nickname: '访客' });
       }
     };
     loadProfile();
-  }, [userId]);
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      if (session?.user) {
+        setUserId(session.user.id);
+        const { data } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('user_id', session.user.id)
+          .single();
+
+        if (data) {
+          setNickname(data.nickname);
+          setAvatarUrl(data.avatar_url);
+        }
+      } else {
+        setUserId('');
+        setNickname('访客');
+        setAvatarUrl(null);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   // 加载消息
   useEffect(() => {
@@ -97,7 +112,7 @@ export const ChatRoom = () => {
   }, [messages]);
 
   const sendMessage = async () => {
-    if (!newMessage.trim()) return;
+    if (!newMessage.trim() || !userId) return;
 
     const { error } = await supabase
       .from('chat_messages')
@@ -119,59 +134,13 @@ export const ChatRoom = () => {
     }
   };
 
-  const updateNickname = async () => {
-    if (!tempNickname.trim()) return;
-
-    const { error } = await supabase
-      .from('profiles')
-      .update({ nickname: tempNickname.trim() })
-      .eq('user_id', userId);
-
-    if (error) {
-      toast({
-        title: "修改失败",
-        description: error.message,
-        variant: "destructive"
-      });
-    } else {
-      setNickname(tempNickname.trim());
-      setIsEditingNickname(false);
-      toast({
-        title: "昵称已更新",
-        description: `您的新昵称是：${tempNickname.trim()}`
-      });
-    }
-  };
-
-  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    // 转换为 base64
-    const reader = new FileReader();
-    reader.onloadend = async () => {
-      const base64 = reader.result as string;
-      
-      const { error } = await supabase
-        .from('profiles')
-        .update({ avatar_url: base64 })
-        .eq('user_id', userId);
-
-      if (error) {
-        toast({
-          title: "上传失败",
-          description: error.message,
-          variant: "destructive"
-        });
-      } else {
-        setAvatarUrl(base64);
-        toast({
-          title: "头像已更新"
-        });
-      }
-    };
-    reader.readAsDataURL(file);
-  };
+  if (!userId) {
+    return (
+      <Card className="relative overflow-hidden bg-card/95 backdrop-blur-sm border-primary/20 shadow-elegant w-full max-w-sm p-6">
+        <p className="text-center text-muted-foreground mb-4">请先登录使用聊天室</p>
+      </Card>
+    );
+  }
 
   return (
     <Card className="relative overflow-hidden bg-card/95 backdrop-blur-sm border-primary/20 shadow-elegant w-full max-w-sm flex flex-col h-[400px]">
@@ -185,63 +154,14 @@ export const ChatRoom = () => {
 
         {/* 用户信息 */}
         <div className="flex items-center gap-2 p-2 rounded-lg bg-muted/30">
-          <div className="relative">
-            <Avatar className="w-8 h-8">
-              <AvatarImage src={avatarUrl || undefined} />
-              <AvatarFallback>
-                <User className="w-4 h-4" />
-              </AvatarFallback>
-            </Avatar>
-            <Button
-              size="sm"
-              variant="ghost"
-              className="absolute -bottom-1 -right-1 h-4 w-4 p-0 rounded-full bg-primary/80 hover:bg-primary"
-              onClick={() => fileInputRef.current?.click()}
-            >
-              <Upload className="w-2 h-2 text-white" />
-            </Button>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handleAvatarUpload}
-            />
-          </div>
-
-          {isEditingNickname ? (
-            <div className="flex items-center gap-1 flex-1">
-              <Input
-                value={tempNickname}
-                onChange={(e) => setTempNickname(e.target.value)}
-                className="h-7 text-xs"
-                placeholder="输入新昵称"
-                onKeyPress={(e) => e.key === 'Enter' && updateNickname()}
-              />
-              <Button
-                size="sm"
-                onClick={updateNickname}
-                className="h-7 px-2"
-              >
-                确定
-              </Button>
-            </div>
-          ) : (
-            <div className="flex items-center gap-1 flex-1">
-              <span className="text-xs font-medium">{nickname}</span>
-              <Button
-                size="sm"
-                variant="ghost"
-                className="h-5 w-5 p-0"
-                onClick={() => {
-                  setTempNickname(nickname);
-                  setIsEditingNickname(true);
-                }}
-              >
-                <Edit2 className="w-3 h-3" />
-              </Button>
-            </div>
-          )}
+          <Avatar className="w-8 h-8">
+            <AvatarImage src={avatarUrl || undefined} />
+            <AvatarFallback>
+              <User className="w-4 h-4" />
+            </AvatarFallback>
+          </Avatar>
+          <span className="text-xs font-medium">{nickname}</span>
+          <span className="text-xs text-muted-foreground ml-auto">在个人中心修改</span>
         </div>
       </div>
 

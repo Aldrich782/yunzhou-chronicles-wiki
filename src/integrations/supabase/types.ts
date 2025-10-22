@@ -121,6 +121,7 @@ export type Database = {
           flowers_balance: number
           id: string
           nickname: string
+          spirit_stones: number
           updated_at: string
           user_id: string
         }
@@ -131,6 +132,7 @@ export type Database = {
           flowers_balance?: number
           id?: string
           nickname?: string
+          spirit_stones?: number
           updated_at?: string
           user_id: string
         }
@@ -141,6 +143,7 @@ export type Database = {
           flowers_balance?: number
           id?: string
           nickname?: string
+          spirit_stones?: number
           updated_at?: string
           user_id?: string
         }

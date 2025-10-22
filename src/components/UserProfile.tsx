@@ -16,6 +16,7 @@ export const UserProfile = () => {
   const [tempNickname, setTempNickname] = useState('');
   const [flowersBalance, setFlowersBalance] = useState(0);
   const [eggsBalance, setEggsBalance] = useState(0);
+  const [spiritStones, setSpiritStones] = useState(0);
   const [hasCheckedIn, setHasCheckedIn] = useState(false);
   const [isCheckingIn, setIsCheckingIn] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -58,6 +59,7 @@ export const UserProfile = () => {
       setTempNickname(data.nickname);
       setFlowersBalance(data.flowers_balance || 0);
       setEggsBalance(data.eggs_balance || 0);
+      setSpiritStones(data.spirit_stones || 0);
     }
 
     await checkTodayCheckIn(userId);
@@ -145,19 +147,17 @@ export const UserProfile = () => {
       const { error: updateError } = await supabase
         .from('profiles')
         .update({
-          flowers_balance: flowersBalance + 10,
-          eggs_balance: eggsBalance + 10
+          spirit_stones: spiritStones + 10
         })
         .eq('user_id', user.id);
 
       if (updateError) throw updateError;
 
-      setFlowersBalance(flowersBalance + 10);
-      setEggsBalance(eggsBalance + 10);
+      setSpiritStones(spiritStones + 10);
       setHasCheckedIn(true);
       toast({
         title: "签到成功！",
-        description: "获得 10 朵鲜花🌸和 10 个鸡蛋🥚",
+        description: "获得 10 灵石💎",
       });
     } catch (error) {
       console.error('Error checking in:', error);
@@ -175,6 +175,50 @@ export const UserProfile = () => {
     await supabase.auth.signOut();
     toast({ title: "已登出" });
     navigate('/auth');
+  };
+
+  const handlePurchase = async (type: 'flowers' | 'eggs') => {
+    if (!user) return;
+    
+    if (spiritStones < 1) {
+      toast({
+        title: "灵石不足",
+        description: "请先签到获取灵石",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    try {
+      const updates = type === 'flowers'
+        ? { spirit_stones: spiritStones - 1, flowers_balance: flowersBalance + 2 }
+        : { spirit_stones: spiritStones - 1, eggs_balance: eggsBalance + 2 };
+
+      const { error } = await supabase
+        .from('profiles')
+        .update(updates)
+        .eq('user_id', user.id);
+
+      if (error) throw error;
+
+      setSpiritStones(spiritStones - 1);
+      if (type === 'flowers') {
+        setFlowersBalance(flowersBalance + 2);
+      } else {
+        setEggsBalance(eggsBalance + 2);
+      }
+
+      toast({
+        title: "兑换成功！",
+        description: `消耗 1 灵石，获得 2 ${type === 'flowers' ? '朵鲜花🌸' : '个鸡蛋🥚'}`,
+      });
+    } catch (error) {
+      toast({
+        title: "兑换失败",
+        description: "请稍后再试",
+        variant: "destructive"
+      });
+    }
   };
 
   if (!user) {
@@ -233,16 +277,45 @@ export const UserProfile = () => {
             </div>
 
             {/* Balances */}
-            <div className="grid grid-cols-2 gap-3 p-3 bg-muted/30 rounded-lg">
-              <div className="text-center">
-                <div className="text-xl mb-1">🌸</div>
-                <div className="text-xs text-muted-foreground">鲜花</div>
-                <div className="text-base font-bold text-primary">{flowersBalance}</div>
+            <div className="space-y-3">
+              <div className="grid grid-cols-3 gap-2 p-3 bg-muted/30 rounded-lg">
+                <div className="text-center">
+                  <div className="text-xl mb-1">💎</div>
+                  <div className="text-xs text-muted-foreground">灵石</div>
+                  <div className="text-base font-bold text-primary">{spiritStones}</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-xl mb-1">🌸</div>
+                  <div className="text-xs text-muted-foreground">鲜花</div>
+                  <div className="text-base font-bold text-pink-500">{flowersBalance}</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-xl mb-1">🥚</div>
+                  <div className="text-xs text-muted-foreground">鸡蛋</div>
+                  <div className="text-base font-bold text-amber-500">{eggsBalance}</div>
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-xl mb-1">🥚</div>
-                <div className="text-xs text-muted-foreground">鸡蛋</div>
-                <div className="text-base font-bold text-primary">{eggsBalance}</div>
+
+              {/* Purchase Buttons */}
+              <div className="grid grid-cols-2 gap-2">
+                <Button
+                  onClick={() => handlePurchase('flowers')}
+                  disabled={spiritStones < 1}
+                  size="sm"
+                  variant="outline"
+                  className="text-xs hover:bg-pink-500/10 hover:border-pink-500"
+                >
+                  1💎 → 2🌸
+                </Button>
+                <Button
+                  onClick={() => handlePurchase('eggs')}
+                  disabled={spiritStones < 1}
+                  size="sm"
+                  variant="outline"
+                  className="text-xs hover:bg-amber-500/10 hover:border-amber-500"
+                >
+                  1💎 → 2🥚
+                </Button>
               </div>
             </div>
 
@@ -254,7 +327,7 @@ export const UserProfile = () => {
               size="sm"
               variant={hasCheckedIn ? "outline" : "default"}
             >
-              {hasCheckedIn ? '今日已签到 ✓' : '每日签到 (+10🌸 +10🥚)'}
+              {hasCheckedIn ? '今日已签到 ✓' : '每日签到 (+10💎)'}
             </Button>
 
             <Button
@@ -280,7 +353,7 @@ export const UserProfile = () => {
           <div className="text-xs text-muted-foreground text-center space-y-1">
             <p>修改后将在评论区和聊天室同步显示</p>
             <p className="text-amber-600 dark:text-amber-400">
-              签到获得的鲜花和鸡蛋可在角色立绘页面使用
+              每日签到获得灵石，可兑换鲜花和鸡蛋在立绘页投票
             </p>
           </div>
         </div>

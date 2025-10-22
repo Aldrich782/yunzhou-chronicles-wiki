@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { UserProfile } from '@/components/UserProfile';
+import { ChatRoom } from '@/components/ChatRoom';
+import { Leaderboard } from '@/components/Leaderboard';
 
 const Profile = () => {
   return (
@@ -13,8 +15,8 @@ const Profile = () => {
       </div>
 
       {/* Content */}
-      <main className="container mx-auto px-6 min-h-screen flex items-center justify-center relative z-10">
-        <div className="max-w-6xl mx-auto w-full py-12">
+      <main className="container mx-auto px-6 min-h-screen relative z-10 py-8">
+        <div className="max-w-7xl mx-auto w-full">
           {/* Back Button */}
           <Link to="/">
             <Button
@@ -27,18 +29,22 @@ const Profile = () => {
           </Link>
 
           {/* Title */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl sm:text-5xl font-calligraphy font-bold text-ink tracking-wider mb-4">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl sm:text-4xl font-calligraphy font-bold text-ink tracking-wider mb-2">
               个人中心
             </h1>
-            <p className="text-muted-foreground text-sm sm:text-base font-serif">
+            <p className="text-muted-foreground text-sm font-serif">
               管理您的个人资料
             </p>
           </div>
 
-          {/* Profile Card */}
-          <div className="flex justify-center">
-            <UserProfile />
+          {/* Grid Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="space-y-6">
+              <UserProfile />
+              <Leaderboard />
+            </div>
+            <ChatRoom />
           </div>
         </div>
       </main>
