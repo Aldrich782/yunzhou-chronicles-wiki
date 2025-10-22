@@ -60,6 +60,24 @@ export const yunhanSects: Sect[] = [
             description: '正道第一人，最有希望飞升的修士。为人跳脱潇洒，极具可靠感。虽然是最小的，但最可靠。上一世在飞升时发现"祂"的真相，灵魂侥幸逃脱，与真正的天道合作，以自身为代价倒转时光，使一切重来，并拉戴月槐进入这个世界，以"系统"身份引导他将司徊拉入正道。称席微为"二师姐"，称戴月槐为"师兄"。',
             specialty: '剑道、综合修为',
             status: '闭关中'
+          },
+          {
+            id: 'yan-chijin',
+            name: '燕池尽',
+            title: '扶光山亲传弟子',
+            sect: '紫霄宗·扶光山',
+            description: '李扶光的亲传弟子，天赋异禀。',
+            specialty: '剑道',
+            status: '在修'
+          },
+          {
+            id: 'lin-xianyun',
+            name: '林衔云',
+            title: '扶光山亲传弟子',
+            sect: '紫霄宗·扶光山',
+            description: '李扶光的亲传弟子，剑法超群。',
+            specialty: '剑道',
+            status: '在修'
           }
         ]
       },
@@ -76,6 +94,33 @@ export const yunhanSects: Sect[] = [
             description: '紫霄宗大长老，擅长傀儡术与机关术。个性看似不靠谱，爱偷懒，实际上会偷偷观察弟子的学习情况。最喜欢种植药草。他设立了严格的修炼制度（学分制），使修仙界形成996勤修苦练的风气。实际上是来自异世界的穿越者，被上一世的李扶光（化身系统）拉入此界，目的是将司徊引向正道，对抗假天道"祂"。',
             specialty: '傀儡术、机关术、种植',
             status: '在任'
+          },
+          {
+            id: 'ximuxiao',
+            name: '席沐逍',
+            title: '长留山亲传弟子',
+            sect: '紫霄宗·长留山',
+            description: '戴月槐的亲传弟子，席微之子，云非堇的遗腹子。被假天道"祂"投放的"天道之书"引诱，成为"祂"的棋子。"祂"意图让他杀死司徊和天道转世袁霄强，使他以更深罪孽飞升，从而让"祂"变得更强。',
+            specialty: '机关术',
+            status: '在修'
+          },
+          {
+            id: 'si-hui',
+            name: '司徊',
+            title: '长留山亲传弟子',
+            sect: '紫霄宗·长留山',
+            description: '戴月槐的亲传弟子，性格复杂。假天道"祂"故意催生其邪念，意图使其成为罪孽深重的邪修飞升。系统（上一世李扶光）引导戴月槐将他拉入正道。',
+            specialty: '傀儡术',
+            status: '在修'
+          },
+          {
+            id: 'yuan-xiaoqiang',
+            name: '袁霄强',
+            title: '长留山亲传弟子',
+            sect: '紫霄宗·长留山',
+            description: '戴月槐的亲传弟子，真正天道的转世。假天道"祂"意图通过席沐逍杀死他，以消灭真天道的最后希望。',
+            specialty: '机关阵法',
+            status: '在修'
           }
         ]
       },
@@ -103,12 +148,12 @@ export const yunhanSects: Sect[] = [
             status: '已故（100年前）'
           },
           {
-            id: 'ximuxiao',
-            name: '席沐逍',
-            title: '青鸾山弟子',
+            id: 'yu-shuang',
+            name: '鱼霜',
+            title: '青鸾山亲传弟子',
             sect: '紫霄宗·青鸾山',
-            description: '席微之子，云非堇的遗腹子。被假天道"祂"投放的"天道之书"引诱，成为"祂"的棋子。"祂"意图让他杀死司徊和天道转世袁霄强，使他以更深罪孽飞升，从而让"祂"变得更强。',
-            specialty: '待定',
+            description: '席微的亲传弟子，画修天才。',
+            specialty: '画修',
             status: '在修'
           }
         ]
@@ -130,9 +175,18 @@ export const yunhanSects: Sect[] = [
           {
             id: 'jianglanyue',
             name: '江揽月',
-            title: '明月山弟子',
+            title: '明月山亲传弟子',
             sect: '紫霄宗·明月山',
-            description: '江晚霁之女，深受父亲宠爱。',
+            description: '江晚霁之女，天赋极高的音修，深受父亲宠爱。',
+            specialty: '音律',
+            status: '在修'
+          },
+          {
+            id: 'lin-lu',
+            name: '林陆',
+            title: '明月山亲传弟子',
+            sect: '紫霄宗·明月山',
+            description: '江晚霁的亲传弟子，音律天才。',
             specialty: '音律',
             status: '在修'
           }
@@ -151,6 +205,15 @@ export const yunhanSects: Sect[] = [
             description: '医修，人称"医圣"，席微的亲弟弟。事务繁忙，惜字如金，常年忙于医治伤患。',
             specialty: '医术',
             status: '在任'
+          },
+          {
+            id: 'li-you',
+            name: '李游',
+            title: '祝余峰亲传弟子',
+            sect: '紫霄宗·祝余峰',
+            description: '席空青的亲传弟子，医术精湛。',
+            specialty: '医修',
+            status: '在修'
           }
         ]
       },
@@ -167,6 +230,15 @@ export const yunhanSects: Sect[] = [
             description: '器修，性格忙碌但爱看热闹，常常炼器时也不忘关注宗门八卦。',
             specialty: '炼器',
             status: '在任'
+          },
+          {
+            id: 'chi-xiao',
+            name: '池宵',
+            title: '抱元峰亲传弟子',
+            sect: '紫霄宗·抱元峰',
+            description: '楚元真的亲传弟子，炼器天才。',
+            specialty: '器修',
+            status: '在修'
           }
         ]
       }
