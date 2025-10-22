@@ -19,6 +19,10 @@ export const UserProfile = () => {
   const [nickname, setNickname] = useState('访客');
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [tempNickname, setTempNickname] = useState('');
+  const [flowersBalance, setFlowersBalance] = useState(0);
+  const [eggsBalance, setEggsBalance] = useState(0);
+  const [hasCheckedIn, setHasCheckedIn] = useState(false);
+  const [isCheckingIn, setIsCheckingIn] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -34,14 +38,35 @@ export const UserProfile = () => {
         setNickname(data.nickname);
         setAvatarUrl(data.avatar_url);
         setTempNickname(data.nickname);
+        setFlowersBalance(data.flowers_balance || 0);
+        setEggsBalance(data.eggs_balance || 0);
       } else {
         await supabase
           .from('profiles')
-          .insert({ user_id: userId, nickname: '访客' });
+          .insert({ 
+            user_id: userId, 
+            nickname: '访客',
+            flowers_balance: 0,
+            eggs_balance: 0
+          });
         setTempNickname('访客');
       }
     };
+
+    const checkTodayCheckIn = async () => {
+      const today = new Date().toISOString().split('T')[0];
+      const { data } = await supabase
+        .from('check_ins')
+        .select('*')
+        .eq('user_id', userId)
+        .eq('check_in_date', today)
+        .single();
+      
+      setHasCheckedIn(!!data);
+    };
+
     loadProfile();
+    checkTodayCheckIn();
   }, [userId]);
 
   const updateProfile = async () => {
@@ -96,6 +121,50 @@ export const UserProfile = () => {
     reader.readAsDataURL(file);
   };
 
+  const handleCheckIn = async () => {
+    if (hasCheckedIn || isCheckingIn) return;
+
+    setIsCheckingIn(true);
+    try {
+      const today = new Date().toISOString().split('T')[0];
+      
+      // Insert check-in record
+      const { error: checkInError } = await supabase
+        .from('check_ins')
+        .insert([{ user_id: userId, check_in_date: today }]);
+
+      if (checkInError) throw checkInError;
+
+      // Update balances
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({
+          flowers_balance: flowersBalance + 10,
+          eggs_balance: eggsBalance + 10
+        })
+        .eq('user_id', userId);
+
+      if (updateError) throw updateError;
+
+      setFlowersBalance(flowersBalance + 10);
+      setEggsBalance(eggsBalance + 10);
+      setHasCheckedIn(true);
+      toast({
+        title: "签到成功！",
+        description: "获得 10 朵鲜花🌸和 10 个鸡蛋🥚",
+      });
+    } catch (error) {
+      console.error('Error checking in:', error);
+      toast({
+        title: "签到失败",
+        description: "请稍后再试",
+        variant: "destructive",
+      });
+    } finally {
+      setIsCheckingIn(false);
+    }
+  };
+
   return (
     <Card className="relative overflow-hidden bg-card/95 backdrop-blur-sm border-primary/20 shadow-elegant w-full max-w-sm">
       <div className="relative p-4">
@@ -140,6 +209,31 @@ export const UserProfile = () => {
               />
             </div>
 
+            {/* Balances */}
+            <div className="grid grid-cols-2 gap-3 p-3 bg-muted/30 rounded-lg">
+              <div className="text-center">
+                <div className="text-xl mb-1">🌸</div>
+                <div className="text-xs text-muted-foreground">鲜花</div>
+                <div className="text-base font-bold text-primary">{flowersBalance}</div>
+              </div>
+              <div className="text-center">
+                <div className="text-xl mb-1">🥚</div>
+                <div className="text-xs text-muted-foreground">鸡蛋</div>
+                <div className="text-base font-bold text-primary">{eggsBalance}</div>
+              </div>
+            </div>
+
+            {/* Check-in Button */}
+            <Button
+              onClick={handleCheckIn}
+              disabled={hasCheckedIn || isCheckingIn}
+              className="w-full"
+              size="sm"
+              variant={hasCheckedIn ? "outline" : "default"}
+            >
+              {hasCheckedIn ? '今日已签到 ✓' : '每日签到 (+10🌸 +10🥚)'}
+            </Button>
+
             <Button
               onClick={updateProfile}
               className="w-full"
@@ -150,9 +244,12 @@ export const UserProfile = () => {
             </Button>
           </div>
 
-          <div className="text-xs text-muted-foreground text-center">
+          <div className="text-xs text-muted-foreground text-center space-y-1">
             <p>您的ID: {userId.slice(0, 8)}...</p>
-            <p className="mt-1">修改后将在评论区和聊天室同步显示</p>
+            <p>修改后将在评论区和聊天室同步显示</p>
+            <p className="text-amber-600 dark:text-amber-400">
+              签到获得的鲜花和鸡蛋可在角色立绘页面使用
+            </p>
           </div>
         </div>
       </div>

@@ -31,7 +31,7 @@ const DivisionDetail = () => {
 
   return (
     <div className={`min-h-screen bg-gradient-to-br ${
-      isZixiao ? 'from-purple-950/30 via-amber-950/20 to-purple-950/30' : 
+      isZixiao ? 'from-purple-900/40 via-purple-950/30 to-purple-900/40' : 
       isShanhaixuan ? 'from-blue-950/30 via-cyan-950/20 to-blue-950/30' :
       'from-background via-muted/30 to-background'
     } page-transition`}>
@@ -46,7 +46,7 @@ const DivisionDetail = () => {
               </Button>
             </Link>
             <h1 className={`text-2xl font-bold ${
-              isZixiao ? 'text-purple-400' : 
+              isZixiao ? 'text-purple-300' :
               isShanhaixuan ? 'text-cyan-400' :
               'text-primary'
             }`}>{division.name}</h1>

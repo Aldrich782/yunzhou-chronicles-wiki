@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      character_votes: {
+        Row: {
+          character_id: string
+          created_at: string
+          id: string
+          user_id: string
+          vote_type: string
+        }
+        Insert: {
+          character_id: string
+          created_at?: string
+          id?: string
+          user_id: string
+          vote_type: string
+        }
+        Update: {
+          character_id?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+          vote_type?: string
+        }
+        Relationships: []
+      }
       chat_messages: {
         Row: {
           avatar_url: string | null
@@ -37,6 +61,27 @@ export type Database = {
           id?: string
           message?: string
           nickname?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      check_ins: {
+        Row: {
+          check_in_date: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          check_in_date?: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          check_in_date?: string
+          created_at?: string
+          id?: string
           user_id?: string
         }
         Relationships: []
@@ -72,6 +117,8 @@ export type Database = {
         Row: {
           avatar_url: string | null
           created_at: string
+          eggs_balance: number
+          flowers_balance: number
           id: string
           nickname: string
           updated_at: string
@@ -80,6 +127,8 @@ export type Database = {
         Insert: {
           avatar_url?: string | null
           created_at?: string
+          eggs_balance?: number
+          flowers_balance?: number
           id?: string
           nickname?: string
           updated_at?: string
@@ -88,6 +137,8 @@ export type Database = {
         Update: {
           avatar_url?: string | null
           created_at?: string
+          eggs_balance?: number
+          flowers_balance?: number
           id?: string
           nickname?: string
           updated_at?: string
