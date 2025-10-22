@@ -13,11 +13,11 @@ interface Song {
 const presetSongs: Song[] = [
   {
     name: "长生诀",
-    url: "http://m801.music.126.net/20251022165949/292dfd35cbad7124331262b49a26104e/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481796748/80f9/c757/f79c/88366da208a1ab75d0d00b7f92a37287.mp3?vuutv=QB1FjjzUzCE0XaMXtKKQAytLUdUk/Gv/DimgK8AJenMPz2megVw+hZ8UlF62QXpGPcESozty/nF1929bqLmfKZv3cgyQ63HII5MQ7ZmygLePLRO5h9lRCKrudbgbJ0e36MQH2ABMEAEXKrmsLO77LicjsdpkguLJZI/Rc64KD9HRk2Qq+36uRj2vQkwYpL1Fg2N/5fYQfV4+fwkubEZdZsTSQk5rb6PJO+5OHGUM+xbXBU1yEoNBb8OUbladwXS2P3ysWcuPVhdn9xvmwDUJQh/jAK7UHuEXEIrwbYvawBztOZYQoEKzCLSZYcNKxzNiMe/mLqalHe2wBHoREpU4sIRAmopNZqG4wPGvcDzvRDmoNGPkHiD28uZG1knj0Ijr&cdntag=bWFyaz1vc193ZWIscXVhbGl0eV9zdGFuZGFyZA",
+    url: "https://er-sycdn.kuwo.cn/d9fc7a0c528cddc241fefa7c0c5b0672/68f86bb5/resource/30106/trackmedia/M800004Fb3zK06LYTU.mp3",
   },
   {
-    name: "明月天涯",
-    url: "https://lv-sycdn.kuwo.cn/07b87865044025dc0d58c168ac5c4482/68f875c0/resource/30106/trackmedia/M800000rG1PF3BudFL.mp3",
+    name: "一念逍遥",
+    url: "http://m701.music.126.net/20251022171447/9db8b5d44b1d20912a9f42e96c6b7043/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/8633052592/4be3/0b23/d612/df97fc0e3d06f060d46dd95d5600e675.mp3?vuutv=bFu0cDTp1spfOptnDoB8zbo620ee+rdgOD/veoptWtXh0BsK2FUhl+axu1x/Yyew/lb6zoevyWdmYMXM0uvXiOqninmipvY+UG4cQakGi/OlrzsJt4kTCSc8o+ahax7UG23dS5HQ4B5x+ecxN19Riw==&cdntag=bWFyaz1vc193ZWIscXVhbGl0eV9zdGFuZGFyZA",
   },
   {
     name: "天涯共此时",
