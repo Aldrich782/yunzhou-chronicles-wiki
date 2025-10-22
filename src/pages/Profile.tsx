@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { UserProfile } from '@/components/UserProfile';
 import { ChatRoom } from '@/components/ChatRoom';
 import { Leaderboard } from '@/components/Leaderboard';
+import { LotteryWheel } from '@/components/LotteryWheel';
 
 const Profile = () => {
   return (
@@ -42,6 +43,7 @@ const Profile = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="space-y-6">
               <UserProfile />
+              <LotteryWheel />
               <Leaderboard />
             </div>
             <ChatRoom />

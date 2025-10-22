@@ -113,6 +113,30 @@ export type Database = {
         }
         Relationships: []
       }
+      lottery_draws: {
+        Row: {
+          created_at: string
+          draw_date: string
+          id: string
+          reward_amount: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          draw_date?: string
+          id?: string
+          reward_amount: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          draw_date?: string
+          id?: string
+          reward_amount?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
