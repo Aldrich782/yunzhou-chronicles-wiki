@@ -33,49 +33,50 @@ const SectDetail = () => {
     } page-transition`}>
       {/* 顶部导航 */}
       <header className="border-b border-border/50 bg-card/30 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
+        <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
+          <div className="flex items-center justify-between gap-2">
             <Link to={sect.region === 'yunhan' ? '/yunhan' : '/rongzhou'}>
-              <Button variant="ghost" className="gap-2">
-                <ArrowLeft className="w-4 h-4" />
-                返回列表
+              <Button variant="ghost" className="gap-2 text-xs sm:text-sm px-2 sm:px-4">
+                <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="hidden xs:inline">返回列表</span>
+                <span className="xs:hidden">返回</span>
               </Button>
             </Link>
-            <h1 className={`text-2xl font-bold ${
+            <h1 className={`text-base sm:text-xl md:text-2xl font-bold truncate ${
               isZixiao ? 'text-purple-400' : 
               isShanhaixuan ? 'text-cyan-400' :
               'text-primary'
             }`}>{sect.name}</h1>
-            <div className="w-24" />
+            <div className="w-16 sm:w-24" />
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-6 py-12">
-        <div className="max-w-5xl mx-auto space-y-8">
+      <main className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <div className="max-w-5xl mx-auto space-y-6 sm:space-y-8">
           {/* 门派简介 - 左侧图标，右侧文字 */}
-          <Card className={`p-8 bg-card/50 backdrop-blur-sm ${
+          <Card className={`p-4 sm:p-6 md:p-8 bg-card/50 backdrop-blur-sm ${
             isZixiao ? 'border-purple-500/30' :
             isShanhaixuan ? 'border-cyan-500/30' :
             'border-border/50'
           } shadow-card`}>
-            <div className="flex gap-6 items-start">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
               {/* 左侧门派图标 */}
-              <div className={`flex-shrink-0 w-32 h-32 rounded-xl bg-gradient-to-br ${isZixiao ? 'from-purple-500/20 to-amber-500/20' : 'from-primary/20 to-accent/20'} flex items-center justify-center`}>
-                <Scroll className={`w-16 h-16 ${isZixiao ? 'text-amber-400/60' : 'text-primary/60'}`} />
+              <div className={`flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-xl bg-gradient-to-br ${isZixiao ? 'from-purple-500/20 to-amber-500/20' : 'from-primary/20 to-accent/20'} flex items-center justify-center mx-auto sm:mx-0`}>
+                <Scroll className={`w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 ${isZixiao ? 'text-amber-400/60' : 'text-primary/60'}`} />
               </div>
               
               {/* 右侧简介 */}
-              <div className="flex-1 space-y-4">
-                <h2 className="text-2xl font-bold flex items-center gap-2">
+              <div className="flex-1 space-y-3 sm:space-y-4">
+                <h2 className="text-xl sm:text-2xl font-bold flex items-center gap-2">
                   门派简介
                 </h2>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   {sect.description}
                 </p>
                 {sect.specialty && (
                   <div className={`p-3 rounded-lg ${isZixiao ? 'bg-purple-500/5 border border-purple-500/20' : 'bg-primary/5 border border-primary/20'}`}>
-                    <p className="text-sm text-foreground">
+                    <p className="text-xs sm:text-sm text-foreground">
                       <span className={`font-semibold ${isZixiao ? 'text-purple-400' : 'text-primary'}`}>门派特色：</span>
                       {sect.specialty}
                     </p>
@@ -101,17 +102,17 @@ const SectDetail = () => {
                     </Button>
                   </Link>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
                   {sect.mountains.map((mountain) => (
                     <Link key={mountain.id} to={`/mountain/${mountain.id}`}>
-                      <Card className="group p-6 bg-gradient-to-br from-purple-500/5 to-amber-500/5 border-purple-500/30 hover:border-amber-500/50 transition-all duration-300 hover:shadow-soft hover:-translate-y-1 cursor-pointer">
-                        <h3 className="text-xl font-semibold mb-2 group-hover:text-amber-400 transition-colors">
+                      <Card className="group p-4 sm:p-6 bg-gradient-to-br from-purple-500/5 to-amber-500/5 border-purple-500/30 hover:border-amber-500/50 transition-all duration-300 hover:shadow-soft hover:-translate-y-1 cursor-pointer">
+                        <h3 className="text-base sm:text-lg md:text-xl font-semibold mb-2 group-hover:text-amber-400 transition-colors">
                           {mountain.name}
                         </h3>
-                        <p className="text-sm text-muted-foreground line-clamp-2">
+                        <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">
                           {mountain.description}
                         </p>
-                        <div className="mt-4 text-sm text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="mt-3 sm:mt-4 text-xs sm:text-sm text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity">
                           查看详情 →
                         </div>
                       </Card>
@@ -134,22 +135,22 @@ const SectDetail = () => {
                     门派结构
                   </h2>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
                   {sect.divisions.map((division) => (
                     <Link key={division.id} to={`/division/${sect.id}/${division.id}`}>
-                      <Card className={`group p-6 bg-gradient-to-br ${
+                      <Card className={`group p-4 sm:p-6 bg-gradient-to-br ${
                         isShanhaixuan ? 'from-cyan-500/5 to-blue-500/5 border-cyan-500/30 hover:border-blue-500/50' :
                         'from-primary/5 to-accent/5 border-border/30 hover:border-primary/50'
                       } transition-all duration-300 hover:shadow-soft hover:-translate-y-1 cursor-pointer`}>
-                        <h3 className={`text-xl font-semibold mb-2 group-hover:${
+                        <h3 className={`text-base sm:text-lg md:text-xl font-semibold mb-2 group-hover:${
                           isShanhaixuan ? 'text-blue-400' : 'text-primary'
                         } transition-colors`}>
                           {division.name}
                         </h3>
-                        <p className="text-sm text-muted-foreground line-clamp-2">
+                        <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">
                           {division.description}
                         </p>
-                        <div className={`mt-4 text-sm opacity-0 group-hover:opacity-100 transition-opacity ${
+                        <div className={`mt-3 sm:mt-4 text-xs sm:text-sm opacity-0 group-hover:opacity-100 transition-opacity ${
                           isShanhaixuan ? 'text-blue-400' : 'text-primary'
                         }`}>
                           查看详情 →
@@ -188,22 +189,22 @@ const SectDetail = () => {
                     <User className={`w-6 h-6 ${isShanhaixuan ? 'text-cyan-400' : 'text-primary'}`} />
                     重要人物
                   </h2>
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     {sect.members.map((member) => (
                       <Link key={member.id} to={`/character/${member.id}`}>
                         <Card 
-                          className={`group p-6 bg-gradient-to-br ${
+                          className={`group p-4 sm:p-6 bg-gradient-to-br ${
                             isShanhaixuan ? 'from-cyan-500/5 to-blue-500/5 border-cyan-500/30 hover:border-cyan-500/50' : 
                             'from-primary/5 to-accent/5 border-border/30 hover:border-primary/50'
                           } hover:shadow-soft hover:-translate-y-1 transition-all duration-300 cursor-pointer`}
                         >
-                          <h3 className={`text-xl font-bold mb-1 ${
+                          <h3 className={`text-lg sm:text-xl font-bold mb-1 ${
                             isShanhaixuan ? 'text-cyan-400 group-hover:text-cyan-300' : 'text-foreground group-hover:text-primary'
                           } transition-colors`}>{member.name}</h3>
-                          <p className={`text-sm mb-3 ${
+                          <p className={`text-xs sm:text-sm mb-2 sm:mb-3 ${
                             isShanhaixuan ? 'text-cyan-300/70' : 'text-primary'
                           }`}>{member.title}</p>
-                          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">{member.description}</p>
+                          <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-2">{member.description}</p>
                           {member.specialty && (
                             <div className={`mt-3 pt-3 border-t ${
                               isShanhaixuan ? 'border-cyan-500/20' : 'border-border/30'

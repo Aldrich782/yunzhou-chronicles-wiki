@@ -99,33 +99,33 @@ export const MusicPlayer = () => {
   };
 
   return (
-    <Card className="relative overflow-hidden bg-gradient-to-br from-card via-card/95 to-primary/5 backdrop-blur-sm border-primary/20 shadow-elegant">
+    <Card className="relative overflow-hidden bg-gradient-to-br from-card via-card/95 to-primary/5 backdrop-blur-sm border-primary/20 shadow-elegant w-full max-w-sm">
       {/* 装饰性背景 */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 right-0 w-32 h-32 bg-primary rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-accent rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative p-5">
+      <div className="relative p-4 sm:p-5">
         {/* 标题区域 */}
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-3 sm:mb-4">
           <div className="flex items-center gap-2">
-            <Music className="w-5 h-5 text-primary" />
-            <h3 className="text-base font-bold text-foreground">音乐播放器</h3>
+            <Music className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+            <h3 className="text-sm sm:text-base font-bold text-foreground">音乐播放器</h3>
           </div>
           <Button
             onClick={() => setShowPlaylist(!showPlaylist)}
             size="sm"
             variant="ghost"
-            className="hover:bg-primary/10"
+            className="hover:bg-primary/10 h-7 w-7 sm:h-8 sm:w-8 p-0"
           >
-            <ListMusic className="w-4 h-4" />
+            <ListMusic className="w-3 h-3 sm:w-4 sm:h-4" />
           </Button>
         </div>
 
         {/* 预设歌曲列表 */}
         {showPlaylist && (
-          <div className="mb-4 p-3 rounded-lg bg-muted/30 border border-border/50 space-y-2 animate-fade-in">
+          <div className="mb-3 sm:mb-4 p-2 sm:p-3 rounded-lg bg-muted/30 border border-border/50 space-y-2 animate-fade-in">
             <p className="text-xs text-muted-foreground mb-2">预设歌曲</p>
             {presetSongs.map((song, index) => (
               <Button
@@ -133,7 +133,7 @@ export const MusicPlayer = () => {
                 onClick={() => handleLoadPreset(song)}
                 variant="outline"
                 size="sm"
-                className="w-full justify-start text-sm border-primary/20 hover:bg-primary/10 hover:border-primary/40"
+                className="w-full justify-start text-xs sm:text-sm border-primary/20 hover:bg-primary/10 hover:border-primary/40 h-8 sm:h-9"
               >
                 <Music className="w-3 h-3 mr-2" />
                 {song.name}
@@ -143,19 +143,19 @@ export const MusicPlayer = () => {
         )}
 
         {/* URL 输入 */}
-        <div className="flex gap-2 mb-4">
+        <div className="flex gap-2 mb-3 sm:mb-4">
           <Input
             type="url"
             placeholder="或输入自定义音乐URL..."
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            className="text-sm bg-background/50 border-border/50 focus:border-primary/50"
+            className="text-xs sm:text-sm bg-background/50 border-border/50 focus:border-primary/50 h-8 sm:h-10"
           />
           <Button 
             onClick={handleLoadUrl} 
             size="sm"
             variant="outline"
-            className="whitespace-nowrap border-primary/30 hover:bg-primary/10"
+            className="whitespace-nowrap border-primary/30 hover:bg-primary/10 text-xs sm:text-sm h-8 sm:h-10 px-3"
           >
             加载
           </Button>
@@ -163,17 +163,17 @@ export const MusicPlayer = () => {
 
         {/* 当前播放信息 */}
         {currentUrl && currentSongName && (
-          <div className="mb-3 p-3 rounded-lg bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20">
-            <p className="text-sm text-muted-foreground">正在播放</p>
-            <p className="text-base font-semibold text-foreground">{currentSongName}</p>
+          <div className="mb-3 p-2 sm:p-3 rounded-lg bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20">
+            <p className="text-xs text-muted-foreground">正在播放</p>
+            <p className="text-sm sm:text-base font-semibold text-foreground truncate">{currentSongName}</p>
           </div>
         )}
 
         {/* 控制区域 */}
         {currentUrl && (
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {/* 进度条 */}
-            <div className="space-y-2">
+            <div className="space-y-1 sm:space-y-2">
               <Slider
                 value={[currentTime]}
                 max={duration || 100}
@@ -188,32 +188,32 @@ export const MusicPlayer = () => {
             </div>
 
             {/* 播放和音量控制 */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 sm:gap-4">
               {/* 播放按钮 */}
               <Button
                 onClick={togglePlay}
                 size="lg"
-                className="h-12 w-12 rounded-full bg-gradient-to-br from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-soft"
+                className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-gradient-to-br from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-soft flex-shrink-0"
               >
                 {isPlaying ? (
-                  <Pause className="w-5 h-5" />
+                  <Pause className="w-4 h-4 sm:w-5 sm:h-5" />
                 ) : (
-                  <Play className="w-5 h-5 ml-0.5" />
+                  <Play className="w-4 h-4 sm:w-5 sm:h-5 ml-0.5" />
                 )}
               </Button>
 
               {/* 音量控制 */}
-              <div className="flex items-center gap-3 flex-1">
+              <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
                 <Button
                   onClick={toggleMute}
                   size="sm"
                   variant="ghost"
-                  className="hover:bg-primary/10"
+                  className="hover:bg-primary/10 h-7 w-7 sm:h-8 sm:w-8 p-0 flex-shrink-0"
                 >
                   {isMuted ? (
-                    <VolumeX className="w-4 h-4" />
+                    <VolumeX className="w-3 h-3 sm:w-4 sm:h-4" />
                   ) : (
-                    <Volume2 className="w-4 h-4" />
+                    <Volume2 className="w-3 h-3 sm:w-4 sm:h-4" />
                   )}
                 </Button>
                 <Slider
@@ -223,7 +223,7 @@ export const MusicPlayer = () => {
                   onValueChange={(value) => setVolume(value[0])}
                   className="flex-1"
                 />
-                <span className="text-xs text-muted-foreground w-8 text-right">
+                <span className="text-xs text-muted-foreground w-6 sm:w-8 text-right flex-shrink-0">
                   {isMuted ? 0 : volume}
                 </span>
               </div>
@@ -232,8 +232,8 @@ export const MusicPlayer = () => {
         )}
 
         {!currentUrl && (
-          <div className="text-center py-6 text-muted-foreground text-sm">
-            <Music className="w-8 h-8 mx-auto mb-2 opacity-50" />
+          <div className="text-center py-4 sm:py-6 text-muted-foreground text-xs sm:text-sm">
+            <Music className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-2 opacity-50" />
             <p>选择预设歌曲或输入URL开始播放</p>
           </div>
         )}

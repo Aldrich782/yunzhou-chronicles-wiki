@@ -53,14 +53,14 @@ const App = () => {
           </Routes>
 
           {/* 全局悬浮音乐播放器 */}
-          <div className="fixed top-4 right-4 z-50">
+          <div className="fixed top-3 right-3 sm:top-4 sm:right-4 z-50">
             {!showMusicPlayer ? (
               <Button
                 onClick={() => setShowMusicPlayer(true)}
                 size="lg"
-                className="rounded-full h-14 w-14 shadow-elegant bg-gradient-to-br from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+                className="rounded-full h-12 w-12 sm:h-14 sm:w-14 shadow-elegant bg-gradient-to-br from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
               >
-                <Music className="w-6 h-6" />
+                <Music className="w-5 h-5 sm:w-6 sm:h-6" />
               </Button>
             ) : (
               <div className="animate-fade-in">
@@ -68,11 +68,11 @@ const App = () => {
                 <Button
                   onClick={() => setIsMinimized(false)}
                   size="lg"
-                  className={`rounded-full h-14 w-14 shadow-elegant bg-gradient-to-br from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 ${
+                  className={`rounded-full h-12 w-12 sm:h-14 sm:w-14 shadow-elegant bg-gradient-to-br from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 ${
                     isMinimized ? 'block' : 'hidden'
                   }`}
                 >
-                  <Music className="w-6 h-6" />
+                  <Music className="w-5 h-5 sm:w-6 sm:h-6" />
                 </Button>
                 
                 {/* 播放器面板 - 始终保持挂载 */}
@@ -82,10 +82,10 @@ const App = () => {
                       onClick={() => setIsMinimized(true)}
                       size="sm"
                       variant="ghost"
-                      className="rounded-full h-8 w-8 bg-card/80 backdrop-blur-sm hover:bg-card"
+                      className="rounded-full h-7 w-7 sm:h-8 sm:w-8 bg-card/80 backdrop-blur-sm hover:bg-card"
                       title="最小化"
                     >
-                      <Minus className="w-4 h-4" />
+                      <Minus className="w-3 h-3 sm:w-4 sm:h-4" />
                     </Button>
                     <Button
                       onClick={() => {
@@ -94,10 +94,10 @@ const App = () => {
                       }}
                       size="sm"
                       variant="ghost"
-                      className="rounded-full h-8 w-8 bg-card/80 backdrop-blur-sm hover:bg-card"
+                      className="rounded-full h-7 w-7 sm:h-8 sm:w-8 bg-card/80 backdrop-blur-sm hover:bg-card"
                       title="关闭"
                     >
-                      <X className="w-4 h-4" />
+                      <X className="w-3 h-3 sm:w-4 sm:h-4" />
                     </Button>
                   </div>
                   <MusicPlayer />
