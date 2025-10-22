@@ -2,26 +2,18 @@ import { useState, useRef, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Play, Pause, Volume2, VolumeX, Music, ListMusic, FileText } from "lucide-react";
+import { Play, Pause, Volume2, VolumeX, Music, ListMusic } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
-import { LyricsDisplay } from "./LyricsDisplay";
-import { parseLRC, getCurrentLyricIndex, LyricLine } from "@/lib/lrcParser";
-import { useToast } from "@/hooks/use-toast";
 
 interface Song {
   name: string;
   url: string;
 }
 
-interface SongWithLyrics extends Song {
-  lyricsUrl?: string;
-}
-
-const presetSongs: SongWithLyrics[] = [
+const presetSongs: Song[] = [
   {
     name: "长生诀",
-    url: "https://er-sycdn.kuwo.cn/0850fa8ae75539239a42876507436168/68f89404/resource/30106/trackmedia/F000004Fb3zK06LYTU.flac",
-    lyricsUrl: "/lyrics/changsheng.lrc"
+    url: "http://m801.music.126.net/20251022165949/292dfd35cbad7124331262b49a26104e/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481796748/80f9/c757/f79c/88366da208a1ab75d0d00b7f92a37287.mp3?vuutv=QB1FjjzUzCE0XaMXtKKQAytLUdUk/Gv/DimgK8AJenMPz2megVw+hZ8UlF62QXpGPcESozty/nF1929bqLmfKZv3cgyQ63HII5MQ7ZmygLePLRO5h9lRCKrudbgbJ0e36MQH2ABMEAEXKrmsLO77LicjsdpkguLJZI/Rc64KD9HRk2Qq+36uRj2vQkwYpL1Fg2N/5fYQfV4+fwkubEZdZsTSQk5rb6PJO+5OHGUM+xbXBU1yEoNBb8OUbladwXS2P3ysWcuPVhdn9xvmwDUJQh/jAK7UHuEXEIrwbYvawBztOZYQoEKzCLSZYcNKxzNiMe/mLqalHe2wBHoREpU4sIRAmopNZqG4wPGvcDzvRDmoNGPkHiD28uZG1knj0Ijr&cdntag=bWFyaz1vc193ZWIscXVhbGl0eV9zdGFuZGFyZA",
   },
   {
     name: "明月天涯",
@@ -48,23 +40,13 @@ export const MusicPlayer = () => {
   const [duration, setDuration] = useState(0);
   const [showPlaylist, setShowPlaylist] = useState(false);
   const [currentSongIndex, setCurrentSongIndex] = useState<number>(-1);
-  const [lyrics, setLyrics] = useState<LyricLine[]>([]);
-  const [currentLyricIndex, setCurrentLyricIndex] = useState(-1);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const lyricsInputRef = useRef<HTMLInputElement>(null);
-  const { toast } = useToast();
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    const updateTime = () => {
-      setCurrentTime(audio.currentTime);
-      if (lyrics.length > 0) {
-        const index = getCurrentLyricIndex(lyrics, audio.currentTime);
-        setCurrentLyricIndex(index);
-      }
-    };
+    const updateTime = () => setCurrentTime(audio.currentTime);
     const updateDuration = () => setDuration(audio.duration);
     const handleEnded = () => {
       setIsPlaying(false);
@@ -82,7 +64,7 @@ export const MusicPlayer = () => {
       audio.removeEventListener("loadedmetadata", updateDuration);
       audio.removeEventListener("ended", handleEnded);
     };
-  }, [currentSongIndex, lyrics]);
+  }, [currentSongIndex]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -99,55 +81,12 @@ export const MusicPlayer = () => {
     }
   };
 
-  const handleLoadPreset = async (song: SongWithLyrics, index: number) => {
+  const handleLoadPreset = (song: Song, index: number) => {
     setCurrentUrl(song.url);
     setCurrentSongName(song.name);
     setCurrentSongIndex(index);
     setShowPlaylist(false);
-    
-    // 加载歌词
-    if (song.lyricsUrl) {
-      try {
-        const response = await fetch(song.lyricsUrl);
-        const lrcContent = await response.text();
-        const parsedLyrics = parseLRC(lrcContent);
-        setLyrics(parsedLyrics);
-        setCurrentLyricIndex(-1);
-      } catch (error) {
-        console.error('加载歌词失败:', error);
-        setLyrics([]);
-      }
-    } else {
-      setLyrics([]);
-    }
-    
     setTimeout(() => audioRef.current?.play().then(() => setIsPlaying(true)), 100);
-  };
-
-  const handleLyricsUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const content = event.target?.result as string;
-      try {
-        const parsedLyrics = parseLRC(content);
-        setLyrics(parsedLyrics);
-        setCurrentLyricIndex(-1);
-        toast({
-          title: "歌词已加载",
-          description: `成功加载 ${parsedLyrics.length} 行歌词`
-        });
-      } catch (error) {
-        toast({
-          title: "加载失败",
-          description: "歌词文件格式错误",
-          variant: "destructive"
-        });
-      }
-    };
-    reader.readAsText(file);
   };
 
   const togglePlay = () => {
@@ -177,45 +116,21 @@ export const MusicPlayer = () => {
   };
 
   return (
-    <>
-      <LyricsDisplay 
-        lyrics={lyrics}
-        currentTime={currentTime}
-        currentIndex={currentLyricIndex}
-      />
-      <Card className="relative overflow-hidden bg-gradient-to-br from-card via-card/95 to-primary/5 backdrop-blur-sm border-primary/20 shadow-elegant w-full max-w-sm">
-        <div className="relative p-4 sm:p-5">
+    <Card className="relative overflow-hidden bg-gradient-to-br from-card via-card/95 to-primary/5 backdrop-blur-sm border-primary/20 shadow-elegant w-full max-w-sm">
+      <div className="relative p-4 sm:p-5">
         <div className="flex items-center justify-between mb-3 sm:mb-4">
           <div className="flex items-center gap-2">
             <Music className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
             <h3 className="text-sm sm:text-base font-bold text-foreground">音乐播放器</h3>
           </div>
-          <div className="flex gap-1">
-            <Button
-              onClick={() => lyricsInputRef.current?.click()}
-              size="sm"
-              variant="ghost"
-              className="hover:bg-primary/10 h-7 w-7 sm:h-8 sm:w-8 p-0"
-              title="上传歌词"
-            >
-              <FileText className="w-3 h-3 sm:w-4 sm:h-4" />
-            </Button>
-            <Button
-              onClick={() => setShowPlaylist(!showPlaylist)}
-              size="sm"
-              variant="ghost"
-              className="hover:bg-primary/10 h-7 w-7 sm:h-8 sm:w-8 p-0"
-            >
-              <ListMusic className="w-3 h-3 sm:w-4 sm:h-4" />
-            </Button>
-          </div>
-          <input
-            ref={lyricsInputRef}
-            type="file"
-            accept=".lrc"
-            className="hidden"
-            onChange={handleLyricsUpload}
-          />
+          <Button
+            onClick={() => setShowPlaylist(!showPlaylist)}
+            size="sm"
+            variant="ghost"
+            className="hover:bg-primary/10 h-7 w-7 sm:h-8 sm:w-8 p-0"
+          >
+            <ListMusic className="w-3 h-3 sm:w-4 sm:h-4" />
+          </Button>
         </div>
 
         {showPlaylist && (
@@ -328,6 +243,5 @@ export const MusicPlayer = () => {
         <audio ref={audioRef} src={currentUrl} />
       </div>
     </Card>
-    </>
   );
 };
