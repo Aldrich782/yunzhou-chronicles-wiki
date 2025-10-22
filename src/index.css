@@ -9,14 +9,14 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Black & Gold Color System */
-    --background: 0 0% 95%;
-    --foreground: 0 0% 11%;
+    --background: 0 0% 8%;
+    --foreground: 40 45% 85%;
 
-    --card: 0 0% 95%;
-    --card-foreground: 0 0% 11%;
+    --card: 0 0% 12%;
+    --card-foreground: 40 45% 85%;
 
-    --popover: 0 0% 95%;
-    --popover-foreground: 0 0% 11%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 40 45% 85%;
 
     /* Gold Primary */
     --primary: 40 45% 58%;
@@ -27,8 +27,8 @@ All colors MUST be HSL.
     --secondary-foreground: 0 0% 11%;
 
     /* Dark Grey */
-    --muted: 0 0% 20%;
-    --muted-foreground: 0 0% 95%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 40 35% 70%;
 
     /* Medium Gold */
     --accent: 38 42% 62%;
@@ -37,8 +37,8 @@ All colors MUST be HSL.
     --destructive: 0 60% 50%;
     --destructive-foreground: 0 0% 95%;
 
-    --border: 0 0% 85%;
-    --input: 0 0% 85%;
+    --border: 0 0% 25%;
+    --input: 0 0% 20%;
     --ring: 40 45% 58%;
 
     --radius: 0.75rem;
