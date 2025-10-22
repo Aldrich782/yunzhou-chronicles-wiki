@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { BookOpen, Map, Image, Scroll, BookMarked } from 'lucide-react';
+import { MusicPlayer } from '@/components/MusicPlayer';
 
 const sections = [
   {
@@ -61,7 +62,7 @@ const Index = () => {
           </div>
 
           {/* 板块导航卡片 - 单列大按钮 */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-8">
             {sections.map((section) => {
               const Icon = section.icon;
               return (
@@ -90,6 +91,11 @@ const Index = () => {
                 </Link>
               );
             })}
+          </div>
+
+          {/* 音乐播放器 */}
+          <div className="max-w-md mx-auto">
+            <MusicPlayer />
           </div>
         </div>
       </main>

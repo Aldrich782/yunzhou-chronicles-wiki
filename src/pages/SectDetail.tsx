@@ -23,9 +23,14 @@ const SectDetail = () => {
   }
 
   const isZixiao = sect.id === 'zixiao';
+  const isShanhaixuan = sect.id === 'shanhaixuan';
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br ${isZixiao ? 'from-purple-950/30 via-amber-950/20 to-purple-950/30' : 'from-background via-muted/30 to-background'} page-transition`}>
+    <div className={`min-h-screen bg-gradient-to-br ${
+      isZixiao ? 'from-purple-950/30 via-amber-950/20 to-purple-950/30' : 
+      isShanhaixuan ? 'from-blue-950/30 via-cyan-950/20 to-blue-950/30' :
+      'from-background via-muted/30 to-background'
+    } page-transition`}>
       {/* 顶部导航 */}
       <header className="border-b border-border/50 bg-card/30 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4">
@@ -36,7 +41,11 @@ const SectDetail = () => {
                 返回列表
               </Button>
             </Link>
-            <h1 className={`text-2xl font-bold ${isZixiao ? 'text-purple-400' : 'text-primary'}`}>{sect.name}</h1>
+            <h1 className={`text-2xl font-bold ${
+              isZixiao ? 'text-purple-400' : 
+              isShanhaixuan ? 'text-cyan-400' :
+              'text-primary'
+            }`}>{sect.name}</h1>
             <div className="w-24" />
           </div>
         </div>
@@ -45,7 +54,11 @@ const SectDetail = () => {
       <main className="container mx-auto px-6 py-12">
         <div className="max-w-5xl mx-auto space-y-8">
           {/* 门派简介 - 左侧图标，右侧文字 */}
-          <Card className={`p-8 bg-card/50 backdrop-blur-sm ${isZixiao ? 'border-purple-500/30' : 'border-border/50'} shadow-card`}>
+          <Card className={`p-8 bg-card/50 backdrop-blur-sm ${
+            isZixiao ? 'border-purple-500/30' :
+            isShanhaixuan ? 'border-cyan-500/30' :
+            'border-border/50'
+          } shadow-card`}>
             <div className="flex gap-6 items-start">
               {/* 左侧门派图标 */}
               <div className={`flex-shrink-0 w-32 h-32 rounded-xl bg-gradient-to-br ${isZixiao ? 'from-purple-500/20 to-amber-500/20' : 'from-primary/20 to-accent/20'} flex items-center justify-center`}>

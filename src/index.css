@@ -8,77 +8,90 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Morandi Color System - Soft and Elegant */
-    --background: 40 20% 95%;
-    --foreground: 210 15% 25%;
+    /* Black & Gold Color System */
+    --background: 0 0% 95%;
+    --foreground: 0 0% 11%;
 
-    --card: 0 0% 98%;
-    --card-foreground: 210 15% 25%;
+    --card: 0 0% 95%;
+    --card-foreground: 0 0% 11%;
 
-    --popover: 0 0% 98%;
-    --popover-foreground: 210 15% 25%;
+    --popover: 0 0% 95%;
+    --popover-foreground: 0 0% 11%;
 
-    /* Morandi Blue-Grey */
-    --primary: 210 15% 55%;
-    --primary-foreground: 0 0% 98%;
+    /* Gold Primary */
+    --primary: 40 45% 58%;
+    --primary-foreground: 0 0% 11%;
 
-    /* Morandi Pink */
-    --secondary: 15 20% 75%;
-    --secondary-foreground: 210 15% 25%;
+    /* Lighter Gold */
+    --secondary: 40 35% 70%;
+    --secondary-foreground: 0 0% 11%;
 
-    /* Morandi Beige */
-    --muted: 40 20% 88%;
-    --muted-foreground: 210 12% 45%;
+    /* Dark Grey */
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 95%;
 
-    --accent: 200 18% 70%;
-    --accent-foreground: 210 15% 25%;
+    /* Medium Gold */
+    --accent: 38 42% 62%;
+    --accent-foreground: 0 0% 11%;
 
-    --destructive: 0 40% 65%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 60% 50%;
+    --destructive-foreground: 0 0% 95%;
 
-    --border: 210 15% 85%;
-    --input: 210 15% 85%;
-    --ring: 210 15% 55%;
+    --border: 0 0% 85%;
+    --input: 0 0% 85%;
+    --ring: 40 45% 58%;
 
     --radius: 0.75rem;
 
+    /* Zixiao Purple Theme */
+    --zixiao-primary: 270 60% 65%;
+    --zixiao-secondary: 280 50% 75%;
+    --zixiao-accent: 260 55% 70%;
+
+    /* Shanhaixuan Blue Theme */
+    --shanhaixuan-primary: 210 80% 55%;
+    --shanhaixuan-secondary: 200 70% 65%;
+    --shanhaixuan-accent: 220 75% 60%;
+
     /* Custom Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(210 15% 55%) 0%, hsl(200 18% 70%) 100%);
-    --gradient-soft: linear-gradient(180deg, hsl(40 20% 95%) 0%, hsl(210 20% 92%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(40 45% 58%) 0%, hsl(38 42% 62%) 100%);
+    --gradient-dark: linear-gradient(135deg, hsl(0 0% 11%) 0%, hsl(0 0% 20%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(40 45% 58%) 0%, hsl(40 35% 70%) 100%);
     
     /* Shadows */
-    --shadow-soft: 0 2px 16px -4px hsl(210 15% 55% / 0.12);
-    --shadow-card: 0 4px 24px -8px hsl(210 15% 55% / 0.15);
+    --shadow-soft: 0 4px 20px -4px hsl(0 0% 11% / 0.15);
+    --shadow-card: 0 6px 30px -8px hsl(0 0% 11% / 0.25);
+    --shadow-gold: 0 4px 20px -4px hsl(40 45% 58% / 0.3);
   }
 
   .dark {
-    --background: 210 20% 12%;
-    --foreground: 40 15% 88%;
+    --background: 0 0% 11%;
+    --foreground: 0 0% 95%;
 
-    --card: 210 18% 16%;
-    --card-foreground: 40 15% 88%;
+    --card: 0 0% 15%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 210 18% 16%;
-    --popover-foreground: 40 15% 88%;
+    --popover: 0 0% 15%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 210 18% 65%;
-    --primary-foreground: 210 20% 12%;
+    --primary: 40 45% 58%;
+    --primary-foreground: 0 0% 11%;
 
-    --secondary: 15 15% 45%;
-    --secondary-foreground: 40 15% 88%;
+    --secondary: 40 35% 65%;
+    --secondary-foreground: 0 0% 11%;
 
-    --muted: 210 18% 22%;
-    --muted-foreground: 40 12% 65%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 75%;
 
-    --accent: 200 15% 40%;
-    --accent-foreground: 40 15% 88%;
+    --accent: 38 42% 62%;
+    --accent-foreground: 0 0% 11%;
 
-    --destructive: 0 35% 50%;
-    --destructive-foreground: 40 15% 88%;
+    --destructive: 0 55% 45%;
+    --destructive-foreground: 0 0% 95%;
 
-    --border: 210 18% 25%;
-    --input: 210 18% 25%;
-    --ring: 210 18% 65%;
+    --border: 0 0% 25%;
+    --input: 0 0% 25%;
+    --ring: 40 45% 58%;
   }
 }
 
