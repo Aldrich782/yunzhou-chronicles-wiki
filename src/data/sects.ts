@@ -8,8 +8,21 @@ export interface Sect {
   rules: string[];
   specialty?: string;
   members?: Character[];
-  mountains?: Mountain[];
+  mountains?: Mountain[]; // 紫霄宗使用
+  divisions?: Division[]; // 其他门派使用
   landmarks?: GeographicLandmark[];
+}
+
+export interface Division {
+  id: string;
+  name: string;
+  description: string;
+  duty: string; // 职能定位
+  responsibilities: string[]; // 主要职责
+  characterTraits: string; // 弟子特征
+  treasureName?: string; // 代表法器名称
+  treasureDescription?: string; // 法器描述
+  characters: Character[];
 }
 
 export interface Character {
@@ -298,36 +311,104 @@ export const yunhanSects: Sect[] = [
       '护送亡魂前往归墟',
       '保持灵魂纯净'
     ],
-    members: [
+    divisions: [
       {
-        id: 'jiyunshan',
-        name: '纪云山',
-        title: '山海轩掌门',
-        sect: '山海轩',
-        description: '山海轩掌门，守护北溟水路的领袖。性格沉稳睿智，深谙魂梦之术，能够与鲲鹏沟通，引导亡魂前往归墟。',
-        specialty: '魂梦之术、鲲鹏沟通',
-        status: '在任',
-        quote: ''
+        id: 'tingchao',
+        name: '听潮阁',
+        description: '门主纪云山所在之地，对外作战与防御核心。类似于紫霄宗的扶光山与长留山的结合体，是山海轩最强的武装力量和行政中枢。',
+        duty: '对外作战与防御核心',
+        responsibilities: [
+          '镇守海疆：负责北溟海岸线的日常巡防，正面抵御和击退来犯的蛟人及海中妖兽',
+          '战术魂术：弟子主修更具攻击性和防御性的魂梦之术，如制造群体幻境结界、以魂力冲击震慑敌人心神',
+          '门派管理：处理山海轩的日常事务、弟子调度以及与外界其他宗门的联络'
+        ],
+        characterTraits: '听潮阁弟子作风务实、坚毅，实战经验丰富。他们的眼神总是带着警惕，因为长期聆听潮声与蛟人的歌唱，他们的听觉异常敏锐，心志也极为坚定。',
+        treasureName: '镇海螺',
+        treasureDescription: '由特殊的海兽骨骼制成，吹响时能发出扰乱心神的次声波，大规模干扰蛟人的歌声攻击。',
+        characters: [
+          {
+            id: 'jiyunshan',
+            name: '纪云山',
+            title: '山海轩掌门·听潮阁阁主',
+            sect: '山海轩·听潮阁',
+            description: '山海轩掌门，守护北溟水路的领袖。性格沉稳睿智，深谙魂梦之术，能够与鲲鹏沟通，引导亡魂前往归墟。',
+            specialty: '魂梦之术、鲲鹏沟通',
+            status: '在任',
+            quote: ''
+          }
+        ]
       },
       {
-        id: 'luyunzhao',
-        name: '陆云昭',
-        title: '山海轩亲传弟子',
-        sect: '山海轩',
-        description: '纪云山的亲传弟子，性格沉稳可靠。擅长魂梦之术，能够感知灵魂波动，是山海轩年轻一代的佼佼者。',
-        specialty: '魂梦之术',
-        status: '在修',
-        quote: ''
+        id: 'rumengtai',
+        name: '入梦台',
+        description: '副门主贺明朝所在之地，魂梦研究与疗愈中心。此地是山海轩魂梦之术的根基与知识宝库，氛围最为宁静与神秘。',
+        duty: '魂梦研究与疗愈中心',
+        responsibilities: [
+          '魂术研习：钻研和传承最高深、最古老的魂梦秘法，包括进入他人深层梦境、追溯灵魂记忆、修补受损识海等',
+          '弟子疗愈：为在与蛟人战斗中识海受损的同门提供治疗和安抚',
+          '情报破译：通过捕获的蛟人或特殊梦境，解析其意图和弱点，为听潮阁提供情报支持'
+        ],
+        characterTraits: '入梦台的弟子气质空灵，不喜言语，更善于通过灵魂波动进行交流。他们对梦境的理解远超常人，但也因此，部分弟子在现实与梦境的边界上显得有些模糊。',
+        treasureName: '引梦灯',
+        treasureDescription: '一种可以稳定梦境通道，引导施术者安全进入目标梦境的灵灯，灯芯燃烧的是安神定魂的特殊香料。',
+        characters: [
+          {
+            id: 'hemingchao',
+            name: '贺明朝',
+            title: '山海轩副门主·入梦台台主',
+            sect: '山海轩·入梦台',
+            description: '入梦台台主，精通魂梦秘法。性格沉静，常年沉浸在梦境研究中，对灵魂和梦境有着独到的见解。',
+            specialty: '魂梦秘法、灵魂修复',
+            status: '在任',
+            quote: ''
+          },
+          {
+            id: 'luyunzhao',
+            name: '陆云昭',
+            title: '入梦台弟子',
+            sect: '山海轩·入梦台',
+            description: '性格沉稳可靠。擅长魂梦之术，能够感知灵魂波动，是山海轩年轻一代的佼佼者。',
+            specialty: '魂梦之术',
+            status: '在修',
+            quote: ''
+          }
+        ]
       },
       {
-        id: 'luyunyao',
-        name: '陆云遥',
-        title: '山海轩亲传弟子',
-        sect: '山海轩',
-        description: '纪云山的亲传弟子，性格跳脱活泼，与师兄陆云昭形成鲜明对比。虽然性格活泼，但在魂梦之术上天赋异禀。',
-        specialty: '魂梦之术、梦铃操控',
-        status: '在修',
-        quote: ''
+        id: 'guanxinglou',
+        name: '观星楼',
+        description: '越溪春所在之地，信息预警与后勤枢纽。他们是山海轩的"天眼"和"工坊"，负责预知风险和提供装备支持。',
+        duty: '信息预警与后勤枢纽',
+        responsibilities: [
+          '星象占卜：通过观察北溟上空的星辰轨迹，预测风暴、海啸的到来，以及蛟人族群的大规模活动周期',
+          '法器锻造：门派核心法器"梦铃"的唯一制造与改良场所。研究如何将星辰之力与魂力更好地结合，提升梦铃的效能',
+          '资源管理：负责门派的资源采集与分配，确保听潮阁的战备与入梦台的研究都能顺利进行'
+        ],
+        characterTraits: '观星楼的弟子兼具修士的灵性与工匠的严谨。他们对数字和阵法极为敏感，常常昼伏夜出，在星光最盛之时进行工作。',
+        treasureName: '梦铃',
+        treasureDescription: '山海轩弟子的标配法器，由观星楼统一制作。摇动时能发出清心凝神的音波，抵御心神侵扰，同时也是施展魂梦之术的重要媒介。',
+        characters: [
+          {
+            id: 'yuexichun',
+            name: '越溪春',
+            title: '观星楼楼主',
+            sect: '山海轩·观星楼',
+            description: '观星楼楼主，精通星象和阵法。性格严谨细致，对法器锻造有着极高的要求。',
+            specialty: '星象占卜、法器锻造',
+            status: '在任',
+            quote: ''
+          },
+          {
+            id: 'luyunyao',
+            name: '陆云遥',
+            title: '观星楼弟子',
+            sect: '山海轩·观星楼',
+            description: '性格跳脱活泼，与师兄陆云昭形成鲜明对比。虽然性格活泼，但在魂梦之术上天赋异禀。',
+            specialty: '魂梦之术、梦铃操控',
+            status: '在修',
+            quote: ''
+          }
+        ]
       }
     ],
     landmarks: [
@@ -365,36 +446,68 @@ export const yunhanSects: Sect[] = [
       '楼主身份永为秘密',
       '叛楼者，死'
     ],
-    members: [
+    divisions: [
       {
-        id: 'yingwuming',
-        name: '影无名',
-        title: '半月楼暗部首领',
-        sect: '半月楼',
-        description: '半月楼暗部首领，真实身份成谜。擅长暗杀和易容，据说从未有人见过他的真面目。',
-        specialty: '暗杀术、易容术',
-        status: '在任',
-        quote: ''
+        id: 'mingbu',
+        name: '明部',
+        description: '半月楼的商业情报部门，对外经营各类消息买卖，是修仙界最大的情报交易市场。',
+        duty: '情报收集与交易中心',
+        responsibilities: [
+          '情报收集：在修仙界各地布置眼线，收集各类消息',
+          '情报交易：为客户提供所需情报，明码标价',
+          '商业往来：与各大宗门保持良好关系，维护半月楼的合法形象'
+        ],
+        characterTraits: '明部弟子善于交际，能言善辩，在修仙界中游刃有余。他们往往以商人身份示人，但实则个个都是情报高手。',
+        treasureName: '千里传音符',
+        treasureDescription: '特制的传音符，可跨越千里传递情报，且不会被他人截获。',
+        characters: [
+          {
+            id: 'liuqianmian',
+            name: '柳千面',
+            title: '半月楼明部长老',
+            sect: '半月楼·明部',
+            description: '明部长老，掌管情报网络。擅长易容和伪装，能在一瞬间变换容貌。',
+            specialty: '易容术、情报收集',
+            status: '在任',
+            quote: ''
+          }
+        ]
       },
       {
-        id: 'liuqianmian',
-        name: '柳千面',
-        title: '半月楼明部长老',
-        sect: '半月楼',
-        description: '明部长老，掌管情报网络。擅长易容和伪装，能在一瞬间变换容貌。',
-        specialty: '易容术、情报收集',
-        status: '在任',
-        quote: ''
-      },
-      {
-        id: 'yunying',
-        name: '云影',
-        title: '半月楼弟子',
-        sect: '半月楼',
-        description: '半月楼年轻一代的天才，暗杀技巧高超，追踪能力一流。',
-        specialty: '暗杀术、追踪术',
-        status: '在修',
-        quote: ''
+        id: 'anbu',
+        name: '暗部',
+        description: '半月楼的暗杀部门，专门执行各类暗杀任务。暗部弟子行踪诡秘，出手必杀。',
+        duty: '暗杀与特殊任务执行',
+        responsibilities: [
+          '暗杀任务：接受委托，执行暗杀',
+          '特殊行动：处理一些见不得光的任务',
+          '清理叛徒：追杀背叛半月楼的弟子'
+        ],
+        characterTraits: '暗部弟子冷酷无情，杀人不眨眼。他们常年生活在黑暗中，对杀戮有着病态的执着。',
+        treasureName: '影刃',
+        treasureDescription: '暗部专用的刺杀武器，刀身漆黑，能隐匿气息，一击致命。',
+        characters: [
+          {
+            id: 'yingwuming',
+            name: '影无名',
+            title: '半月楼暗部首领',
+            sect: '半月楼·暗部',
+            description: '半月楼暗部首领，真实身份成谜。擅长暗杀和易容，据说从未有人见过他的真面目。',
+            specialty: '暗杀术、易容术',
+            status: '在任',
+            quote: ''
+          },
+          {
+            id: 'yunying',
+            name: '云影',
+            title: '暗部弟子',
+            sect: '半月楼·暗部',
+            description: '半月楼年轻一代的天才，暗杀技巧高超，追踪能力一流。',
+            specialty: '暗杀术、追踪术',
+            status: '在修',
+            quote: ''
+          }
+        ]
       }
     ],
     landmarks: [
@@ -425,36 +538,68 @@ export const yunhanSects: Sect[] = [
       '医者仁心，救死扶伤',
       '不轻易入世，除非天下大乱'
     ],
-    members: [
+    divisions: [
       {
-        id: 'jialing',
-        name: '迦陵',
-        title: '水云洞天掌门',
-        sect: '水云洞天',
-        description: '水云洞天掌门，精通水系法术和医术。性格如水般温柔，但在大是大非面前坚如磐石。',
-        specialty: '水系法术、水疗医术',
-        status: '在任',
-        quote: ''
+        id: 'bibo',
+        name: '碧波殿',
+        description: '迦陵所在之地，水云洞天的核心。主修水系攻击法术和炼水成兵之术。',
+        duty: '战斗力量与宗门守护',
+        responsibilities: [
+          '水系攻击：研习水系攻击法术，是水云洞天的武力担当',
+          '炼水成兵：将水凝练成各种武器，攻守兼备',
+          '洞天守护：保护水云洞天不被外敌侵扰'
+        ],
+        characterTraits: '碧波殿弟子性格如水，看似柔和实则刚强。他们能在瞬间切换战斗状态，水系法术运用得出神入化。',
+        treasureName: '沧海珠',
+        treasureDescription: '凝聚了大海精华的宝珠，能操控大范围水域，形成强大的水系攻击。',
+        characters: [
+          {
+            id: 'jialing',
+            name: '迦陵',
+            title: '水云洞天掌门·碧波殿殿主',
+            sect: '水云洞天·碧波殿',
+            description: '水云洞天掌门，精通水系法术和医术。性格如水般温柔，但在大是大非面前坚如磐石。',
+            specialty: '水系法术、水疗医术',
+            status: '在任',
+            quote: ''
+          },
+          {
+            id: 'shuiyue',
+            name: '水月',
+            title: '碧波殿长老',
+            sect: '水云洞天·碧波殿',
+            description: '迦陵的师姐，擅长水系攻击法术。性格温和但战斗时凌厉无比。',
+            specialty: '水系攻击、炼水成兵',
+            status: '在任',
+            quote: ''
+          }
+        ]
       },
       {
-        id: 'shuiyue',
-        name: '水月',
-        title: '水云洞天长老',
-        sect: '水云洞天',
-        description: '迦陵的师姐，擅长水系攻击法术。性格温和但战斗时凌厉无比。',
-        specialty: '水系攻击、炼水成兵',
-        status: '在任',
-        quote: ''
-      },
-      {
-        id: 'bingxin',
-        name: '冰心',
-        title: '水云洞天弟子',
-        sect: '水云洞天',
-        description: '水云洞天年轻弟子，天赋异禀，尤其擅长冰系法术。',
-        specialty: '冰系法术',
-        status: '在修',
-        quote: ''
+        id: 'qingquan',
+        name: '清泉阁',
+        description: '水云洞天的医疗中心，专注于水疗医术的研究和实践。',
+        duty: '医疗救治与疗愈',
+        responsibilities: [
+          '水疗医术：利用水的特性疗伤治病，效果显著',
+          '炼制灵药：用水域中的灵材炼制各种疗伤丹药',
+          '救死扶伤：为修仙界受伤的修士提供治疗'
+        ],
+        characterTraits: '清泉阁弟子性格温和善良，医者仁心。他们对水的理解极深，能用水治愈各种疑难杂症。',
+        treasureName: '甘霖瓶',
+        treasureDescription: '能凝聚天地灵气和水气，制造出具有疗愈效果的甘霖之水。',
+        characters: [
+          {
+            id: 'bingxin',
+            name: '冰心',
+            title: '清泉阁弟子',
+            sect: '水云洞天·清泉阁',
+            description: '水云洞天年轻弟子，天赋异禀，尤其擅长冰系法术和水疗。',
+            specialty: '冰系法术、水疗医术',
+            status: '在修',
+            quote: ''
+          }
+        ]
       }
     ],
     landmarks: [
@@ -486,36 +631,68 @@ export const yunhanSects: Sect[] = [
       '戒杀生，除恶魔',
       '六根清净，心无旁骛'
     ],
-    members: [
+    divisions: [
       {
-        id: 'huaikong',
-        name: '怀空大师',
-        title: '天音寺主持',
-        sect: '天音寺',
-        description: '天音寺主持，佛法高深，音律造诣极高。能以梵音度化人心，也能以音律降妖除魔。',
-        specialty: '佛门音律、禅修',
-        status: '在任',
-        quote: ''
+        id: 'daxiong',
+        name: '大雄宝殿',
+        description: '怀空大师所在，天音寺的核心。主修佛法禅修和音律之道。',
+        duty: '佛法传承与禅修中心',
+        responsibilities: [
+          '佛法传承：传授佛门心法和音律之术',
+          '禅修指导：指导弟子禅修，提升心境',
+          '普度众生：为迷失的生灵指引方向'
+        ],
+        characterTraits: '大雄宝殿僧人佛法精深，心境平和。他们能用梵音度化人心，也能识破心魔。',
+        treasureName: '禅杖',
+        treasureDescription: '天音寺传承的法器，杖身刻有佛经，能发出安神的梵音。',
+        characters: [
+          {
+            id: 'huaikong',
+            name: '怀空大师',
+            title: '天音寺主持',
+            sect: '天音寺·大雄宝殿',
+            description: '天音寺主持，佛法高深，音律造诣极高。能以梵音度化人心，也能以音律降妖除魔。',
+            specialty: '佛门音律、禅修',
+            status: '在任',
+            quote: ''
+          },
+          {
+            id: 'kongxuan',
+            name: '空玄',
+            title: '大雄宝殿弟子',
+            sect: '天音寺·大雄宝殿',
+            description: '天音寺年轻一代的佼佼者，虽年轻但佛法精深，音律造诣极高。',
+            specialty: '佛门音律',
+            status: '在修',
+            quote: ''
+          }
+        ]
       },
       {
-        id: 'huijing',
-        name: '慧静',
-        title: '天音寺首座',
-        sect: '天音寺',
-        description: '天音寺首座，怀空大师的师弟。精通禅修和梵音攻击，是天音寺的武力担当。',
-        specialty: '梵音攻击、禅修',
-        status: '在任',
-        quote: ''
-      },
-      {
-        id: 'kongxuan',
-        name: '空玄',
-        title: '天音寺弟子',
-        sect: '天音寺',
-        description: '天音寺年轻一代的佼佼者，虽年轻但佛法精深，音律造诣极高。',
-        specialty: '佛门音律',
-        status: '在修',
-        quote: ''
+        id: 'luohan',
+        name: '罗汉堂',
+        description: '天音寺的武力部门，慧静首座所在。负责降妖除魔，保护佛门清净。',
+        duty: '降妖除魔与寺院守护',
+        responsibilities: [
+          '降妖除魔：用梵音攻击降服妖魔',
+          '护寺守山：保护天音寺不受侵扰',
+          '行走人间：除恶扬善，维护正道'
+        ],
+        characterTraits: '罗汉堂僧人武力高强，虽修佛法但不乏战斗经验。他们能在瞬间从禅修状态切换到战斗状态。',
+        treasureName: '降魔杵',
+        treasureDescription: '专门用于降妖除魔的法器，杵身金光闪闪，能发出震慑妖魔的梵音。',
+        characters: [
+          {
+            id: 'huijing',
+            name: '慧静',
+            title: '天音寺首座·罗汉堂首座',
+            sect: '天音寺·罗汉堂',
+            description: '天音寺首座，怀空大师的师弟。精通禅修和梵音攻击，是天音寺的武力担当。',
+            specialty: '梵音攻击、禅修',
+            status: '在任',
+            quote: ''
+          }
+        ]
       }
     ],
     landmarks: [
@@ -591,26 +768,83 @@ export const rongzhouSects: Sect[] = [
       '剑心通明，不染尘埃',
       '生死看淡，一剑破之'
     ],
-    members: [
+    divisions: [
       {
-        id: 'yunfuyue',
-        name: '云负月',
-        title: '长生门掌门',
-        sect: '长生门',
-        description: '长生门掌门，剑道修为深不可测。性格冷峻，剑意如月光般清冷锐利。',
-        specialty: '剑道、剑意',
-        status: '在任',
-        quote: ''
+        id: 'zhujiange',
+        name: '铸剑阁',
+        description: '长生门的剑器锻造中心，负责锻造和修复各类神剑。',
+        duty: '剑器锻造与养护',
+        responsibilities: [
+          '铸造神剑：为门派弟子锻造本命之剑',
+          '剑器养护：维护和修复损坏的神剑',
+          '研究剑道：研究剑器与剑道的结合之道'
+        ],
+        characterTraits: '铸剑阁弟子对剑有着狂热的热爱，能听懂剑的声音。他们既是铸剑师，也是剑修。',
+        treasureName: '铸剑炉',
+        treasureDescription: '长生门传承的神炉，能融炼天材地宝，铸造绝世神剑。',
+        characters: [
+          {
+            id: 'zhujian-elder',
+            name: '铸剑长老',
+            title: '铸剑阁阁主',
+            sect: '长生门·铸剑阁',
+            description: '长生门资深长老，铸剑大师。一生铸剑无数，门派大部分神剑都出自他手。',
+            specialty: '铸剑、剑道',
+            status: '在任',
+            quote: ''
+          }
+        ]
       },
       {
-        id: 'sifuwei',
-        name: '司抚危',
-        title: '长生门亲传弟子',
-        sect: '长生门',
-        description: '云负月的亲传弟子，天赋极高的剑修。剑法凌厉，深得掌门真传。',
-        specialty: '剑道',
-        status: '在修',
-        quote: ''
+        id: 'wujian',
+        name: '悟剑峰',
+        description: '云负月所在，长生门的核心。主修剑道和剑意，是长生门最强剑修聚集地。',
+        duty: '剑道传承与修炼',
+        responsibilities: [
+          '剑道传承：传授长生门剑道心法',
+          '剑意修炼：指导弟子领悟剑意',
+          '以剑入道：追求剑道的至高境界'
+        ],
+        characterTraits: '悟剑峰剑修剑心通明，剑意凌厉。他们将剑视为生命，能与剑心意相通。',
+        treasureName: '长生剑',
+        treasureDescription: '长生门传承之剑，蕴含无上剑意，只有掌门才能执掌。',
+        characters: [
+          {
+            id: 'yunfuyue',
+            name: '云负月',
+            title: '长生门掌门·悟剑峰峰主',
+            sect: '长生门·悟剑峰',
+            description: '长生门掌门，剑道修为深不可测。性格冷峻，剑意如月光般清冷锐利。',
+            specialty: '剑道、剑意',
+            status: '在任',
+            quote: ''
+          },
+          {
+            id: 'sifuwei',
+            name: '司抚危',
+            title: '悟剑峰亲传弟子',
+            sect: '长生门·悟剑峰',
+            description: '云负月的亲传弟子，天赋极高的剑修。剑法凌厉，深得掌门真传。',
+            specialty: '剑道',
+            status: '在修',
+            quote: ''
+          }
+        ]
+      },
+      {
+        id: 'jianchi',
+        name: '剑池',
+        description: '长生门的试炼之地，也是剑修悟道的圣地。',
+        duty: '剑道试炼与悟道',
+        responsibilities: [
+          '试炼弟子：通过剑池试炼考验弟子',
+          '剑道悟道：在剑气中感悟剑道真谛',
+          '收集神剑：池中藏有历代前辈遗留的神剑'
+        ],
+        characterTraits: '能通过剑池试炼的都是天才剑修，他们在剑气的洗礼下剑心更加坚定。',
+        treasureName: '剑池剑气',
+        treasureDescription: '剑池中无数神剑散发的剑气凝聚而成，能淬炼剑心，提升剑道境界。',
+        characters: []
       }
     ],
     landmarks: [
@@ -642,46 +876,93 @@ export const rongzhouSects: Sect[] = [
       '琴心不乱，则天下不乱',
       '神魂之术，不可外传'
     ],
-    members: [
+    divisions: [
       {
-        id: 'linjia-master',
-        name: '林家家主',
-        title: '问琴仙宫宫主',
-        sect: '问琴仙宫',
-        description: '问琴仙宫现任宫主，林家家主。自从林家掌握了神魂修复之术，林家便在仙宫中占据主导地位。',
-        specialty: '琴音疗愈、神魂修复',
-        status: '在任',
-        quote: ''
+        id: 'linfeng',
+        name: '林家府',
+        description: '林家家主所在，问琴仙宫的实权中心。掌握神魂修复秘术。',
+        duty: '神魂修复与宫务管理',
+        responsibilities: [
+          '神魂修复：为识海受损的修士修复神魂',
+          '宫务管理：掌管仙宫日常事务',
+          '秘术传承：传承林家神魂修复之术'
+        ],
+        characterTraits: '林家弟子天赋异禀，精通神魂之术。他们性格温和但在家族利益面前寸步不让。',
+        treasureName: '养魂琴',
+        treasureDescription: '林家传承的神琴，琴音能安抚和修复受损的神魂。',
+        characters: [
+          {
+            id: 'linjia-master',
+            name: '林家家主',
+            title: '问琴仙宫宫主·林家家主',
+            sect: '问琴仙宫·林家府',
+            description: '问琴仙宫现任宫主，林家家主。自从林家掌握了神魂修复之术，林家便在仙宫中占据主导地位。',
+            specialty: '琴音疗愈、神魂修复',
+            status: '在任',
+            quote: ''
+          },
+          {
+            id: 'linqingyin',
+            name: '林清音',
+            title: '林家长老',
+            sect: '问琴仙宫·林家府',
+            description: '林家长老，精通神魂修复术。性格温柔，医者仁心，但在家族利益面前毫不退让。',
+            specialty: '神魂修复、琴音疗愈',
+            status: '在任',
+            quote: ''
+          },
+          {
+            id: 'linmoyun',
+            name: '林墨云',
+            title: '林家弟子',
+            sect: '问琴仙宫·林家府',
+            description: '林家年轻一代的天才，天赋异禀，深得林家家主器重。',
+            specialty: '琴音疗愈',
+            status: '在修',
+            quote: ''
+          }
+        ]
       },
       {
-        id: 'linqingyin',
-        name: '林清音',
-        title: '林家长老',
-        sect: '问琴仙宫',
-        description: '林家长老，精通神魂修复术。性格温柔，医者仁心，但在家族利益面前毫不退让。',
-        specialty: '神魂修复、琴音疗愈',
-        status: '在任',
-        quote: ''
+        id: 'xunfeng',
+        name: '荀家府',
+        description: '荀家所在，虽地位不如林家，但在琴艺上有独到之处。',
+        duty: '琴音攻击与辅助',
+        responsibilities: [
+          '琴音攻击：研习琴音的攻击之法',
+          '辅助术法：用琴音辅助战斗',
+          '琴艺传承：传承荀家琴道'
+        ],
+        characterTraits: '荀家弟子琴艺高超，尤其擅长琴音攻击。他们对林家的地位不甘，时刻想要证明自己。',
+        treasureName: '鸣弦琴',
+        treasureDescription: '荀家传承的战琴，琴音凌厉，能化作音波攻击敌人。',
+        characters: [
+          {
+            id: 'xunhuaiyue',
+            name: '荀怀月',
+            title: '荀家长老',
+            sect: '问琴仙宫·荀家府',
+            description: '荀家长老，虽然荀家在宫中地位不如林家，但荀怀月的琴艺在仙宫中首屈一指。',
+            specialty: '琴音攻击、辅助术法',
+            status: '在任',
+            quote: ''
+          }
+        ]
       },
       {
-        id: 'xunhuaiyue',
-        name: '荀怀月',
-        title: '荀家长老',
-        sect: '问琴仙宫',
-        description: '荀家长老，虽然荀家在宫中地位不如林家，但荀怀月的琴艺在仙宫中首屈一指。',
-        specialty: '琴音攻击、辅助术法',
-        status: '在任',
-        quote: ''
-      },
-      {
-        id: 'linmoyun',
-        name: '林墨云',
-        title: '林家弟子',
-        sect: '问琴仙宫',
-        description: '林家年轻一代的天才，天赋异禀，深得林家家主器重。',
-        specialty: '琴音疗愈',
-        status: '在修',
-        quote: ''
+        id: 'hunxiu',
+        name: '魂修殿',
+        description: '林家掌控的神魂修复圣地，外人不得入内。',
+        duty: '神魂修复秘术研究',
+        responsibilities: [
+          '研究神魂：深入研究神魂修复之法',
+          '秘术保密：确保神魂修复术不外泄',
+          '治疗重症：治疗识海严重受损的修士'
+        ],
+        characterTraits: '能进入魂修殿的都是林家核心弟子，他们对神魂的理解达到了极高境界。',
+        treasureName: '魂灯',
+        treasureDescription: '能照亮神魂深处的灵灯，是神魂修复的关键法器。',
+        characters: []
       }
     ],
     landmarks: [

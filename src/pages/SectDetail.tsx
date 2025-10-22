@@ -85,7 +85,7 @@ const SectDetail = () => {
             </div>
           </Card>
 
-          {/* 门派结构 - 六山峰或掌门/地理位置/门规 */}
+          {/* 门派结构 - 六山峰或各分支 */}
           {isZixiao && sect.mountains ? (
             <>
               {/* 紫霄宗六山峰 */}
@@ -112,6 +112,46 @@ const SectDetail = () => {
                           {mountain.description}
                         </p>
                         <div className="mt-4 text-sm text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                          查看详情 →
+                        </div>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+              </Card>
+            </>
+          ) : sect.divisions && sect.divisions.length > 0 ? (
+            <>
+              {/* 其他门派的分支结构 */}
+              <Card className={`p-8 bg-card/50 backdrop-blur-sm ${
+                isShanhaixuan ? 'border-cyan-500/30' : 'border-border/50'
+              } shadow-card`}>
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className={`text-2xl font-bold flex items-center gap-2 ${
+                    isShanhaixuan ? 'text-cyan-400' : ''
+                  }`}>
+                    <MountainIcon className={`w-6 h-6 ${isShanhaixuan ? 'text-cyan-400' : 'text-primary'}`} />
+                    门派结构
+                  </h2>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {sect.divisions.map((division) => (
+                    <Link key={division.id} to={`/division/${sect.id}/${division.id}`}>
+                      <Card className={`group p-6 bg-gradient-to-br ${
+                        isShanhaixuan ? 'from-cyan-500/5 to-blue-500/5 border-cyan-500/30 hover:border-blue-500/50' :
+                        'from-primary/5 to-accent/5 border-border/30 hover:border-primary/50'
+                      } transition-all duration-300 hover:shadow-soft hover:-translate-y-1 cursor-pointer`}>
+                        <h3 className={`text-xl font-semibold mb-2 group-hover:${
+                          isShanhaixuan ? 'text-blue-400' : 'text-primary'
+                        } transition-colors`}>
+                          {division.name}
+                        </h3>
+                        <p className="text-sm text-muted-foreground line-clamp-2">
+                          {division.description}
+                        </p>
+                        <div className={`mt-4 text-sm opacity-0 group-hover:opacity-100 transition-opacity ${
+                          isShanhaixuan ? 'text-blue-400' : 'text-primary'
+                        }`}>
                           查看详情 →
                         </div>
                       </Card>
