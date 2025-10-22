@@ -22,7 +22,7 @@ interface CommentSectionProps {
 
 // Validation schema for comment input
 const commentSchema = z.object({
-  author: z.string()
+  author_name: z.string()
     .trim()
     .min(1, '名字不能为空')
     .max(50, '名字不能超过50个字符'),
@@ -35,18 +35,37 @@ const commentSchema = z.object({
 export const CommentSection = ({ pageType, pageId }: CommentSectionProps) => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
-  const [authorName, setAuthorName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [currentUserName, setCurrentUserName] = useState('');
+  const [userId] = useState(() => {
+    let id = localStorage.getItem('chat_user_id');
+    if (!id) {
+      id = crypto.randomUUID();
+      localStorage.setItem('chat_user_id', id);
+    }
+    return id;
+  });
+  const [userProfile, setUserProfile] = useState({ nickname: '访客', avatar_url: null as string | null });
   const { toast } = useToast();
 
-  // Load current user's name from localStorage
+  // Load user profile
   useEffect(() => {
-    const savedName = localStorage.getItem('commentAuthorName');
-    if (savedName) {
-      setCurrentUserName(savedName);
-    }
-  }, []);
+    const loadProfile = async () => {
+      const { data } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('user_id', userId)
+        .single();
+
+      if (data) {
+        setUserProfile({ nickname: data.nickname, avatar_url: data.avatar_url });
+      } else {
+        await supabase
+          .from('profiles')
+          .insert({ user_id: userId, nickname: '访客' });
+      }
+    };
+    loadProfile();
+  }, [userId]);
 
   // Load comments
   useEffect(() => {
@@ -90,7 +109,7 @@ export const CommentSection = ({ pageType, pageId }: CommentSectionProps) => {
   const handleSubmit = async () => {
     // Validate input with zod schema
     const result = commentSchema.safeParse({
-      author: authorName,
+      author_name: userProfile.nickname,
       content: newComment
     });
 
@@ -108,7 +127,7 @@ export const CommentSection = ({ pageType, pageId }: CommentSectionProps) => {
     const { error } = await supabase.from('comments').insert({
       page_type: pageType,
       page_id: pageId,
-      author: result.data.author,
+      author: result.data.author_name,
       content: result.data.content,
     });
 
@@ -121,22 +140,17 @@ export const CommentSection = ({ pageType, pageId }: CommentSectionProps) => {
         variant: 'destructive',
       });
     } else {
-      // Save author name to localStorage
-      localStorage.setItem('commentAuthorName', result.data.author);
-      setCurrentUserName(result.data.author);
-      
       toast({
         title: '评论成功',
         description: '您的评论已发布',
       });
       setNewComment('');
-      setAuthorName('');
     }
   };
 
   const handleDelete = async (commentId: string, commentAuthor: string) => {
     // Check if user can delete this comment
-    if (commentAuthor !== currentUserName) {
+    if (commentAuthor !== userProfile.nickname) {
       toast({
         title: '无法删除',
         description: '您只能删除自己的评论',
@@ -188,13 +202,9 @@ export const CommentSection = ({ pageType, pageId }: CommentSectionProps) => {
 
       {/* 发表评论 */}
       <div className="space-y-4 mb-8">
-        <Input
-          placeholder="您的名字"
-          value={authorName}
-          onChange={(e) => { const v = e.target.value; setAuthorName(v); setCurrentUserName(v); }}
-          className="bg-background/50"
-          maxLength={50}
-        />
+        <div className="text-sm text-muted-foreground mb-2">
+          当前用户：<span className="font-medium text-foreground">{userProfile.nickname}</span>
+        </div>
         <Textarea
           placeholder="写下您的评论..."
           value={newComment}
@@ -227,7 +237,7 @@ export const CommentSection = ({ pageType, pageId }: CommentSectionProps) => {
                   <span className="text-xs text-muted-foreground">
                     {formatTime(comment.created_at)}
                   </span>
-                  {comment.author === currentUserName && (
+                  {comment.author === userProfile.nickname && (
                     <Button
                       variant="ghost"
                       size="sm"
