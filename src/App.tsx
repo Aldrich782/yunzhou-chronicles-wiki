@@ -18,6 +18,7 @@ import CharacterDetail from "./pages/CharacterDetail";
 import Characters from "./pages/Characters";
 import LandmarkDetail from "./pages/LandmarkDetail";
 import Illustrations from "./pages/Illustrations";
+import SectIllustrations from "./pages/SectIllustrations";
 import History from "./pages/History";
 import Bestiary from "./pages/Bestiary";
 import NotFound from "./pages/NotFound";
@@ -46,6 +47,7 @@ const App = () => {
             <Route path="/characters" element={<Characters />} />
             <Route path="/landmark/:id" element={<LandmarkDetail />} />
             <Route path="/illustrations" element={<Illustrations />} />
+            <Route path="/illustrations/sect/:sectId" element={<SectIllustrations />} />
             <Route path="/history" element={<History />} />
             <Route path="/bestiary" element={<Bestiary />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

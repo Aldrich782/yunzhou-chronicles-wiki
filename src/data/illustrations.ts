@@ -1,5 +1,12 @@
 import liFuguangImg from '@/assets/illustrations/li-fuguang.png';
 import siHuiImg from '@/assets/illustrations/si-hui.png';
+import yuanXiaoqiangImg from '@/assets/illustrations/yuan-xiaoqiang.png';
+import xiWeiImg from '@/assets/illustrations/xi-wei.png';
+import daiYuehuaiImg from '@/assets/illustrations/dai-yuehuai.png';
+import xiKongqingImg from '@/assets/illustrations/xi-kongqing.png';
+import liuXuanzhiImg from '@/assets/illustrations/liu-xuanzhi.png';
+import xunYexueImg from '@/assets/illustrations/xun-yexue.png';
+import xieTanyuanImg from '@/assets/illustrations/xie-tanyuan.png';
 
 export interface Illustration {
   id: string;
@@ -7,6 +14,7 @@ export interface Illustration {
   sect: string;
   title?: string;
   image?: string;
+  characterId?: string; // 用于链接到人物详情页
 }
 
 export const zixiaoIllustrations: Illustration[] = [
@@ -16,6 +24,31 @@ export const zixiaoIllustrations: Illustration[] = [
     sect: '紫霄宗',
     title: '掌门',
     image: liFuguangImg,
+    characterId: 'lifuguang',
+  },
+  {
+    id: 'dai-yuehuai',
+    name: '戴月槐',
+    sect: '紫霄宗',
+    title: '大长老',
+    image: daiYuehuaiImg,
+    characterId: 'daiyuehuai',
+  },
+  {
+    id: 'xi-wei',
+    name: '席微',
+    sect: '紫霄宗',
+    title: '二长老',
+    image: xiWeiImg,
+    characterId: 'xiwei',
+  },
+  {
+    id: 'xi-kongqing',
+    name: '席空青',
+    sect: '紫霄宗',
+    title: '四长老·医圣',
+    image: xiKongqingImg,
+    characterId: 'xikongqing',
   },
   {
     id: 'si-hui',
@@ -23,30 +56,52 @@ export const zixiaoIllustrations: Illustration[] = [
     sect: '紫霄宗',
     title: '长留山弟子',
     image: siHuiImg,
-  },
-  {
-    id: 'dai-yuehuai',
-    name: '戴月槐',
-    sect: '紫霄宗',
-    title: '大长老',
-  },
-  {
-    id: 'xi-wei',
-    name: '席微',
-    sect: '紫霄宗',
-    title: '二长老',
-  },
-  {
-    id: 'xi-muxiao',
-    name: '席沐逍',
-    sect: '紫霄宗',
-    title: '长留山弟子',
+    characterId: 'si-hui',
   },
   {
     id: 'yuan-xiaoqiang',
     name: '袁霄强',
     sect: '紫霄宗',
     title: '长留山弟子',
+    image: yuanXiaoqiangImg,
+    characterId: 'yuan-xiaoqiang',
+  },
+  {
+    id: 'xi-muxiao',
+    name: '席沐逍',
+    sect: '紫霄宗',
+    title: '长留山弟子',
+    characterId: 'ximuxiao',
+  },
+];
+
+export const jihuozongIllustrations: Illustration[] = [
+  {
+    id: 'liu-xuanzhi',
+    name: '柳玄之',
+    sect: '集火宗',
+    title: '掌门',
+    image: liuXuanzhiImg,
+    characterId: 'liuxuanzhi',
+  },
+];
+
+export const baishalingIllustrations: Illustration[] = [
+  {
+    id: 'xun-yexue',
+    name: '荀夜雪',
+    sect: '白沙岭',
+    title: '领主',
+    image: xunYexueImg,
+    characterId: 'xunyexue',
+  },
+  {
+    id: 'xie-tanyuan',
+    name: '谢檀远',
+    sect: '白沙岭',
+    title: '少领主',
+    image: xieTanyuanImg,
+    characterId: 'xietanyuan',
   },
 ];
 

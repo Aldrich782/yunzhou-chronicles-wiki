@@ -16,7 +16,7 @@ interface Comment {
 }
 
 interface CommentSectionProps {
-  pageType: 'sect' | 'landmark' | 'mountain';
+  pageType: 'sect' | 'landmark' | 'mountain' | 'illustrations';
   pageId: string;
 }
 
