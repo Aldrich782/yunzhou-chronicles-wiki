@@ -4,6 +4,15 @@
 
 /* 明朝体字体 */
 @font-face {
+  font-family: 'WenYue GuDian MingChao';
+  src: url('/fonts/WenYue-GuDianMingChaoTi.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 明朝体字体 */
+@font-face {
   font-family: 'MingChao';
   src: url('/fonts/mingchao.otf') format('opentype');
   font-weight: normal;

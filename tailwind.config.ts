@@ -14,9 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        'serif': ['MingChao', '"Noto Serif SC"', '"ZCOOL XiaoWei"', 'serif'],
-        'calligraphy': ['"Ma Shan Zheng"', '"ZCOOL XiaoWei"', 'cursive'],
-        'sans': ['"Noto Serif SC"', 'system-ui', 'sans-serif'],
+        'serif': ['WenYue GuDian MingChao', '"Noto Serif SC"', 'serif'],
+        'calligraphy': ['"Ma Shan Zheng"', 'cursive'],
+        'sans': ['"ZCOOL XiaoWei"', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
