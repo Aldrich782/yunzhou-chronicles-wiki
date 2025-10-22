@@ -8,80 +8,83 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Black & Gold Color System */
-    --background: 0 0% 8%;
-    --foreground: 40 45% 85%;
+    /* Light Paper Theme - 宣纸风格 */
+    --background: 40 25% 96%; /* 米白宣纸色 */
+    --foreground: 25 15% 15%; /* 深墨色文字 */
 
-    --card: 0 0% 12%;
-    --card-foreground: 40 45% 85%;
+    --card: 40 35% 98%; /* 白宣纸卡片 */
+    --card-foreground: 25 15% 15%;
 
-    --popover: 0 0% 12%;
-    --popover-foreground: 40 45% 85%;
+    --popover: 40 35% 98%;
+    --popover-foreground: 25 15% 15%;
 
     /* Gold Primary - 琥珀金 */
-    --primary: 40 45% 58%;
-    --primary-foreground: 0 0% 11%;
-    --primary-glow: 40 65% 68%;
+    --primary: 35 70% 45%; /* 深金色 */
+    --primary-foreground: 40 25% 98%;
+    --primary-glow: 35 60% 55%;
 
-    /* Lighter Gold - 月白金 */
-    --secondary: 40 35% 70%;
-    --secondary-foreground: 0 0% 11%;
+    /* Secondary - 古铜色 */
+    --secondary: 30 40% 55%;
+    --secondary-foreground: 40 25% 98%;
 
-    /* Dark Grey - 墨色 */
-    --muted: 0 0% 18%;
-    --muted-foreground: 40 35% 70%;
+    /* Muted - 浅灰 */
+    --muted: 40 15% 88%;
+    --muted-foreground: 25 10% 35%;
 
-    /* Medium Gold - 赤金 */
-    --accent: 38 42% 62%;
-    --accent-foreground: 0 0% 11%;
+    /* Accent - 朱砂红 */
+    --accent: 0 60% 50%;
+    --accent-foreground: 40 25% 98%;
 
     /* Traditional Colors */
-    --cinnabar: 0 80% 55%; /* 朱砂红 */
-    --indigo: 240 50% 45%; /* 靛青 */
-    --bamboo: 150 30% 50%; /* 竹青 */
-    --ink: 0 0% 15%; /* 墨色 */
-    --jade: 160 40% 50%; /* 玉色 */
+    --cinnabar: 0 70% 45%; /* 朱砂红 */
+    --indigo: 220 45% 40%; /* 靛青 */
+    --bamboo: 150 35% 40%; /* 竹青 */
+    --ink: 25 15% 20%; /* 墨色 */
+    --jade: 160 40% 45%; /* 玉色 */
 
-    --destructive: 0 60% 50%;
-    --destructive-foreground: 0 0% 95%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 40 25% 98%;
 
-    --border: 0 0% 25%;
-    --input: 0 0% 20%;
-    --ring: 40 45% 58%;
+    --border: 35 15% 75%; /* 浅金边框 */
+    --input: 40 20% 90%;
+    --ring: 35 70% 45%;
 
     --radius: 0.75rem;
 
     /* Zixiao Purple Theme - 紫霄宗 */
-    --zixiao-primary: 270 60% 65%;
-    --zixiao-secondary: 280 50% 75%;
-    --zixiao-accent: 260 55% 70%;
-    --zixiao-glow: 270 80% 75%;
+    --zixiao-primary: 270 50% 45%;
+    --zixiao-secondary: 280 40% 55%;
+    --zixiao-accent: 260 45% 50%;
+    --zixiao-glow: 270 60% 60%;
 
     /* Shanhaixuan Blue Theme - 山海轩 */
-    --shanhaixuan-primary: 210 80% 55%;
-    --shanhaixuan-secondary: 200 70% 65%;
-    --shanhaixuan-accent: 220 75% 60%;
-    --shanhaixuan-glow: 210 90% 70%;
+    --shanhaixuan-primary: 210 65% 45%;
+    --shanhaixuan-secondary: 200 55% 55%;
+    --shanhaixuan-accent: 220 60% 50%;
+    --shanhaixuan-glow: 210 70% 60%;
 
     /* Rich Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(40 45% 58%) 0%, hsl(38 42% 62%) 100%);
-    --gradient-dark: linear-gradient(135deg, hsl(0 0% 11%) 0%, hsl(0 0% 20%) 100%);
-    --gradient-gold: linear-gradient(135deg, hsl(40 45% 58%) 0%, hsl(40 35% 70%) 100%);
-    --gradient-ink: linear-gradient(180deg, hsl(0 0% 8%) 0%, hsl(0 0% 15%) 100%);
-    --gradient-cinnabar: linear-gradient(135deg, hsl(0 80% 55%) 0%, hsl(20 70% 50%) 100%);
-    --gradient-zixiao: linear-gradient(135deg, hsl(270 60% 65%) 0%, hsl(40 45% 58%) 100%);
-    --gradient-shanhaixuan: linear-gradient(135deg, hsl(210 80% 55%) 0%, hsl(180 70% 60%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(35 70% 45%) 0%, hsl(30 65% 50%) 100%);
+    --gradient-light: linear-gradient(135deg, hsl(40 25% 96%) 0%, hsl(40 30% 92%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(35 70% 45%) 0%, hsl(35 60% 55%) 100%);
+    --gradient-paper: linear-gradient(180deg, hsl(40 25% 96%) 0%, hsl(40 20% 94%) 100%);
+    --gradient-cinnabar: linear-gradient(135deg, hsl(0 70% 45%) 0%, hsl(20 65% 50%) 100%);
+    --gradient-zixiao: linear-gradient(135deg, hsl(270 50% 45%) 0%, hsl(35 70% 45%) 100%);
+    --gradient-shanhaixuan: linear-gradient(135deg, hsl(210 65% 45%) 0%, hsl(180 60% 50%) 100%);
     
     /* Elegant Shadows */
-    --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.25);
-    --shadow-card: 0 8px 40px -10px hsl(0 0% 0% / 0.35);
-    --shadow-gold: 0 8px 32px -8px hsl(40 45% 58% / 0.4);
-    --shadow-glow: 0 0 40px hsl(40 65% 68% / 0.3);
-    --shadow-inner: inset 0 2px 8px hsl(0 0% 0% / 0.2);
+    --shadow-soft: 0 2px 12px -2px hsl(35 20% 20% / 0.12);
+    --shadow-card: 0 4px 24px -4px hsl(35 20% 20% / 0.15);
+    --shadow-gold: 0 4px 20px -4px hsl(35 70% 45% / 0.25);
+    --shadow-glow: 0 0 30px hsl(35 60% 55% / 0.2);
+    --shadow-inner: inset 0 1px 3px hsl(35 20% 20% / 0.1);
+    
+    /* Paper Texture */
+    --paper-texture: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
     
     /* Decorative Elements */
-    --ornament-opacity: 0.1;
-    --texture-opacity: 0.03;
+    --ornament-opacity: 0.15;
+    --texture-opacity: 0.05;
   }
 
   .dark {
@@ -123,6 +126,11 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground antialiased;
     font-family: "Noto Serif SC", "ZCOOL XiaoWei", -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", serif;
+    background-image: 
+      var(--paper-texture),
+      radial-gradient(circle at 20% 30%, hsl(40 30% 98%) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, hsl(35 25% 96%) 0%, transparent 50%);
+    background-attachment: fixed;
   }
 
   /* Typography Hierarchy */
@@ -214,8 +222,8 @@ All colors MUST be HSL.
     position: absolute;
     width: 40px;
     height: 40px;
-    border-top: 2px solid hsl(var(--primary) / var(--ornament-opacity));
-    border-left: 2px solid hsl(var(--primary) / var(--ornament-opacity));
+    border-top: 2px solid hsl(var(--primary) / 0.3);
+    border-left: 2px solid hsl(var(--primary) / 0.3);
     top: -1px;
     left: -1px;
   }
@@ -225,10 +233,16 @@ All colors MUST be HSL.
     position: absolute;
     width: 40px;
     height: 40px;
-    border-bottom: 2px solid hsl(var(--primary) / var(--ornament-opacity));
-    border-right: 2px solid hsl(var(--primary) / var(--ornament-opacity));
+    border-bottom: 2px solid hsl(var(--primary) / 0.3);
+    border-right: 2px solid hsl(var(--primary) / 0.3);
     bottom: -1px;
     right: -1px;
+  }
+
+  /* Paper texture effect */
+  .paper-texture {
+    background-image: var(--paper-texture);
+    background-size: 200px 200px;
   }
 
   /* Scroll Effects */
