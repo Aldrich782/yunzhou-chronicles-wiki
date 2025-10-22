@@ -1,9 +1,7 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Map, Image, Scroll, BookMarked, Sparkles, User } from 'lucide-react';
-import { PasswordGate } from '@/components/PasswordGate';
 
 const sections = [
   {
@@ -41,12 +39,6 @@ const sections = [
 ];
 
 const Index = () => {
-  const [hasAccess, setHasAccess] = useState(false);
-
-  if (!hasAccess) {
-    return <PasswordGate onSuccess={() => setHasAccess(true)} />;
-  }
-
   return (
     <div className="min-h-screen relative overflow-hidden page-transition">
       {/* Paper Background with Ink Wash Effect */}
