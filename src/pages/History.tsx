@@ -184,7 +184,7 @@ const History = () => {
           </Card>
 
           {/* 评论区 */}
-          <CommentSection />
+          <CommentSection pageType="sect" pageId="history" />
         </div>
       </main>
     </div>

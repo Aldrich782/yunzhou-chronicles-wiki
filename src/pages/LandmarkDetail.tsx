@@ -146,7 +146,7 @@ const LandmarkDetail = () => {
           )}
 
           {/* 评论区 */}
-          <CommentSection />
+          <CommentSection pageType="landmark" pageId={id || ''} />
         </div>
       </main>
     </div>

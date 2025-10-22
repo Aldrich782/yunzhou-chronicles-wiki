@@ -117,7 +117,7 @@ const CharacterDetail = () => {
           </Card>
 
           {/* 评论区 */}
-          <CommentSection />
+          <CommentSection pageType="sect" pageId={`character-${id}`} />
         </div>
       </main>
     </div>

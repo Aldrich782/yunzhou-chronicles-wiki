@@ -67,39 +67,79 @@ const MountainDetail = () => {
                 暂无人物信息
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {mountain.characters.map((character) => (
-                  <Link key={character.id} to={`/character/${character.id}`}>
-                    <Card className="group p-6 bg-gradient-to-br from-primary/5 to-accent/5 border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-soft hover:-translate-y-1 cursor-pointer">
-                      {/* 头像占位 */}
-                      <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 mx-auto mb-4 flex items-center justify-center">
-                        <User className="w-12 h-12 text-primary/40" />
-                      </div>
-                      
-                      <div className="text-center space-y-2">
-                        <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
-                          {character.name}
-                        </h3>
-                        <p className="text-sm text-muted-foreground">
-                          {character.title}
-                        </p>
-                        <p className="text-sm text-muted-foreground line-clamp-2 pt-2">
-                          {character.description}
-                        </p>
-                      </div>
+              <div className="space-y-8">
+                {/* 长老（第一个角色） */}
+                {mountain.characters[0] && (
+                  <div className="flex flex-col items-center">
+                    <Link key={mountain.characters[0].id} to={`/character/${mountain.characters[0].id}`} className="w-full max-w-2xl">
+                      <Card className="group p-8 bg-gradient-to-br from-primary/10 to-accent/10 border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-card cursor-pointer">
+                        {/* 长老头像 - 大尺寸 */}
+                        <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 mx-auto mb-6 flex items-center justify-center">
+                          <User className="w-16 h-16 text-primary/50" />
+                        </div>
+                        
+                        <div className="text-center space-y-3">
+                          <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">
+                            {mountain.characters[0].name}
+                          </h3>
+                          <p className="text-base text-primary font-semibold">
+                            {mountain.characters[0].title}
+                          </p>
+                          <p className="text-sm text-muted-foreground leading-relaxed pt-2">
+                            {mountain.characters[0].description}
+                          </p>
+                          {mountain.characters[0].specialty && (
+                            <p className="text-sm text-primary/80 pt-2">
+                              专长：{mountain.characters[0].specialty}
+                            </p>
+                          )}
+                        </div>
 
-                      <div className="mt-4 text-center text-sm text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-                        查看详情 →
+                        <div className="mt-4 text-center text-sm text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                          查看详情 →
+                        </div>
+                      </Card>
+                    </Link>
+
+                    {/* 亲传弟子 - 小尺寸 */}
+                    {mountain.characters.length > 1 && (
+                      <div className="mt-6 w-full">
+                        <h3 className="text-lg font-semibold text-center mb-4 text-muted-foreground">亲传弟子</h3>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                          {mountain.characters.slice(1).map((character) => (
+                            <Link key={character.id} to={`/character/${character.id}`}>
+                              <Card className="group p-4 bg-gradient-to-br from-primary/5 to-accent/5 border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-soft hover:-translate-y-1 cursor-pointer">
+                                {/* 弟子头像 - 小尺寸 */}
+                                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 mx-auto mb-3 flex items-center justify-center">
+                                  <User className="w-8 h-8 text-primary/40" />
+                                </div>
+                                
+                                <div className="text-center space-y-1">
+                                  <h4 className="text-base font-semibold group-hover:text-primary transition-colors">
+                                    {character.name}
+                                  </h4>
+                                  <p className="text-xs text-muted-foreground line-clamp-2">
+                                    {character.specialty || character.title}
+                                  </p>
+                                </div>
+
+                                <div className="mt-2 text-center text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                                  查看详情 →
+                                </div>
+                              </Card>
+                            </Link>
+                          ))}
+                        </div>
                       </div>
-                    </Card>
-                  </Link>
-                ))}
+                    )}
+                  </div>
+                )}
               </div>
             )}
           </Card>
 
           {/* 评论区 */}
-          <CommentSection />
+          <CommentSection pageType="mountain" pageId={id || ''} />
         </div>
       </main>
     </div>

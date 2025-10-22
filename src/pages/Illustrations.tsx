@@ -92,7 +92,7 @@ const Illustrations = () => {
           ))}
 
           {/* 评论区 */}
-          <CommentSection />
+          <CommentSection pageType="sect" pageId="illustrations" />
         </div>
       </main>
     </div>

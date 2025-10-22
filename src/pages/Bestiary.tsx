@@ -142,7 +142,7 @@ const Bestiary = () => {
           </Card>
 
           {/* 评论区 */}
-          <CommentSection />
+          <CommentSection pageType="sect" pageId="bestiary" />
         </div>
       </main>
     </div>
