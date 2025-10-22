@@ -72,24 +72,24 @@ const MountainDetail = () => {
                 {mountain.characters[0] && (
                   <div className="flex flex-col items-center">
                     <Link key={mountain.characters[0].id} to={`/character/${mountain.characters[0].id}`} className="w-full max-w-2xl">
-                      <Card className="group p-8 bg-gradient-to-br from-primary/10 to-accent/10 border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-card cursor-pointer">
-                        {/* 长老头像 - 大尺寸 */}
-                        <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 mx-auto mb-6 flex items-center justify-center">
-                          <User className="w-16 h-16 text-primary/50" />
+                      <Card className="group p-6 bg-gradient-to-br from-primary/10 to-accent/10 border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-card cursor-pointer">
+                        {/* 长老头像 - 1.5倍弟子大小 */}
+                        <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 mx-auto mb-4 flex items-center justify-center">
+                          <User className="w-12 h-12 text-primary/50" />
                         </div>
                         
-                        <div className="text-center space-y-3">
-                          <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">
+                        <div className="text-center space-y-2">
+                          <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
                             {mountain.characters[0].name}
                           </h3>
-                          <p className="text-base text-primary font-semibold">
+                          <p className="text-sm text-primary font-semibold">
                             {mountain.characters[0].title}
                           </p>
                           <p className="text-sm text-muted-foreground leading-relaxed pt-2">
                             {mountain.characters[0].description}
                           </p>
                           {mountain.characters[0].specialty && (
-                            <p className="text-sm text-primary/80 pt-2">
+                            <p className="text-xs text-primary/80 pt-2">
                               专长：{mountain.characters[0].specialty}
                             </p>
                           )}
