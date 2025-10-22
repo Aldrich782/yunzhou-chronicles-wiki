@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { MessageSquare, Send } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { z } from 'zod';
 
 interface Comment {
   id: string;
@@ -18,6 +19,18 @@ interface CommentSectionProps {
   pageType: 'sect' | 'landmark' | 'mountain';
   pageId: string;
 }
+
+// Validation schema for comment input
+const commentSchema = z.object({
+  author: z.string()
+    .trim()
+    .min(1, '名字不能为空')
+    .max(50, '名字不能超过50个字符'),
+  content: z.string()
+    .trim()
+    .min(1, '评论内容不能为空')
+    .max(2000, '评论内容不能超过2000个字符')
+});
 
 export const CommentSection = ({ pageType, pageId }: CommentSectionProps) => {
   const [comments, setComments] = useState<Comment[]>([]);
@@ -66,10 +79,16 @@ export const CommentSection = ({ pageType, pageId }: CommentSectionProps) => {
   };
 
   const handleSubmit = async () => {
-    if (!newComment.trim() || !authorName.trim()) {
+    // Validate input with zod schema
+    const result = commentSchema.safeParse({
+      author: authorName,
+      content: newComment
+    });
+
+    if (!result.success) {
       toast({
-        title: '请填写完整信息',
-        description: '请输入您的名字和评论内容',
+        title: '输入错误',
+        description: result.error.errors[0].message,
         variant: 'destructive',
       });
       return;
@@ -80,8 +99,8 @@ export const CommentSection = ({ pageType, pageId }: CommentSectionProps) => {
     const { error } = await supabase.from('comments').insert({
       page_type: pageType,
       page_id: pageId,
-      author: authorName.trim(),
-      content: newComment.trim(),
+      author: result.data.author,
+      content: result.data.content,
     });
 
     setIsSubmitting(false);
@@ -131,12 +150,14 @@ export const CommentSection = ({ pageType, pageId }: CommentSectionProps) => {
           value={authorName}
           onChange={(e) => setAuthorName(e.target.value)}
           className="bg-background/50"
+          maxLength={50}
         />
         <Textarea
           placeholder="写下您的评论..."
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           className="min-h-[100px] bg-background/50"
+          maxLength={2000}
         />
         <Button
           onClick={handleSubmit}
