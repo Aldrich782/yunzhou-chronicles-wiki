@@ -64,39 +64,44 @@ const App = () => {
               </Button>
             ) : (
               <div className="animate-fade-in">
-                {isMinimized ? (
-                  <Button
-                    onClick={() => setIsMinimized(false)}
-                    size="lg"
-                    className="rounded-full h-14 w-14 shadow-elegant bg-gradient-to-br from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
-                  >
-                    <Music className="w-6 h-6" />
-                  </Button>
-                ) : (
-                  <div className="relative">
-                    <div className="absolute -top-2 -right-2 z-10 flex gap-1">
-                      <Button
-                        onClick={() => setIsMinimized(true)}
-                        size="sm"
-                        variant="ghost"
-                        className="rounded-full h-8 w-8 bg-card/80 backdrop-blur-sm hover:bg-card"
-                        title="最小化"
-                      >
-                        <Minus className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        onClick={() => setShowMusicPlayer(false)}
-                        size="sm"
-                        variant="ghost"
-                        className="rounded-full h-8 w-8 bg-card/80 backdrop-blur-sm hover:bg-card"
-                        title="关闭"
-                      >
-                        <X className="w-4 h-4" />
-                      </Button>
-                    </div>
-                    <MusicPlayer />
+                {/* 最小化时显示的按钮 */}
+                <Button
+                  onClick={() => setIsMinimized(false)}
+                  size="lg"
+                  className={`rounded-full h-14 w-14 shadow-elegant bg-gradient-to-br from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 ${
+                    isMinimized ? 'block' : 'hidden'
+                  }`}
+                >
+                  <Music className="w-6 h-6" />
+                </Button>
+                
+                {/* 播放器面板 - 始终保持挂载 */}
+                <div className={`relative ${isMinimized ? 'hidden' : 'block'}`}>
+                  <div className="absolute -top-2 -right-2 z-10 flex gap-1">
+                    <Button
+                      onClick={() => setIsMinimized(true)}
+                      size="sm"
+                      variant="ghost"
+                      className="rounded-full h-8 w-8 bg-card/80 backdrop-blur-sm hover:bg-card"
+                      title="最小化"
+                    >
+                      <Minus className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        setShowMusicPlayer(false);
+                        setIsMinimized(false);
+                      }}
+                      size="sm"
+                      variant="ghost"
+                      className="rounded-full h-8 w-8 bg-card/80 backdrop-blur-sm hover:bg-card"
+                      title="关闭"
+                    >
+                      <X className="w-4 h-4" />
+                    </Button>
                   </div>
-                )}
+                  <MusicPlayer />
+                </div>
               </div>
             )}
           </div>
