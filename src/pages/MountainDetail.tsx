@@ -70,32 +70,32 @@ const MountainDetail = () => {
               <div className="space-y-8">
                 {/* 长老（第一个角色） */}
                 {mountain.characters[0] && (
-                  <div className="flex flex-col items-center">
-                    <Link key={mountain.characters[0].id} to={`/character/${mountain.characters[0].id}`} className="w-full max-w-2xl">
-                      <Card className="group p-6 bg-gradient-to-br from-primary/10 to-accent/10 border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-card cursor-pointer">
-                        {/* 长老头像 - 1.5倍弟子大小 */}
-                        <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 mx-auto mb-4 flex items-center justify-center">
-                          <User className="w-12 h-12 text-primary/50" />
+                  <div className="flex flex-col items-center mb-6">
+                    <Link key={mountain.characters[0].id} to={`/character/${mountain.characters[0].id}`}>
+                      <Card className="group p-5 bg-gradient-to-br from-primary/10 to-accent/10 border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-soft hover:-translate-y-1 cursor-pointer max-w-sm">
+                        {/* 长老头像 - 稍大于弟子 */}
+                        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 mx-auto mb-3 flex items-center justify-center">
+                          <User className="w-10 h-10 text-primary/50" />
                         </div>
                         
                         <div className="text-center space-y-2">
-                          <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
+                          <h3 className="text-lg font-bold group-hover:text-primary transition-colors">
                             {mountain.characters[0].name}
                           </h3>
                           <p className="text-sm text-primary font-semibold">
                             {mountain.characters[0].title}
                           </p>
-                          <p className="text-sm text-muted-foreground leading-relaxed pt-2">
+                          <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">
                             {mountain.characters[0].description}
                           </p>
                           {mountain.characters[0].specialty && (
-                            <p className="text-xs text-primary/80 pt-2">
+                            <p className="text-xs text-primary/80">
                               专长：{mountain.characters[0].specialty}
                             </p>
                           )}
                         </div>
 
-                        <div className="mt-4 text-center text-sm text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="mt-3 text-center text-xs text-primary opacity-0 group-hover:opacity-100 transition-opacity">
                           查看详情 →
                         </div>
                       </Card>
