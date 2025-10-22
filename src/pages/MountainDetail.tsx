@@ -74,8 +74,16 @@ const MountainDetail = () => {
                     <Link key={mountain.characters[0].id} to={`/character/${mountain.characters[0].id}`}>
                       <Card className="group p-5 bg-gradient-to-br from-primary/10 to-accent/10 border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-soft hover:-translate-y-1 cursor-pointer max-w-sm">
                         {/* 长老头像 - 稍大于弟子 */}
-                        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 mx-auto mb-3 flex items-center justify-center">
-                          <User className="w-10 h-10 text-primary/50" />
+                        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 mx-auto mb-3 flex items-center justify-center overflow-hidden">
+                          {mountain.characters[0].avatar ? (
+                            <img 
+                              src={mountain.characters[0].avatar} 
+                              alt={mountain.characters[0].name}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <User className="w-10 h-10 text-primary/50" />
+                          )}
                         </div>
                         
                         <div className="text-center space-y-2">
@@ -110,8 +118,16 @@ const MountainDetail = () => {
                             <Link key={character.id} to={`/character/${character.id}`}>
                               <Card className="group p-4 bg-gradient-to-br from-primary/5 to-accent/5 border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-soft hover:-translate-y-1 cursor-pointer">
                                 {/* 弟子头像 - 小尺寸 */}
-                                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 mx-auto mb-3 flex items-center justify-center">
-                                  <User className="w-8 h-8 text-primary/40" />
+                                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 mx-auto mb-3 flex items-center justify-center overflow-hidden">
+                                  {character.avatar ? (
+                                    <img 
+                                      src={character.avatar} 
+                                      alt={character.name}
+                                      className="w-full h-full object-cover"
+                                    />
+                                  ) : (
+                                    <User className="w-8 h-8 text-primary/40" />
+                                  )}
                                 </div>
                                 
                                 <div className="text-center space-y-1">

@@ -114,3 +114,19 @@ export const allIllustrations: Illustration[] = [
   ...wenqinxiangongIllustrations,
   ...baiguaiIllustrations,
 ];
+
+// 紫霄宗六山校服立绘
+export interface UniformIllustration {
+  id: string;
+  name: string;
+  image: string;
+}
+
+export const zixiaoUniforms: UniformIllustration[] = [
+  { id: 'changliu', name: '长留山', image: 'https://i.postimg.cc/28FMM6mr/cl.png' },
+  { id: 'qingluan', name: '青鸾山', image: 'https://i.postimg.cc/Qd8w33xJ/ql.png' },
+  { id: 'mingyue', name: '明月山', image: 'https://i.postimg.cc/9QmKhhFr/my.png' },
+  { id: 'baoyuan', name: '抱元峰', image: 'https://i.postimg.cc/HsCF6MqQ/by.png' },
+  { id: 'zhuyu', name: '祝余峰', image: 'https://i.postimg.cc/13vTRjfW/zy.png' },
+  { id: 'fuguang', name: '扶光山', image: 'https://i.postimg.cc/5NqTT01t/fg.png' },
+];

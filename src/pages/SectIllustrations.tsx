@@ -91,7 +91,7 @@ const SectIllustrations = () => {
                   className="group overflow-hidden bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-card cursor-pointer"
                   onClick={() => setSelectedIllustration(illustration)}
                 >
-                  <div className="h-32 sm:h-40 bg-gradient-to-br from-primary/10 via-accent/10 to-secondary/10 flex items-end justify-center overflow-hidden relative">
+                  <div className="h-20 sm:h-24 bg-gradient-to-br from-primary/10 via-accent/10 to-secondary/10 flex items-end justify-center overflow-hidden relative">
                     {illustration.image ? (
                       <img
                         src={illustration.image}
@@ -127,7 +127,7 @@ const SectIllustrations = () => {
               {selectedIllustration && (
                 <div className="relative w-full h-full flex flex-col">
                   {/* 关闭按钮 */}
-                  <DialogClose className="absolute top-4 left-4 z-50 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors">
+                  <DialogClose className="absolute top-4 right-4 z-50 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 transition-colors">
                     <X className="w-5 h-5" />
                   </DialogClose>
 

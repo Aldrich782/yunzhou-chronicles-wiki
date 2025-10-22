@@ -1,10 +1,15 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Image as ImageIcon, Shirt } from 'lucide-react';
+import { ArrowLeft, Image as ImageIcon, Shirt, X } from 'lucide-react';
 import { CommentSection } from '@/components/CommentSection';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { zixiaoUniforms, UniformIllustration } from '@/data/illustrations';
 
 const Illustrations = () => {
+  const [selectedUniform, setSelectedUniform] = useState<UniformIllustration | null>(null);
+
   const sectCategories = [
     {
       id: 'zixiao',
@@ -132,11 +137,23 @@ const Illustrations = () => {
               </p>
             </div>
 
-            <div className="text-center py-8 sm:py-12">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                <Shirt className="w-8 h-8 sm:w-10 sm:h-10 text-primary/40" />
-              </div>
-              <p className="text-sm sm:text-base text-muted-foreground font-serif">敬请期待...</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+              {zixiaoUniforms.map((uniform) => (
+                <Card 
+                  key={uniform.id}
+                  onClick={() => setSelectedUniform(uniform)}
+                  className="group h-full overflow-hidden bg-gradient-to-br from-purple-500/10 to-amber-500/10 backdrop-blur-md border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-card active:scale-95 cursor-pointer"
+                >
+                  <div className="p-4 sm:p-6 flex items-center justify-center h-full min-h-[100px] sm:min-h-[120px]">
+                    <div className="text-center space-y-1 sm:space-y-2">
+                      <h3 className="text-sm sm:text-lg font-calligraphy font-bold text-foreground group-hover:text-primary group-active:text-primary transition-colors">
+                        {uniform.name}
+                      </h3>
+                      <p className="text-[10px] sm:text-xs text-muted-foreground font-serif">校服</p>
+                    </div>
+                  </div>
+                </Card>
+              ))}
             </div>
           </div>
 
@@ -144,6 +161,35 @@ const Illustrations = () => {
           <CommentSection pageType="illustrations" pageId="main" />
         </div>
       </main>
+
+      {/* 校服立绘弹窗 */}
+      <Dialog open={!!selectedUniform} onOpenChange={() => setSelectedUniform(null)}>
+        <DialogContent className="max-w-4xl w-[95vw] h-[90vh] p-0 bg-black/95 border-border/50">
+          <div className="relative w-full h-full flex items-center justify-center">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute top-4 right-4 rounded-full bg-black/50 hover:bg-black/70 text-white z-10"
+              onClick={() => setSelectedUniform(null)}
+            >
+              <X className="w-5 h-5" />
+            </Button>
+            
+            {selectedUniform && (
+              <div className="w-full h-full flex flex-col items-center justify-center p-4">
+                <img
+                  src={selectedUniform.image}
+                  alt={selectedUniform.name}
+                  className="max-w-full max-h-[calc(100%-60px)] object-contain"
+                />
+                <h3 className="text-xl sm:text-2xl font-calligraphy font-bold text-white mt-4">
+                  {selectedUniform.name} 校服
+                </h3>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
