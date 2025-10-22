@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
-import { BookOpen, Map, Image, Scroll, BookMarked } from 'lucide-react';
-import { MusicPlayer } from '@/components/MusicPlayer';
+import { Map, Image, Scroll, BookMarked } from 'lucide-react';
 
 const sections = [
   {
@@ -91,11 +90,6 @@ const Index = () => {
                 </Link>
               );
             })}
-          </div>
-
-          {/* 音乐播放器 */}
-          <div className="max-w-md mx-auto">
-            <MusicPlayer />
           </div>
         </div>
       </main>

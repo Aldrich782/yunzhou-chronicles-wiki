@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MusicPlayer } from "@/components/MusicPlayer";
 import { Button } from "@/components/ui/button";
-import { Music, X, Minimize2 } from "lucide-react";
+import { Music, X, Minus } from "lucide-react";
 import Index from "./pages/Index";
 import Geography from "./pages/Geography";
 import Yunhan from "./pages/Yunhan";
@@ -82,7 +82,7 @@ const App = () => {
                         className="rounded-full h-8 w-8 bg-card/80 backdrop-blur-sm hover:bg-card"
                         title="最小化"
                       >
-                        <Minimize2 className="w-4 h-4" />
+                        <Minus className="w-4 h-4" />
                       </Button>
                       <Button
                         onClick={() => setShowMusicPlayer(false)}
