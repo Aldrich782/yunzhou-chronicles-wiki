@@ -17,7 +17,6 @@ export const PasswordGate = ({ onSuccess }: PasswordGateProps) => {
     e.preventDefault();
     
     if (password === 'mitianmen') {
-      localStorage.setItem('site_access', 'granted');
       onSuccess();
       toast({
         title: "欢迎",
