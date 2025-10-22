@@ -1,11 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
-import { Map, Image, Scroll, BookMarked, Sparkles } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Map, Image, Scroll, BookMarked, Sparkles, User } from 'lucide-react';
 import { PasswordGate } from '@/components/PasswordGate';
-import { MusicPlayer } from '@/components/MusicPlayer';
-import { ChatRoom } from '@/components/ChatRoom';
-import { UserProfile } from '@/components/UserProfile';
 
 const sections = [
   {
@@ -164,15 +162,21 @@ const Index = () => {
               <div className="w-8 sm:w-16 h-[1px] bg-gradient-to-l from-transparent to-primary" />
             </div>
           </div>
+
+          {/* Profile Button */}
+          <div className="mt-8 text-center">
+            <Link to="/profile">
+              <Button
+                variant="outline"
+                className="group hover:bg-primary/10 hover:border-primary/60 transition-all duration-300"
+              >
+                <User className="w-4 h-4 mr-2 group-hover:text-primary transition-colors" />
+                <span className="font-serif">个人中心</span>
+              </Button>
+            </Link>
+          </div>
         </div>
       </main>
-
-      {/* Fixed Components */}
-      <div className="fixed bottom-4 right-4 flex flex-col gap-3 z-50">
-        <MusicPlayer />
-        <ChatRoom />
-        <UserProfile />
-      </div>
     </div>
   );
 };
