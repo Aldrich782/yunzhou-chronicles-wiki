@@ -18,21 +18,29 @@ All colors MUST be HSL.
     --popover: 0 0% 12%;
     --popover-foreground: 40 45% 85%;
 
-    /* Gold Primary */
+    /* Gold Primary - 琥珀金 */
     --primary: 40 45% 58%;
     --primary-foreground: 0 0% 11%;
+    --primary-glow: 40 65% 68%;
 
-    /* Lighter Gold */
+    /* Lighter Gold - 月白金 */
     --secondary: 40 35% 70%;
     --secondary-foreground: 0 0% 11%;
 
-    /* Dark Grey */
+    /* Dark Grey - 墨色 */
     --muted: 0 0% 18%;
     --muted-foreground: 40 35% 70%;
 
-    /* Medium Gold */
+    /* Medium Gold - 赤金 */
     --accent: 38 42% 62%;
     --accent-foreground: 0 0% 11%;
+
+    /* Traditional Colors */
+    --cinnabar: 0 80% 55%; /* 朱砂红 */
+    --indigo: 240 50% 45%; /* 靛青 */
+    --bamboo: 150 30% 50%; /* 竹青 */
+    --ink: 0 0% 15%; /* 墨色 */
+    --jade: 160 40% 50%; /* 玉色 */
 
     --destructive: 0 60% 50%;
     --destructive-foreground: 0 0% 95%;
@@ -43,25 +51,37 @@ All colors MUST be HSL.
 
     --radius: 0.75rem;
 
-    /* Zixiao Purple Theme */
+    /* Zixiao Purple Theme - 紫霄宗 */
     --zixiao-primary: 270 60% 65%;
     --zixiao-secondary: 280 50% 75%;
     --zixiao-accent: 260 55% 70%;
+    --zixiao-glow: 270 80% 75%;
 
-    /* Shanhaixuan Blue Theme */
+    /* Shanhaixuan Blue Theme - 山海轩 */
     --shanhaixuan-primary: 210 80% 55%;
     --shanhaixuan-secondary: 200 70% 65%;
     --shanhaixuan-accent: 220 75% 60%;
+    --shanhaixuan-glow: 210 90% 70%;
 
-    /* Custom Gradients */
+    /* Rich Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(40 45% 58%) 0%, hsl(38 42% 62%) 100%);
     --gradient-dark: linear-gradient(135deg, hsl(0 0% 11%) 0%, hsl(0 0% 20%) 100%);
     --gradient-gold: linear-gradient(135deg, hsl(40 45% 58%) 0%, hsl(40 35% 70%) 100%);
+    --gradient-ink: linear-gradient(180deg, hsl(0 0% 8%) 0%, hsl(0 0% 15%) 100%);
+    --gradient-cinnabar: linear-gradient(135deg, hsl(0 80% 55%) 0%, hsl(20 70% 50%) 100%);
+    --gradient-zixiao: linear-gradient(135deg, hsl(270 60% 65%) 0%, hsl(40 45% 58%) 100%);
+    --gradient-shanhaixuan: linear-gradient(135deg, hsl(210 80% 55%) 0%, hsl(180 70% 60%) 100%);
     
-    /* Shadows */
-    --shadow-soft: 0 4px 20px -4px hsl(0 0% 11% / 0.15);
-    --shadow-card: 0 6px 30px -8px hsl(0 0% 11% / 0.25);
-    --shadow-gold: 0 4px 20px -4px hsl(40 45% 58% / 0.3);
+    /* Elegant Shadows */
+    --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.25);
+    --shadow-card: 0 8px 40px -10px hsl(0 0% 0% / 0.35);
+    --shadow-gold: 0 8px 32px -8px hsl(40 45% 58% / 0.4);
+    --shadow-glow: 0 0 40px hsl(40 65% 68% / 0.3);
+    --shadow-inner: inset 0 2px 8px hsl(0 0% 0% / 0.2);
+    
+    /* Decorative Elements */
+    --ornament-opacity: 0.1;
+    --texture-opacity: 0.03;
   }
 
   .dark {
@@ -102,19 +122,25 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    font-family: "Noto Serif SC", "ZCOOL XiaoWei", -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", serif;
+  }
+
+  /* Typography Hierarchy */
+  h1, h2, h3 {
+    font-family: "Ma Shan Zheng", "ZCOOL XiaoWei", "Noto Serif SC", serif;
+    letter-spacing: 0.05em;
   }
 
   /* Smooth transitions */
   a, button {
-    @apply transition-all duration-300;
+    @apply transition-all duration-300 ease-out;
   }
 
-  /* Page transition animations */
+  /* Enhanced Animations */
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(20px);
     }
     to {
       opacity: 1;
@@ -122,7 +148,104 @@ All colors MUST be HSL.
     }
   }
 
+  @keyframes inkFlow {
+    0% {
+      opacity: 0;
+      transform: scale(0.95) translateY(10px);
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes floatCloud {
+    0%, 100% {
+      transform: translateY(0) translateX(0);
+    }
+    50% {
+      transform: translateY(-10px) translateX(5px);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
+  }
+
+  @keyframes glow {
+    0%, 100% {
+      opacity: 0.5;
+      filter: blur(20px);
+    }
+    50% {
+      opacity: 0.8;
+      filter: blur(25px);
+    }
+  }
+
   .page-transition {
-    animation: fadeIn 0.5s ease-out;
+    animation: inkFlow 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .float-cloud {
+    animation: floatCloud 6s ease-in-out infinite;
+  }
+
+  .shimmer {
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      hsl(var(--primary-glow) / 0.1) 50%, 
+      transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  /* Decorative Elements */
+  .ornament-corner::before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-top: 2px solid hsl(var(--primary) / var(--ornament-opacity));
+    border-left: 2px solid hsl(var(--primary) / var(--ornament-opacity));
+    top: -1px;
+    left: -1px;
+  }
+
+  .ornament-corner::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-bottom: 2px solid hsl(var(--primary) / var(--ornament-opacity));
+    border-right: 2px solid hsl(var(--primary) / var(--ornament-opacity));
+    bottom: -1px;
+    right: -1px;
+  }
+
+  /* Scroll Effects */
+  .parallax {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Hover Effects */
+  .hover-lift {
+    @apply transition-all duration-300;
+  }
+
+  .hover-lift:hover {
+    @apply -translate-y-2 shadow-gold;
+  }
+
+  .hover-glow:hover {
+    filter: drop-shadow(0 0 20px hsl(var(--primary) / 0.4));
   }
 }

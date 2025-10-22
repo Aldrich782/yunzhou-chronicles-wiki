@@ -13,6 +13,11 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        'serif': ['"Noto Serif SC"', '"ZCOOL XiaoWei"', 'serif'],
+        'calligraphy': ['"Ma Shan Zheng"', '"ZCOOL XiaoWei"', 'cursive'],
+        'sans': ['"Noto Serif SC"', 'system-ui', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -22,6 +27,7 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          glow: "hsl(var(--primary-glow))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -57,6 +63,39 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        cinnabar: "hsl(var(--cinnabar))",
+        indigo: "hsl(var(--indigo))",
+        bamboo: "hsl(var(--bamboo))",
+        ink: "hsl(var(--ink))",
+        jade: "hsl(var(--jade))",
+        zixiao: {
+          primary: "hsl(var(--zixiao-primary))",
+          secondary: "hsl(var(--zixiao-secondary))",
+          accent: "hsl(var(--zixiao-accent))",
+          glow: "hsl(var(--zixiao-glow))",
+        },
+        shanhaixuan: {
+          primary: "hsl(var(--shanhaixuan-primary))",
+          secondary: "hsl(var(--shanhaixuan-secondary))",
+          accent: "hsl(var(--shanhaixuan-accent))",
+          glow: "hsl(var(--shanhaixuan-glow))",
+        },
+      },
+      backgroundImage: {
+        'gradient-primary': 'var(--gradient-primary)',
+        'gradient-dark': 'var(--gradient-dark)',
+        'gradient-gold': 'var(--gradient-gold)',
+        'gradient-ink': 'var(--gradient-ink)',
+        'gradient-cinnabar': 'var(--gradient-cinnabar)',
+        'gradient-zixiao': 'var(--gradient-zixiao)',
+        'gradient-shanhaixuan': 'var(--gradient-shanhaixuan)',
+      },
+      boxShadow: {
+        'soft': 'var(--shadow-soft)',
+        'card': 'var(--shadow-card)',
+        'gold': 'var(--shadow-gold)',
+        'glow': 'var(--shadow-glow)',
+        'inner': 'var(--shadow-inner)',
       },
       borderRadius: {
         lg: "var(--radius)",
