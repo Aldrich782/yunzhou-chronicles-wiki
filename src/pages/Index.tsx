@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Map, Image, Scroll, BookMarked, Sparkles, User } from 'lucide-react';
+import { Map, Image, Scroll, BookMarked, Sparkles, User, LogIn } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 const sections = [
   {
@@ -39,6 +41,23 @@ const sections = [
 ];
 
 const Index = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    checkUser();
+    
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(!!session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const checkUser = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    setIsLoggedIn(!!session);
+  };
+
   return (
     <div className="min-h-screen relative overflow-hidden page-transition">
       {/* Paper Background with Ink Wash Effect */}
@@ -155,15 +174,24 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Profile Button */}
+          {/* Profile/Auth Button */}
           <div className="mt-8 text-center">
-            <Link to="/profile">
+            <Link to={isLoggedIn ? "/profile" : "/auth"}>
               <Button
                 variant="outline"
                 className="group hover:bg-primary/10 hover:border-primary/60 transition-all duration-300"
               >
-                <User className="w-4 h-4 mr-2 group-hover:text-primary transition-colors" />
-                <span className="font-serif">个人中心</span>
+                {isLoggedIn ? (
+                  <>
+                    <User className="w-4 h-4 mr-2 group-hover:text-primary transition-colors" />
+                    <span className="font-serif">个人中心</span>
+                  </>
+                ) : (
+                  <>
+                    <LogIn className="w-4 h-4 mr-2 group-hover:text-primary transition-colors" />
+                    <span className="font-serif">登录/注册</span>
+                  </>
+                )}
               </Button>
             </Link>
           </div>

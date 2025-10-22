@@ -34,32 +34,7 @@ const SectIllustrations = () => {
   };
 
   useEffect(() => {
-    // Get or create user ID
-    let id = localStorage.getItem('chat_user_id');
-    if (!id) {
-      id = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      localStorage.setItem('chat_user_id', id);
-    }
-    setUserId(id);
-
-    // Fetch user balances
-    const fetchUserBalances = async () => {
-      const { data } = await supabase
-        .from('profiles')
-        .select('flowers_balance, eggs_balance')
-        .eq('user_id', id)
-        .single();
-      
-      if (data) {
-        setUserBalances({ flowers: data.flowers_balance || 0, eggs: data.eggs_balance || 0 });
-      }
-    };
-
-    fetchUserBalances();
-  }, []);
-
-  useEffect(() => {
-    if (!sectId) return;
+    checkUser();
 
     const fetchVoteCounts = async () => {
       const illustrations = sectData[sectId]?.illustrations || [];
@@ -90,7 +65,35 @@ const SectIllustrations = () => {
     fetchVoteCounts();
   }, [sectId]);
 
+  const checkUser = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    
+    if (!session?.user) {
+      return;
+    }
+
+    setUserId(session.user.id);
+    await fetchUserBalances(session.user.id);
+  };
+
+  const fetchUserBalances = async (uid: string) => {
+    const { data } = await supabase
+      .from('profiles')
+      .select('flowers_balance, eggs_balance')
+      .eq('user_id', uid)
+      .single();
+    
+    if (data) {
+      setUserBalances({ flowers: data.flowers_balance || 0, eggs: data.eggs_balance || 0 });
+    }
+  };
+
   const handleVote = async (characterId: string, voteType: 'flower' | 'egg') => {
+    if (!userId) {
+      toast({ title: "请先登录", description: "登录后才能投票", variant: "destructive" });
+      return;
+    }
+    
     if (voteType === 'flower' && userBalances.flowers <= 0) {
       toast({ title: "鲜花不足", description: "请先签到获取鲜花", variant: "destructive" });
       return;

@@ -1,21 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { User, Upload, Save } from 'lucide-react';
+import { User, Upload, Save, LogOut } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
 export const UserProfile = () => {
-  const [userId] = useState(() => {
-    let id = localStorage.getItem('chat_user_id');
-    if (!id) {
-      id = crypto.randomUUID();
-      localStorage.setItem('chat_user_id', id);
-    }
-    return id;
-  });
+  const navigate = useNavigate();
+  const [user, setUser] = useState<any>(null);
   const [nickname, setNickname] = useState('访客');
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [tempNickname, setTempNickname] = useState('');
@@ -27,55 +22,66 @@ export const UserProfile = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    const loadProfile = async () => {
-      const { data } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('user_id', userId)
-        .single();
-
-      if (data) {
-        setNickname(data.nickname);
-        setAvatarUrl(data.avatar_url);
-        setTempNickname(data.nickname);
-        setFlowersBalance(data.flowers_balance || 0);
-        setEggsBalance(data.eggs_balance || 0);
+    checkUser();
+    
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        setUser(session.user);
+        loadProfile(session.user.id);
       } else {
-        await supabase
-          .from('profiles')
-          .insert({ 
-            user_id: userId, 
-            nickname: '访客',
-            flowers_balance: 0,
-            eggs_balance: 0
-          });
-        setTempNickname('访客');
+        setUser(null);
       }
-    };
+    });
 
-    const checkTodayCheckIn = async () => {
-      const today = new Date().toISOString().split('T')[0];
-      const { data } = await supabase
-        .from('check_ins')
-        .select('*')
-        .eq('user_id', userId)
-        .eq('check_in_date', today)
-        .single();
-      
-      setHasCheckedIn(!!data);
-    };
+    return () => subscription.unsubscribe();
+  }, []);
 
-    loadProfile();
-    checkTodayCheckIn();
-  }, [userId]);
+  const checkUser = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    
+    if (session?.user) {
+      setUser(session.user);
+      await loadProfile(session.user.id);
+    }
+  };
+
+  const loadProfile = async (userId: string) => {
+    const { data } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('user_id', userId)
+      .single();
+
+    if (data) {
+      setNickname(data.nickname);
+      setAvatarUrl(data.avatar_url);
+      setTempNickname(data.nickname);
+      setFlowersBalance(data.flowers_balance || 0);
+      setEggsBalance(data.eggs_balance || 0);
+    }
+
+    await checkTodayCheckIn(userId);
+  };
+
+  const checkTodayCheckIn = async (userId: string) => {
+    const today = new Date().toISOString().split('T')[0];
+    const { data } = await supabase
+      .from('check_ins')
+      .select('*')
+      .eq('user_id', userId)
+      .eq('check_in_date', today)
+      .single();
+    
+    setHasCheckedIn(!!data);
+  };
 
   const updateProfile = async () => {
-    if (!tempNickname.trim()) return;
+    if (!user || !tempNickname.trim()) return;
 
     const { error } = await supabase
       .from('profiles')
       .update({ nickname: tempNickname.trim() })
-      .eq('user_id', userId);
+      .eq('user_id', user.id);
 
     if (error) {
       toast({
@@ -93,6 +99,8 @@ export const UserProfile = () => {
   };
 
   const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!user) return;
+    
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -103,7 +111,7 @@ export const UserProfile = () => {
       const { error } = await supabase
         .from('profiles')
         .update({ avatar_url: base64 })
-        .eq('user_id', userId);
+        .eq('user_id', user.id);
 
       if (error) {
         toast({
@@ -122,27 +130,25 @@ export const UserProfile = () => {
   };
 
   const handleCheckIn = async () => {
-    if (hasCheckedIn || isCheckingIn) return;
+    if (!user || hasCheckedIn || isCheckingIn) return;
 
     setIsCheckingIn(true);
     try {
       const today = new Date().toISOString().split('T')[0];
       
-      // Insert check-in record
       const { error: checkInError } = await supabase
         .from('check_ins')
-        .insert([{ user_id: userId, check_in_date: today }]);
+        .insert([{ user_id: user.id, check_in_date: today }]);
 
       if (checkInError) throw checkInError;
 
-      // Update balances
       const { error: updateError } = await supabase
         .from('profiles')
         .update({
           flowers_balance: flowersBalance + 10,
           eggs_balance: eggsBalance + 10
         })
-        .eq('user_id', userId);
+        .eq('user_id', user.id);
 
       if (updateError) throw updateError;
 
@@ -164,6 +170,23 @@ export const UserProfile = () => {
       setIsCheckingIn(false);
     }
   };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    toast({ title: "已登出" });
+    navigate('/auth');
+  };
+
+  if (!user) {
+    return (
+      <Card className="relative overflow-hidden bg-card/95 backdrop-blur-sm border-primary/20 shadow-elegant w-full max-w-sm p-6">
+        <p className="text-center text-muted-foreground mb-4">请先登录</p>
+        <Button onClick={() => navigate('/auth')} className="w-full">
+          前往登录
+        </Button>
+      </Card>
+    );
+  }
 
   return (
     <Card className="relative overflow-hidden bg-card/95 backdrop-blur-sm border-primary/20 shadow-elegant w-full max-w-sm">
@@ -242,10 +265,19 @@ export const UserProfile = () => {
               <Save className="w-4 h-4 mr-2" />
               保存修改
             </Button>
+
+            <Button
+              onClick={handleLogout}
+              variant="outline"
+              className="w-full"
+              size="sm"
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              登出
+            </Button>
           </div>
 
           <div className="text-xs text-muted-foreground text-center space-y-1">
-            <p>您的ID: {userId.slice(0, 8)}...</p>
             <p>修改后将在评论区和聊天室同步显示</p>
             <p className="text-amber-600 dark:text-amber-400">
               签到获得的鲜花和鸡蛋可在角色立绘页面使用
