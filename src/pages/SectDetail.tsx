@@ -28,7 +28,7 @@ const SectDetail = () => {
 
   return (
     <div className={`min-h-screen bg-gradient-to-br ${
-      isZixiao ? 'from-purple-900/40 via-purple-950/30 to-purple-900/40' : 
+      isZixiao ? 'from-purple-950/50 via-purple-950/25 to-purple-950/40' : 
       isShanhaixuan ? 'from-blue-950/30 via-cyan-950/20 to-blue-950/30' :
       'from-background via-muted/30 to-background'
     } page-transition`}>
@@ -44,7 +44,7 @@ const SectDetail = () => {
               </Button>
             </Link>
             <h1 className={`text-base sm:text-xl md:text-2xl font-bold truncate ${
-              isZixiao ? 'text-purple-300' :
+              isZixiao ? 'text-purple-200' :
               isShanhaixuan ? 'text-cyan-400' :
               'text-primary'
             }`}>{sect.name}</h1>
@@ -57,14 +57,14 @@ const SectDetail = () => {
         <div className="max-w-5xl mx-auto space-y-6 sm:space-y-8">
           {/* 门派简介 - 左侧图标，右侧文字 */}
           <Card className={`p-4 sm:p-6 md:p-8 bg-card/50 backdrop-blur-sm ${
-            isZixiao ? 'border-purple-600/40' :
+            isZixiao ? 'border-purple-800/25' :
             isShanhaixuan ? 'border-cyan-500/30' :
             'border-border/50'
           } shadow-card`}>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
               {/* 左侧门派图标 */}
-              <div className={`flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-xl bg-gradient-to-br ${isZixiao ? 'from-purple-600/30 to-purple-700/20' : 'from-primary/20 to-accent/20'} flex items-center justify-center mx-auto sm:mx-0`}>
-                <Scroll className={`w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 ${isZixiao ? 'text-purple-300/80' : 'text-primary/60'}`} />
+              <div className={`flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-xl bg-gradient-to-br ${isZixiao ? 'from-purple-800/25 to-purple-900/15' : 'from-primary/20 to-accent/20'} flex items-center justify-center mx-auto sm:mx-0`}>
+                <Scroll className={`w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 ${isZixiao ? 'text-purple-200/70' : 'text-primary/60'}`} />
               </div>
               
               {/* 右侧简介 */}
@@ -76,9 +76,9 @@ const SectDetail = () => {
                   {sect.description}
                 </p>
                 {sect.specialty && (
-                  <div className={`p-3 rounded-lg ${isZixiao ? 'bg-purple-700/10 border border-purple-600/30' : 'bg-primary/5 border border-primary/20'}`}>
+                  <div className={`p-3 rounded-lg ${isZixiao ? 'bg-purple-900/15 border border-purple-800/25' : 'bg-primary/5 border border-primary/20'}`}>
                     <p className="text-xs sm:text-sm text-foreground">
-                      <span className={`font-semibold ${isZixiao ? 'text-purple-300' : 'text-primary'}`}>门派特色：</span>
+                      <span className={`font-semibold ${isZixiao ? 'text-purple-200' : 'text-primary'}`}>门派特色：</span>
                       {sect.specialty}
                     </p>
                   </div>
@@ -91,10 +91,10 @@ const SectDetail = () => {
           {isZixiao && sect.mountains ? (
             <>
               {/* 紫霄宗六山峰 */}
-              <Card className="p-8 bg-card/50 backdrop-blur-sm border-purple-600/40 shadow-card">
+              <Card className="p-8 bg-card/50 backdrop-blur-sm border-purple-800/25 shadow-card">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-2xl font-bold flex items-center gap-2">
-                    <MountainIcon className="w-6 h-6 text-purple-300" />
+                    <MountainIcon className="w-6 h-6 text-purple-200" />
                     门派结构 · 六山峰
                   </h2>
                   <Link to="/characters">
@@ -106,14 +106,14 @@ const SectDetail = () => {
                 <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
                   {sect.mountains.map((mountain) => (
                     <Link key={mountain.id} to={`/mountain/${mountain.id}`}>
-                      <Card className="group p-4 sm:p-6 bg-gradient-to-br from-purple-700/10 to-purple-600/5 border-purple-600/40 hover:border-purple-500/60 transition-all duration-300 hover:shadow-soft hover:-translate-y-1 cursor-pointer">
+                      <Card className="group p-4 sm:p-6 bg-gradient-to-br from-purple-900/15 to-purple-950/10 border-purple-800/25 hover:border-purple-700/40 transition-all duration-300 hover:shadow-soft hover:-translate-y-1 cursor-pointer">
                         <h3 className="text-base sm:text-lg md:text-xl font-semibold mb-2 group-hover:text-amber-400 transition-colors">
                           {mountain.name}
                         </h3>
                         <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">
                           {mountain.description}
                         </p>
-                        <div className="mt-3 sm:mt-4 text-xs sm:text-sm text-purple-300 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="mt-3 sm:mt-4 text-xs sm:text-sm text-purple-200 opacity-0 group-hover:opacity-100 transition-opacity">
                           查看详情 →
                         </div>
                       </Card>
@@ -290,16 +290,16 @@ const SectDetail = () => {
           {/* 地标建筑 */}
           {sect.landmarks && sect.landmarks.length > 0 && (
               <Card className={`p-8 bg-card/50 backdrop-blur-sm ${
-                isZixiao ? 'border-purple-600/40' :
+                isZixiao ? 'border-purple-800/25' :
               isShanhaixuan ? 'border-cyan-500/30' :
               'border-border/50'
             } shadow-card`}>
               <h2 className={`text-2xl font-bold mb-6 flex items-center gap-2 ${
-                isZixiao ? 'text-purple-300' :
+                isZixiao ? 'text-purple-200' :
                 isShanhaixuan ? 'text-cyan-400' : ''
               }`}>
                 <Landmark className={`w-6 h-6 ${
-                  isZixiao ? 'text-purple-300' :
+                  isZixiao ? 'text-purple-200' :
                   isShanhaixuan ? 'text-cyan-400' :
                   'text-primary'
                 }`} />
@@ -309,9 +309,9 @@ const SectDetail = () => {
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {zixiaoLandmarks.map((landmark) => (
                     <Link key={landmark.id} to={`/landmark/${landmark.id}`}>
-                      <Card className="group overflow-hidden bg-gradient-to-br from-purple-700/10 to-purple-600/5 border-purple-600/40 hover:border-purple-500/60 transition-all duration-300 hover:shadow-soft hover:-translate-y-1 cursor-pointer">
+                      <Card className="group overflow-hidden bg-gradient-to-br from-purple-900/15 to-purple-950/10 border-purple-800/25 hover:border-purple-700/40 transition-all duration-300 hover:shadow-soft hover:-translate-y-1 cursor-pointer">
                         {/* 缩略图 */}
-                        <div className="aspect-video bg-gradient-to-br from-purple-700/20 to-purple-600/10 flex items-center justify-center">
+                        <div className="aspect-video bg-gradient-to-br from-purple-900/20 to-purple-950/15 flex items-center justify-center">
                           {landmark.thumbnail ? (
                             <img 
                               src={landmark.thumbnail} 
@@ -319,19 +319,19 @@ const SectDetail = () => {
                               className="w-full h-full object-cover"
                             />
                           ) : (
-                            <MapPin className="w-8 h-8 text-purple-400/40" />
+                            <MapPin className="w-8 h-8 text-purple-300/40" />
                           )}
                         </div>
                         
                         {/* 信息 */}
                         <div className="p-4 space-y-2">
-                          <h3 className="text-base font-semibold group-hover:text-purple-300 transition-colors">
+                          <h3 className="text-base font-semibold group-hover:text-purple-200 transition-colors">
                             {landmark.name}
                           </h3>
                           <p className="text-xs text-muted-foreground line-clamp-1">
                             {landmark.nickname}
                           </p>
-                          <div className="text-xs text-purple-300 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <div className="text-xs text-purple-200 opacity-0 group-hover:opacity-100 transition-opacity">
                             查看详情 →
                           </div>
                         </div>

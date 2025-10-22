@@ -230,19 +230,19 @@ const SectIllustrations = () => {
                       <Button
                         size="sm"
                         variant="outline"
-                        className="flex-1 hover:bg-pink-500/10 hover:border-pink-500"
+                        className="flex-1 hover:bg-pink-500/10 hover:border-pink-500 text-xs px-2 py-1 h-8"
                         onClick={() => handleVote(illustration.id, 'flower')}
                       >
-                        <Flower className="w-4 h-4 mr-1" />
+                        <Flower className="w-3 h-3 mr-1" />
                         献花
                       </Button>
                       <Button
                         size="sm"
                         variant="outline"
-                        className="flex-1 hover:bg-amber-500/10 hover:border-amber-500"
+                        className="flex-1 hover:bg-amber-500/10 hover:border-amber-500 text-xs px-2 py-1 h-8"
                         onClick={() => handleVote(illustration.id, 'egg')}
                       >
-                        <Egg className="w-4 h-4 mr-1" />
+                        <Egg className="w-3 h-3 mr-1" />
                         投蛋
                       </Button>
                     </div>

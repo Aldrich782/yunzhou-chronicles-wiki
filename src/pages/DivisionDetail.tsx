@@ -31,7 +31,7 @@ const DivisionDetail = () => {
 
   return (
     <div className={`min-h-screen bg-gradient-to-br ${
-      isZixiao ? 'from-purple-900/40 via-purple-950/30 to-purple-900/40' : 
+      isZixiao ? 'from-purple-950/50 via-purple-950/25 to-purple-950/40' : 
       isShanhaixuan ? 'from-blue-950/30 via-cyan-950/20 to-blue-950/30' :
       'from-background via-muted/30 to-background'
     } page-transition`}>
@@ -46,7 +46,7 @@ const DivisionDetail = () => {
               </Button>
             </Link>
             <h1 className={`text-2xl font-bold ${
-              isZixiao ? 'text-purple-300' :
+              isZixiao ? 'text-purple-200' :
               isShanhaixuan ? 'text-cyan-400' :
               'text-primary'
             }`}>{division.name}</h1>
@@ -59,16 +59,16 @@ const DivisionDetail = () => {
         <div className="max-w-5xl mx-auto space-y-8">
           {/* 简介 */}
           <Card className={`p-8 bg-card/50 backdrop-blur-sm ${
-            isZixiao ? 'border-purple-500/30' :
+            isZixiao ? 'border-purple-800/25' :
             isShanhaixuan ? 'border-cyan-500/30' :
             'border-border/50'
           } shadow-card`}>
             <h2 className={`text-2xl font-bold mb-6 flex items-center gap-2 ${
-              isZixiao ? 'text-purple-400' :
+              isZixiao ? 'text-purple-200' :
               isShanhaixuan ? 'text-cyan-400' : ''
             }`}>
               <Building2 className={`w-6 h-6 ${
-                isZixiao ? 'text-purple-400' :
+                isZixiao ? 'text-purple-200' :
                 isShanhaixuan ? 'text-cyan-400' :
                 'text-primary'
               }`} />
@@ -82,16 +82,16 @@ const DivisionDetail = () => {
           {/* 职能定位（仅 divisions） */}
           {!isMountain && 'duty' in division && (
             <Card className={`p-8 bg-card/50 backdrop-blur-sm ${
-              isZixiao ? 'border-purple-500/30' :
+              isZixiao ? 'border-purple-800/25' :
               isShanhaixuan ? 'border-cyan-500/30' :
               'border-border/50'
             } shadow-card`}>
               <h2 className={`text-2xl font-bold mb-6 flex items-center gap-2 ${
-                isZixiao ? 'text-purple-400' :
+                isZixiao ? 'text-purple-200' :
                 isShanhaixuan ? 'text-cyan-400' : ''
               }`}>
                 <Target className={`w-6 h-6 ${
-                  isZixiao ? 'text-purple-400' :
+                  isZixiao ? 'text-purple-200' :
                   isShanhaixuan ? 'text-cyan-400' :
                   'text-primary'
                 }`} />
@@ -106,16 +106,16 @@ const DivisionDetail = () => {
           {/* 主要职责（仅 divisions） */}
           {!isMountain && 'responsibilities' in division && division.responsibilities && Array.isArray(division.responsibilities) && division.responsibilities.length > 0 && (
             <Card className={`p-8 bg-card/50 backdrop-blur-sm ${
-              isZixiao ? 'border-purple-500/30' :
+              isZixiao ? 'border-purple-800/25' :
               isShanhaixuan ? 'border-cyan-500/30' :
               'border-border/50'
             } shadow-card`}>
               <h2 className={`text-2xl font-bold mb-6 flex items-center gap-2 ${
-                isZixiao ? 'text-purple-400' :
+                isZixiao ? 'text-purple-200' :
                 isShanhaixuan ? 'text-cyan-400' : ''
               }`}>
                 <Target className={`w-6 h-6 ${
-                  isZixiao ? 'text-purple-400' :
+                  isZixiao ? 'text-purple-200' :
                   isShanhaixuan ? 'text-cyan-400' :
                   'text-primary'
                 }`} />
@@ -125,7 +125,7 @@ const DivisionDetail = () => {
                 {(division.responsibilities as string[]).map((resp, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <span className={`flex-shrink-0 w-6 h-6 rounded-full ${
-                      isZixiao ? 'bg-purple-500/10 text-purple-400' :
+                      isZixiao ? 'bg-purple-900/15 text-purple-200' :
                       isShanhaixuan ? 'bg-cyan-500/10 text-cyan-400' :
                       'bg-primary/10 text-primary'
                     } flex items-center justify-center text-sm font-medium mt-0.5`}>
@@ -141,16 +141,16 @@ const DivisionDetail = () => {
           {/* 弟子特征（仅 divisions） */}
           {!isMountain && 'characterTraits' in division && (
             <Card className={`p-8 bg-card/50 backdrop-blur-sm ${
-              isZixiao ? 'border-purple-500/30' :
+              isZixiao ? 'border-purple-800/25' :
               isShanhaixuan ? 'border-cyan-500/30' :
               'border-border/50'
             } shadow-card`}>
               <h2 className={`text-2xl font-bold mb-6 flex items-center gap-2 ${
-                isZixiao ? 'text-purple-400' :
+                isZixiao ? 'text-purple-200' :
                 isShanhaixuan ? 'text-cyan-400' : ''
               }`}>
                 <Users className={`w-6 h-6 ${
-                  isZixiao ? 'text-purple-400' :
+                  isZixiao ? 'text-purple-200' :
                   isShanhaixuan ? 'text-cyan-400' :
                   'text-primary'
                 }`} />
@@ -165,28 +165,28 @@ const DivisionDetail = () => {
           {/* 代表法器（仅 divisions） */}
           {!isMountain && 'treasureName' in division && division.treasureName && (
             <Card className={`p-8 bg-card/50 backdrop-blur-sm ${
-              isZixiao ? 'border-purple-500/30' :
+              isZixiao ? 'border-purple-800/25' :
               isShanhaixuan ? 'border-cyan-500/30' :
               'border-border/50'
             } shadow-card`}>
               <h2 className={`text-2xl font-bold mb-6 flex items-center gap-2 ${
-                isZixiao ? 'text-purple-400' :
+                isZixiao ? 'text-purple-200' :
                 isShanhaixuan ? 'text-cyan-400' : ''
               }`}>
                 <Sparkles className={`w-6 h-6 ${
-                  isZixiao ? 'text-purple-400' :
+                  isZixiao ? 'text-purple-200' :
                   isShanhaixuan ? 'text-cyan-400' :
                   'text-primary'
                 }`} />
                 代表法器
               </h2>
               <div className={`p-4 rounded-lg ${
-                isZixiao ? 'bg-purple-500/5 border border-purple-500/20' :
+                isZixiao ? 'bg-purple-900/10 border border-purple-800/20' :
                 isShanhaixuan ? 'bg-cyan-500/5 border border-cyan-500/20' :
                 'bg-primary/5 border border-primary/20'
               }`}>
                 <h3 className={`text-xl font-semibold mb-2 ${
-                  isZixiao ? 'text-purple-400' :
+                  isZixiao ? 'text-purple-200' :
                   isShanhaixuan ? 'text-cyan-400' :
                   'text-primary'
                 }`}>{'treasureName' in division ? String(division.treasureName) : ''}</h3>
@@ -200,16 +200,16 @@ const DivisionDetail = () => {
           {/* 重要人物 */}
           {division.characters && division.characters.length > 0 && (
             <Card className={`p-8 bg-card/50 backdrop-blur-sm ${
-              isZixiao ? 'border-purple-500/30' :
+              isZixiao ? 'border-purple-800/25' :
               isShanhaixuan ? 'border-cyan-500/30' :
               'border-border/50'
             } shadow-card`}>
               <h2 className={`text-2xl font-bold mb-6 flex items-center gap-2 ${
-                isZixiao ? 'text-purple-400' :
+                isZixiao ? 'text-purple-200' :
                 isShanhaixuan ? 'text-cyan-400' : ''
               }`}>
                 <User className={`w-6 h-6 ${
-                  isZixiao ? 'text-purple-400' :
+                  isZixiao ? 'text-purple-200' :
                   isShanhaixuan ? 'text-cyan-400' :
                   'text-primary'
                 }`} />
@@ -222,17 +222,17 @@ const DivisionDetail = () => {
                   <div className="flex flex-col items-center mb-6">
                     <Link to={`/character/${division.characters[0].id}`}>
                       <Card className={`group p-5 bg-gradient-to-br ${
-                        isZixiao ? 'from-purple-500/10 to-amber-500/10 border-purple-500/30 hover:border-amber-500/50' :
+                        isZixiao ? 'from-purple-900/15 to-amber-500/10 border-purple-800/25 hover:border-amber-500/50' :
                         isShanhaixuan ? 'from-cyan-500/10 to-blue-500/10 border-cyan-500/30 hover:border-blue-500/50' :
                         'from-primary/10 to-accent/10 border-border/50 hover:border-primary/50'
                       } transition-all duration-300 hover:shadow-soft hover:-translate-y-1 cursor-pointer max-w-sm`}>
                         <div className={`w-20 h-20 rounded-full bg-gradient-to-br ${
-                          isZixiao ? 'from-purple-500/30 to-amber-500/30' :
+                          isZixiao ? 'from-purple-800/25 to-amber-500/30' :
                           isShanhaixuan ? 'from-cyan-500/30 to-blue-500/30' :
                           'from-primary/30 to-accent/30'
                         } mx-auto mb-3 flex items-center justify-center`}>
                           <User className={`w-10 h-10 ${
-                            isZixiao ? 'text-purple-400/50' :
+                            isZixiao ? 'text-purple-300/50' :
                             isShanhaixuan ? 'text-cyan-400/50' :
                             'text-primary/50'
                           }`} />
@@ -247,7 +247,7 @@ const DivisionDetail = () => {
                             {division.characters[0].name}
                           </h3>
                           <p className={`text-sm font-semibold ${
-                            isZixiao ? 'text-purple-400' :
+                            isZixiao ? 'text-purple-200' :
                             isShanhaixuan ? 'text-cyan-400' :
                             'text-primary'
                           }`}>
@@ -258,7 +258,7 @@ const DivisionDetail = () => {
                           </p>
                           {division.characters[0].specialty && (
                             <p className={`text-xs ${
-                              isZixiao ? 'text-purple-400/80' :
+                              isZixiao ? 'text-purple-200/80' :
                               isShanhaixuan ? 'text-cyan-400/80' :
                               'text-primary/80'
                             }`}>
@@ -287,17 +287,17 @@ const DivisionDetail = () => {
                           {division.characters.slice(1).map((character) => (
                             <Link key={character.id} to={`/character/${character.id}`}>
                               <Card className={`group p-4 bg-gradient-to-br ${
-                                isZixiao ? 'from-purple-500/5 to-amber-500/5 border-purple-500/30 hover:border-amber-500/50' :
+                                isZixiao ? 'from-purple-900/10 to-amber-500/5 border-purple-800/25 hover:border-amber-500/50' :
                                 isShanhaixuan ? 'from-cyan-500/5 to-blue-500/5 border-cyan-500/30 hover:border-blue-500/50' :
                                 'from-primary/5 to-accent/5 border-border/50 hover:border-primary/50'
                               } transition-all duration-300 hover:shadow-soft hover:-translate-y-1 cursor-pointer`}>
                                 <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${
-                                  isZixiao ? 'from-purple-500/20 to-amber-500/20' :
+                                  isZixiao ? 'from-purple-800/20 to-amber-500/20' :
                                   isShanhaixuan ? 'from-cyan-500/20 to-blue-500/20' :
                                   'from-primary/20 to-accent/20'
                                 } mx-auto mb-3 flex items-center justify-center`}>
                                   <User className={`w-8 h-8 ${
-                                    isZixiao ? 'text-purple-400/40' :
+                                    isZixiao ? 'text-purple-300/40' :
                                     isShanhaixuan ? 'text-cyan-400/40' :
                                     'text-primary/40'
                                   }`} />
