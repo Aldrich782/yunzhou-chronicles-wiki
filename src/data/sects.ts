@@ -365,7 +365,38 @@ export const yunhanSects: Sect[] = [
       '楼主身份永为秘密',
       '叛楼者，死'
     ],
-    members: [],
+    members: [
+      {
+        id: 'yingwuming',
+        name: '影无名',
+        title: '半月楼暗部首领',
+        sect: '半月楼',
+        description: '半月楼暗部首领，真实身份成谜。擅长暗杀和易容，据说从未有人见过他的真面目。',
+        specialty: '暗杀术、易容术',
+        status: '在任',
+        quote: ''
+      },
+      {
+        id: 'liuqianmian',
+        name: '柳千面',
+        title: '半月楼明部长老',
+        sect: '半月楼',
+        description: '明部长老，掌管情报网络。擅长易容和伪装，能在一瞬间变换容貌。',
+        specialty: '易容术、情报收集',
+        status: '在任',
+        quote: ''
+      },
+      {
+        id: 'yunying',
+        name: '云影',
+        title: '半月楼弟子',
+        sect: '半月楼',
+        description: '半月楼年轻一代的天才，暗杀技巧高超，追踪能力一流。',
+        specialty: '暗杀术、追踪术',
+        status: '在修',
+        quote: ''
+      }
+    ],
     landmarks: [
       {
         id: 'liuying-valley',
@@ -403,6 +434,26 @@ export const yunhanSects: Sect[] = [
         description: '水云洞天掌门，精通水系法术和医术。性格如水般温柔，但在大是大非面前坚如磐石。',
         specialty: '水系法术、水疗医术',
         status: '在任',
+        quote: ''
+      },
+      {
+        id: 'shuiyue',
+        name: '水月',
+        title: '水云洞天长老',
+        sect: '水云洞天',
+        description: '迦陵的师姐，擅长水系攻击法术。性格温和但战斗时凌厉无比。',
+        specialty: '水系攻击、炼水成兵',
+        status: '在任',
+        quote: ''
+      },
+      {
+        id: 'bingxin',
+        name: '冰心',
+        title: '水云洞天弟子',
+        sect: '水云洞天',
+        description: '水云洞天年轻弟子，天赋异禀，尤其擅长冰系法术。',
+        specialty: '冰系法术',
+        status: '在修',
         quote: ''
       }
     ],
@@ -444,6 +495,26 @@ export const yunhanSects: Sect[] = [
         description: '天音寺主持，佛法高深，音律造诣极高。能以梵音度化人心，也能以音律降妖除魔。',
         specialty: '佛门音律、禅修',
         status: '在任',
+        quote: ''
+      },
+      {
+        id: 'huijing',
+        name: '慧静',
+        title: '天音寺首座',
+        sect: '天音寺',
+        description: '天音寺首座，怀空大师的师弟。精通禅修和梵音攻击，是天音寺的武力担当。',
+        specialty: '梵音攻击、禅修',
+        status: '在任',
+        quote: ''
+      },
+      {
+        id: 'kongxuan',
+        name: '空玄',
+        title: '天音寺弟子',
+        sect: '天音寺',
+        description: '天音寺年轻一代的佼佼者，虽年轻但佛法精深，音律造诣极高。',
+        specialty: '佛门音律',
+        status: '在修',
         quote: ''
       }
     ],
@@ -580,6 +651,36 @@ export const rongzhouSects: Sect[] = [
         description: '问琴仙宫现任宫主，林家家主。自从林家掌握了神魂修复之术，林家便在仙宫中占据主导地位。',
         specialty: '琴音疗愈、神魂修复',
         status: '在任',
+        quote: ''
+      },
+      {
+        id: 'linqingyin',
+        name: '林清音',
+        title: '林家长老',
+        sect: '问琴仙宫',
+        description: '林家长老，精通神魂修复术。性格温柔，医者仁心，但在家族利益面前毫不退让。',
+        specialty: '神魂修复、琴音疗愈',
+        status: '在任',
+        quote: ''
+      },
+      {
+        id: 'xunhuaiyue',
+        name: '荀怀月',
+        title: '荀家长老',
+        sect: '问琴仙宫',
+        description: '荀家长老，虽然荀家在宫中地位不如林家，但荀怀月的琴艺在仙宫中首屈一指。',
+        specialty: '琴音攻击、辅助术法',
+        status: '在任',
+        quote: ''
+      },
+      {
+        id: 'linmoyun',
+        name: '林墨云',
+        title: '林家弟子',
+        sect: '问琴仙宫',
+        description: '林家年轻一代的天才，天赋异禀，深得林家家主器重。',
+        specialty: '琴音疗愈',
+        status: '在修',
         quote: ''
       }
     ],

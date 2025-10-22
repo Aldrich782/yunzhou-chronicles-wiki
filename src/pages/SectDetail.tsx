@@ -123,35 +123,90 @@ const SectDetail = () => {
           ) : (
             <>
               {/* 其他门派：掌门 */}
-              <Card className="p-8 bg-card/50 backdrop-blur-sm border-border/50 shadow-card">
-                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                  <User className="w-6 h-6 text-primary" />
+              <Card className={`p-8 bg-card/50 backdrop-blur-sm ${
+                isShanhaixuan ? 'border-cyan-500/30' : 'border-border/50'
+              } shadow-card`}>
+                <h2 className={`text-2xl font-bold mb-6 flex items-center gap-2 ${
+                  isShanhaixuan ? 'text-cyan-400' : ''
+                }`}>
+                  <User className={`w-6 h-6 ${isShanhaixuan ? 'text-cyan-400' : 'text-primary'}`} />
                   掌门
                 </h2>
                 <div className="text-lg">
-                  <span className="text-primary font-semibold">{sect.leader}</span>
+                  <span className={`font-semibold ${isShanhaixuan ? 'text-cyan-400' : 'text-primary'}`}>{sect.leader}</span>
                 </div>
               </Card>
 
+              {/* 重要人物 */}
+              {sect.members && sect.members.length > 0 && (
+                <Card className={`p-8 bg-card/50 backdrop-blur-sm ${
+                  isShanhaixuan ? 'border-cyan-500/30' : 'border-border/50'
+                } shadow-card`}>
+                  <h2 className={`text-2xl font-bold mb-6 flex items-center gap-2 ${
+                    isShanhaixuan ? 'text-cyan-400' : ''
+                  }`}>
+                    <User className={`w-6 h-6 ${isShanhaixuan ? 'text-cyan-400' : 'text-primary'}`} />
+                    重要人物
+                  </h2>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {sect.members.map((member) => (
+                      <Card 
+                        key={member.id} 
+                        className={`p-6 bg-gradient-to-br ${
+                          isShanhaixuan ? 'from-cyan-500/5 to-blue-500/5 border-cyan-500/30' : 'from-primary/5 to-accent/5 border-border/30'
+                        } hover:shadow-soft transition-all duration-300`}
+                      >
+                        <h3 className={`text-xl font-bold mb-1 ${
+                          isShanhaixuan ? 'text-cyan-400' : 'text-foreground'
+                        }`}>{member.name}</h3>
+                        <p className={`text-sm mb-3 ${
+                          isShanhaixuan ? 'text-cyan-300/70' : 'text-primary'
+                        }`}>{member.title}</p>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{member.description}</p>
+                        {member.specialty && (
+                          <div className={`mt-3 pt-3 border-t ${
+                            isShanhaixuan ? 'border-cyan-500/20' : 'border-border/30'
+                          }`}>
+                            <p className="text-xs text-muted-foreground">
+                              专长：<span className="text-foreground">{member.specialty}</span>
+                            </p>
+                          </div>
+                        )}
+                      </Card>
+                    ))}
+                  </div>
+                </Card>
+              )}
+
               {/* 地理位置 */}
-              <Card className="p-8 bg-card/50 backdrop-blur-sm border-border/50 shadow-card">
-                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                  <MapPin className="w-6 h-6 text-primary" />
+              <Card className={`p-8 bg-card/50 backdrop-blur-sm ${
+                isShanhaixuan ? 'border-cyan-500/30' : 'border-border/50'
+              } shadow-card`}>
+                <h2 className={`text-2xl font-bold mb-6 flex items-center gap-2 ${
+                  isShanhaixuan ? 'text-cyan-400' : ''
+                }`}>
+                  <MapPin className={`w-6 h-6 ${isShanhaixuan ? 'text-cyan-400' : 'text-primary'}`} />
                   地理位置
                 </h2>
                 <p className="text-muted-foreground text-lg">{sect.location}</p>
               </Card>
 
               {/* 门规 */}
-              <Card className="p-8 bg-card/50 backdrop-blur-sm border-border/50 shadow-card">
-                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                  <Scroll className="w-6 h-6 text-primary" />
+              <Card className={`p-8 bg-card/50 backdrop-blur-sm ${
+                isShanhaixuan ? 'border-cyan-500/30' : 'border-border/50'
+              } shadow-card`}>
+                <h2 className={`text-2xl font-bold mb-6 flex items-center gap-2 ${
+                  isShanhaixuan ? 'text-cyan-400' : ''
+                }`}>
+                  <Scroll className={`w-6 h-6 ${isShanhaixuan ? 'text-cyan-400' : 'text-primary'}`} />
                   门规
                 </h2>
                 <ul className="space-y-3">
                   {sect.rules.map((rule, index) => (
                     <li key={index} className="flex items-start gap-3">
-                      <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary text-sm font-medium mt-0.5">
+                      <span className={`flex-shrink-0 w-6 h-6 rounded-full ${
+                        isShanhaixuan ? 'bg-cyan-500/10 text-cyan-400' : 'bg-primary/10 text-primary'
+                      } flex items-center justify-center text-sm font-medium mt-0.5`}>
                         {index + 1}
                       </span>
                       <span className="text-muted-foreground flex-1">{rule}</span>
@@ -162,46 +217,88 @@ const SectDetail = () => {
             </>
           )}
 
-          {/* 地标建筑 - 仅紫霄宗显示 */}
-          {isZixiao && (
-            <Card className="p-8 bg-card/50 backdrop-blur-sm border-purple-500/30 shadow-card">
-              <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                <Landmark className="w-6 h-6 text-purple-400" />
-                地标建筑
+          {/* 地标建筑 */}
+          {sect.landmarks && sect.landmarks.length > 0 && (
+            <Card className={`p-8 bg-card/50 backdrop-blur-sm ${
+              isZixiao ? 'border-purple-500/30' :
+              isShanhaixuan ? 'border-cyan-500/30' :
+              'border-border/50'
+            } shadow-card`}>
+              <h2 className={`text-2xl font-bold mb-6 flex items-center gap-2 ${
+                isZixiao ? 'text-purple-400' :
+                isShanhaixuan ? 'text-cyan-400' : ''
+              }`}>
+                <Landmark className={`w-6 h-6 ${
+                  isZixiao ? 'text-purple-400' :
+                  isShanhaixuan ? 'text-cyan-400' :
+                  'text-primary'
+                }`} />
+                {isZixiao ? '地标建筑' : '重要地标'}
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {zixiaoLandmarks.map((landmark) => (
-                  <Link key={landmark.id} to={`/landmark/${landmark.id}`}>
-                    <Card className="group overflow-hidden bg-gradient-to-br from-purple-500/5 to-amber-500/5 border-purple-500/30 hover:border-amber-500/50 transition-all duration-300 hover:shadow-soft hover:-translate-y-1 cursor-pointer">
-                      {/* 缩略图 */}
-                      <div className="aspect-video bg-gradient-to-br from-purple-500/10 to-amber-500/10 flex items-center justify-center">
-                        {landmark.thumbnail ? (
-                          <img 
-                            src={landmark.thumbnail} 
-                            alt={landmark.name}
-                            className="w-full h-full object-cover"
-                          />
-                        ) : (
-                          <MapPin className="w-8 h-8 text-amber-400/40" />
-                        )}
-                      </div>
-                      
-                      {/* 信息 */}
-                      <div className="p-4 space-y-2">
-                        <h3 className="text-base font-semibold group-hover:text-amber-400 transition-colors">
-                          {landmark.name}
-                        </h3>
-                        <p className="text-xs text-muted-foreground line-clamp-1">
-                          {landmark.nickname}
-                        </p>
-                        <div className="text-xs text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                          查看详情 →
+              {isZixiao ? (
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {zixiaoLandmarks.map((landmark) => (
+                    <Link key={landmark.id} to={`/landmark/${landmark.id}`}>
+                      <Card className="group overflow-hidden bg-gradient-to-br from-purple-500/5 to-amber-500/5 border-purple-500/30 hover:border-amber-500/50 transition-all duration-300 hover:shadow-soft hover:-translate-y-1 cursor-pointer">
+                        {/* 缩略图 */}
+                        <div className="aspect-video bg-gradient-to-br from-purple-500/10 to-amber-500/10 flex items-center justify-center">
+                          {landmark.thumbnail ? (
+                            <img 
+                              src={landmark.thumbnail} 
+                              alt={landmark.name}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <MapPin className="w-8 h-8 text-amber-400/40" />
+                          )}
                         </div>
+                        
+                        {/* 信息 */}
+                        <div className="p-4 space-y-2">
+                          <h3 className="text-base font-semibold group-hover:text-amber-400 transition-colors">
+                            {landmark.name}
+                          </h3>
+                          <p className="text-xs text-muted-foreground line-clamp-1">
+                            {landmark.nickname}
+                          </p>
+                          <div className="text-xs text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                            查看详情 →
+                          </div>
+                        </div>
+                      </Card>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <div className="grid md:grid-cols-2 gap-4">
+                  {sect.landmarks.map((landmark) => (
+                    <Card 
+                      key={landmark.id} 
+                      className={`p-6 bg-gradient-to-br ${
+                        isShanhaixuan ? 'from-cyan-500/5 to-blue-500/5 border-cyan-500/30' : 'from-primary/5 to-accent/5 border-border/30'
+                      } hover:shadow-soft transition-all duration-300`}
+                    >
+                      <h3 className={`text-xl font-bold mb-2 ${
+                        isShanhaixuan ? 'text-cyan-400' : 'text-foreground'
+                      }`}>{landmark.name}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{landmark.description}</p>
+                      <div className={`mt-3 pt-3 border-t ${
+                        isShanhaixuan ? 'border-cyan-500/20' : 'border-border/30'
+                      }`}>
+                        <p className="text-xs text-muted-foreground">
+                          类型：<span className="text-foreground">{
+                            landmark.type === 'mountain' ? '山脉' :
+                            landmark.type === 'river' ? '河流' :
+                            landmark.type === 'forest' ? '森林' :
+                            landmark.type === 'sea' ? '海域' :
+                            '其他'
+                          }</span>
+                        </p>
                       </div>
                     </Card>
-                  </Link>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </Card>
           )}
 
