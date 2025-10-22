@@ -33,35 +33,34 @@ const SectIllustrations = () => {
     baiguai: { name: '白骨哀', illustrations: baiguaiIllustrations },
   };
 
+  const fetchVoteCounts = async () => {
+    const illustrations = sectData[sectId]?.illustrations || [];
+    const counts: Record<string, { flowers: number; eggs: number }> = {};
+
+    for (const ill of illustrations) {
+      const { data: flowerVotes } = await supabase
+        .from('character_votes')
+        .select('*')
+        .eq('character_id', ill.id)
+        .eq('vote_type', 'flower');
+
+      const { data: eggVotes } = await supabase
+        .from('character_votes')
+        .select('*')
+        .eq('character_id', ill.id)
+        .eq('vote_type', 'egg');
+
+      counts[ill.id] = {
+        flowers: flowerVotes?.length || 0,
+        eggs: eggVotes?.length || 0,
+      };
+    }
+
+    setVoteCounts(counts);
+  };
+
   useEffect(() => {
     checkUser();
-
-    const fetchVoteCounts = async () => {
-      const illustrations = sectData[sectId]?.illustrations || [];
-      const counts: Record<string, { flowers: number; eggs: number }> = {};
-
-      for (const ill of illustrations) {
-        const { data: flowerVotes } = await supabase
-          .from('character_votes')
-          .select('*')
-          .eq('character_id', ill.id)
-          .eq('vote_type', 'flower');
-
-        const { data: eggVotes } = await supabase
-          .from('character_votes')
-          .select('*')
-          .eq('character_id', ill.id)
-          .eq('vote_type', 'egg');
-
-        counts[ill.id] = {
-          flowers: flowerVotes?.length || 0,
-          eggs: eggVotes?.length || 0,
-        };
-      }
-
-      setVoteCounts(counts);
-    };
-
     fetchVoteCounts();
   }, [sectId]);
 
@@ -81,7 +80,7 @@ const SectIllustrations = () => {
       .from('profiles')
       .select('flowers_balance, eggs_balance')
       .eq('user_id', uid)
-      .single();
+      .maybeSingle();
     
     if (data) {
       setUserBalances({ flowers: data.flowers_balance || 0, eggs: data.eggs_balance || 0 });
@@ -116,26 +115,25 @@ const SectIllustrations = () => {
         ? { flowers_balance: userBalances.flowers - 1 }
         : { eggs_balance: userBalances.eggs - 1 };
 
-      const { error: updateError } = await supabase
+      const { data: updatedProfile, error: updateError } = await supabase
         .from('profiles')
         .update(newBalance)
-        .eq('user_id', userId);
+        .eq('user_id', userId)
+        .select('flowers_balance, eggs_balance')
+        .single();
 
       if (updateError) throw updateError;
 
-      // Update local state
-      setUserBalances(prev => ({
-        flowers: voteType === 'flower' ? prev.flowers - 1 : prev.flowers,
-        eggs: voteType === 'egg' ? prev.eggs - 1 : prev.eggs,
-      }));
+      // Update local state from server value to ensure persistence
+      if (updatedProfile) {
+        setUserBalances({
+          flowers: updatedProfile.flowers_balance || 0,
+          eggs: updatedProfile.eggs_balance || 0,
+        });
+      }
 
-      setVoteCounts(prev => ({
-        ...prev,
-        [characterId]: {
-          flowers: voteType === 'flower' ? (prev[characterId]?.flowers || 0) + 1 : (prev[characterId]?.flowers || 0),
-          eggs: voteType === 'egg' ? (prev[characterId]?.eggs || 0) + 1 : (prev[characterId]?.eggs || 0),
-        }
-      }));
+      // Refresh vote counts from server to reflect persisted data
+      await fetchVoteCounts();
 
       toast({
         title: voteType === 'flower' ? "献花成功！🌸" : "投蛋成功！🥚",
