@@ -13,7 +13,7 @@ interface Song {
 const presetSongs: Song[] = [
   {
     name: "长生诀",
-    url: "https://er-sycdn.kuwo.cn/d9fc7a0c528cddc241fefa7c0c5b0672/68f86bb5/resource/30106/trackmedia/M800004Fb3zK06LYTU.mp3",
+    url: "https://er-sycdn.kuwo.cn/0850fa8ae75539239a42876507436168/68f89404/resource/30106/trackmedia/F000004Fb3zK06LYTU.flac",
   },
   {
     name: "明月天涯",
