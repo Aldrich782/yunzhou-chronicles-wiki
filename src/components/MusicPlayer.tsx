@@ -39,6 +39,7 @@ export const MusicPlayer = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [showPlaylist, setShowPlaylist] = useState(false);
+  const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
@@ -47,7 +48,20 @@ export const MusicPlayer = () => {
 
     const updateTime = () => setCurrentTime(audio.currentTime);
     const updateDuration = () => setDuration(audio.duration);
-    const handleEnded = () => setIsPlaying(false);
+    const handleEnded = () => {
+      // 自动播放下一首
+      const nextIndex = (currentSongIndex + 1) % presetSongs.length;
+      setCurrentSongIndex(nextIndex);
+      const nextSong = presetSongs[nextIndex];
+      setCurrentUrl(nextSong.url);
+      setCurrentSongName(nextSong.name);
+      setIsPlaying(false);
+      // 短暂延迟后自动播放
+      setTimeout(() => {
+        audio.play();
+        setIsPlaying(true);
+      }, 500);
+    };
 
     audio.addEventListener('timeupdate', updateTime);
     audio.addEventListener('loadedmetadata', updateDuration);
@@ -58,7 +72,7 @@ export const MusicPlayer = () => {
       audio.removeEventListener('loadedmetadata', updateDuration);
       audio.removeEventListener('ended', handleEnded);
     };
-  }, []);
+  }, [currentSongIndex]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -74,9 +88,10 @@ export const MusicPlayer = () => {
     }
   };
 
-  const handleLoadPreset = (song: Song) => {
+  const handleLoadPreset = (song: Song, index: number) => {
     setCurrentUrl(song.url);
     setCurrentSongName(song.name);
+    setCurrentSongIndex(index);
     setIsPlaying(false);
     setShowPlaylist(false);
   };
@@ -142,10 +157,12 @@ export const MusicPlayer = () => {
             {presetSongs.map((song, index) => (
               <Button
                 key={index}
-                onClick={() => handleLoadPreset(song)}
+                onClick={() => handleLoadPreset(song, index)}
                 variant="outline"
                 size="sm"
-                className="w-full justify-start text-xs sm:text-sm border-primary/20 hover:bg-primary/10 hover:border-primary/40 h-8 sm:h-9"
+                className={`w-full justify-start text-xs sm:text-sm border-primary/20 hover:bg-primary/10 hover:border-primary/40 h-8 sm:h-9 ${
+                  currentSongIndex === index && currentUrl === song.url ? 'bg-primary/10 border-primary/40' : ''
+                }`}
               >
                 <Music className="w-3 h-3 mr-2" />
                 {song.name}

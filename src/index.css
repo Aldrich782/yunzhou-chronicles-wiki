@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 明朝体字体 */
+@font-face {
+  font-family: 'MingChao';
+  src: url('/fonts/mingchao.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */

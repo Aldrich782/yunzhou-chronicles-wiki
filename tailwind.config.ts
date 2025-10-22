@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        'serif': ['"Noto Serif SC"', '"ZCOOL XiaoWei"', 'serif'],
+        'serif': ['MingChao', '"Noto Serif SC"', '"ZCOOL XiaoWei"', 'serif'],
         'calligraphy': ['"Ma Shan Zheng"', '"ZCOOL XiaoWei"', 'cursive'],
         'sans': ['"Noto Serif SC"', 'system-ui', 'sans-serif'],
       },

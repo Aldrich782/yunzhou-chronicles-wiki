@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MusicPlayer } from "@/components/MusicPlayer";
+import { ChatRoom } from "@/components/ChatRoom";
 import { Button } from "@/components/ui/button";
 import { Music, X, Minus } from "lucide-react";
 import Index from "./pages/Index";
@@ -53,6 +54,9 @@ const App = () => {
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+
+          {/* 全局悬浮聊天室 */}
+          <ChatRoom />
 
           {/* 全局悬浮音乐播放器 */}
           <div className="fixed top-3 right-3 sm:top-4 sm:right-4 z-50">
