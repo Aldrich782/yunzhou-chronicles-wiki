@@ -37,6 +37,26 @@ export const Leaderboard = () => {
 
   useEffect(() => {
     loadRankings();
+
+    // 订阅实时更新
+    const channel = supabase
+      .channel('character_votes_changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'character_votes'
+        },
+        () => {
+          loadRankings();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const loadRankings = async () => {

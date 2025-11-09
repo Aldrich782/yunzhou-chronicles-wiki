@@ -62,6 +62,26 @@ const SectIllustrations = () => {
   useEffect(() => {
     checkUser();
     fetchVoteCounts();
+
+    // 订阅实时更新
+    const channel = supabase
+      .channel('sect_votes_changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'character_votes'
+        },
+        () => {
+          fetchVoteCounts();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [sectId]);
 
   const checkUser = async () => {
