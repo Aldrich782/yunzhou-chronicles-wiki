@@ -34,27 +34,32 @@ const SectIllustrations = () => {
   };
 
   const fetchVoteCounts = async () => {
-    const illustrations = sectData[sectId]?.illustrations || [];
-    const counts: Record<string, { flowers: number; eggs: number }> = {};
+    const illustrations = sectData[sectId as string]?.illustrations || [];
+    const ids = illustrations.map((ill) => ill.id);
 
-    for (const ill of illustrations) {
-      const { data: flowerVotes } = await supabase
-        .from('character_votes')
-        .select('*')
-        .eq('character_id', ill.id)
-        .eq('vote_type', 'flower');
-
-      const { data: eggVotes } = await supabase
-        .from('character_votes')
-        .select('*')
-        .eq('character_id', ill.id)
-        .eq('vote_type', 'egg');
-
-      counts[ill.id] = {
-        flowers: flowerVotes?.length || 0,
-        eggs: eggVotes?.length || 0,
-      };
+    if (ids.length === 0) {
+      setVoteCounts({});
+      return;
     }
+
+    const { data, error } = await supabase
+      .from('character_votes')
+      .select('character_id, vote_type')
+      .in('character_id', ids);
+
+    if (error) {
+      console.error('fetchVoteCounts error:', error);
+      return;
+    }
+
+    const counts: Record<string, { flowers: number; eggs: number }> = {};
+    ids.forEach((id) => (counts[id] = { flowers: 0, eggs: 0 }));
+
+    (data || []).forEach((row: any) => {
+      if (!counts[row.character_id]) counts[row.character_id] = { flowers: 0, eggs: 0 };
+      if (row.vote_type === 'flower') counts[row.character_id].flowers += 1;
+      if (row.vote_type === 'egg') counts[row.character_id].eggs += 1;
+    });
 
     setVoteCounts(counts);
   };
